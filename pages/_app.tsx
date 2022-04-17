@@ -1,10 +1,15 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import 'reset-css';
+import theme from '../theme';
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
+    <ChakraProvider theme={theme}>
+      {Component.authPage ? (
+        <Component {...pageProps} />
+      ) : (
+        <Component {...pageProps} />
+      )}
     </ChakraProvider>
   );
 };
