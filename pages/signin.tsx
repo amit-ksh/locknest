@@ -5,8 +5,8 @@ import SigninFormBanner from '../components/SigninFormBanner';
 
 const Signin = () => {
   return (
-    <Box width="100%" h="100vh" maxW="container.xl" p={0}>
-      <Flex h="100%" direction={{ base: 'column', md: 'row' }}>
+    <Box w="100%" h="100vh" p={0}>
+      <Flex w="100%" h="100%" direction={{ base: 'column', md: 'row' }}>
         <Box flexBasis="55%">
           <SigninForm />
         </Box>

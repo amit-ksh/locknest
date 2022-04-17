@@ -1,11 +1,4 @@
-import {
-  Heading,
-  VStack,
-  Image,
-  AspectRatio,
-  Text,
-  Divider,
-} from '@chakra-ui/react';
+import { Heading, VStack, Image, AspectRatio, Divider } from '@chakra-ui/react';
 import WelcomeBackIcon from '../public/welcomeBack.svg';
 
 const SigninFormBanner = () => {
@@ -15,7 +8,7 @@ const SigninFormBanner = () => {
       w="full"
       h="full"
       p={10}
-      spacing={20}
+      spacing={12}
       align="flex-start"
       bg="brand.500"
     >
@@ -24,10 +17,10 @@ const SigninFormBanner = () => {
         <Divider />
       </VStack>
 
-      <VStack spacing={8} alignItems="stretch" w="full">
+      <VStack spacing={10} alignItems="stretch" w="full">
         <Heading size="2xl">Welcome Back to LockNest</Heading>
 
-        <AspectRatio ratio={25 / 21} w="90%">
+        <AspectRatio ratio={25 / 21} maxW="350px" maxH="350px">
           <Image
             ml={4}
             src={WelcomeBackIcon.src}
@@ -36,10 +29,10 @@ const SigninFormBanner = () => {
           />
         </AspectRatio>
 
-        <Text size="md">
+        <Heading as="p" size="md">
           Access your passwords and personal data in a single place — quickly
           and securely.
-        </Text>
+        </Heading>
       </VStack>
     </VStack>
   );

@@ -1,11 +1,4 @@
-import {
-  Heading,
-  VStack,
-  Image,
-  AspectRatio,
-  Text,
-  Divider,
-} from '@chakra-ui/react';
+import { Heading, VStack, Image, AspectRatio, Divider } from '@chakra-ui/react';
 import WelcomeIcon from '../public/welcome.svg';
 
 const SignupFormBanner = () => {
@@ -15,7 +8,7 @@ const SignupFormBanner = () => {
       w="full"
       h="full"
       p={10}
-      spacing={20}
+      spacing={12}
       align="flex-start"
       bg="brand.500"
     >
@@ -24,20 +17,19 @@ const SignupFormBanner = () => {
         <Divider />
       </VStack>
 
-      <AspectRatio ratio={21 / 10} w="100%">
-        <Image
-          src={WelcomeIcon.src}
-          alt="Welcome To LockNest"
-          aria-label="hidden"
-        />
-      </AspectRatio>
-
-      <VStack spacing={4} alignItems="stretch" w="full">
+      <VStack spacing={10} alignItems="stretch" w="full">
         <Heading size="2xl">Welcome to LockNest</Heading>
-        <Text size="md">
+        <AspectRatio ratio={21 / 10} w="100%">
+          <Image
+            src={WelcomeIcon.src}
+            alt="Welcome To LockNest"
+            aria-label="hidden"
+          />
+        </AspectRatio>
+        <Heading as="p" size="md">
           Access your passwords and personal data in a single place — quickly
           and securely.
-        </Text>
+        </Heading>
       </VStack>
     </VStack>
   );

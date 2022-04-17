@@ -27,7 +27,7 @@ const inputStyles = {
   variants: {
     outline: {
       field: {
-        borderWidth: '3px',
+        borderWidth: '2px',
         borderColor: 'brand.500',
         borderRadius: '3px',
         _focus: {
@@ -39,6 +39,9 @@ const inputStyles = {
         },
       },
     },
+  },
+  defaultProps: {
+    errorBorderColor: 'red.400',
   },
 };
 
