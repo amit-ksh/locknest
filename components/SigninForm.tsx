@@ -5,6 +5,7 @@ import {
   SimpleGrid,
   GridItem,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
@@ -21,6 +22,7 @@ const SigninForm = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const toast = useToast();
   const router = useRouter();
 
   const checkEmail = () => {
@@ -39,9 +41,21 @@ const SigninForm = () => {
 
     setIsLoading(true);
 
-    const user = await auth('signin', { email, password });
+    const { user, error } = await auth('signin', { email, password });
 
     setIsLoading(false);
+    if (error || !user) {
+      toast({
+        position: 'top',
+        title: error,
+        description: 'Check your email and password.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     router.push('/');
   };
 

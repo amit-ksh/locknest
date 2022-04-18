@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: user.id,
       time: Date.now(),
     },
-    'secret',
+    process.env.JWT_SECRET,
     { expiresIn: '8h' }
   );
 
@@ -43,5 +43,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       secure: process.env.NODE_ENV === 'production',
     })
   );
-  res.json(user);
+  res.json({ user });
 };

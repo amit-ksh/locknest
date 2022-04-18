@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         email: user.email,
         time: Date.now(),
       },
-      'secret',
+      process.env.JWT_SECRET,
       {
         expiresIn: '8h',
       }
@@ -37,9 +37,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       })
     );
 
-    res.json(user);
+    res.json({ user });
   } else {
     res.status(401);
-    res.json({ error: 'Email or Password is wrong' });
+    res.json({ error: 'Incorrect Credentials.' });
   }
 };

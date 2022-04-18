@@ -5,6 +5,7 @@ import {
   SimpleGrid,
   GridItem,
   Button,
+  useToast,
 } from '@chakra-ui/react';
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
@@ -30,10 +31,10 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [retypedPassword, setRetypedPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isRetypedPasswordValid, setIsRetypedPasswordValid] = useState(false);
+  const toast = useToast();
   const router = useRouter();
 
   const checkEmail = () => {
@@ -89,12 +90,34 @@ const SignUpForm = () => {
 
     setIsLoading(true);
 
-    if (password === retypedPassword) {
-      const user = await auth('signup', { email, password });
+    const { user, error } = await auth('signup', { email, password });
+
+    setIsLoading(false);
+    if (error || !user) {
+      toast({
+        position: 'top',
+        title: error,
+        description: (
+          <Button
+            color="brand.600"
+            mt="0.25rem"
+            onClick={() => {
+              router.push('/signin');
+              toast.closeAll();
+            }}
+          >
+            Sign In
+          </Button>
+        ),
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
     }
 
     setIsLoading(false);
-    router.push('/signin');
+    router.push('/');
   };
 
   return (
