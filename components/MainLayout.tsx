@@ -1,8 +1,9 @@
-import { Box, Flex, Heading } from '@chakra-ui/layout';
+import { Box, Divider, Flex } from '@chakra-ui/layout';
 import { useState } from 'react';
 import Navbar from './Navbar';
+import Header from './Header';
 
-const MainLayout = () => {
+const MainLayout = ({ menuItems }) => {
   const [tabView, setTabView] = useState(false);
 
   return (
@@ -11,8 +12,9 @@ const MainLayout = () => {
         <Box flexBasis={tabView ? '100px' : '25%'}>
           <Navbar tabView={tabView} handleClick={() => setTabView(!tabView)} />
         </Box>
-        <Box bg="brand.400" p="1rem" flexBasis="100%">
-          <Heading>Main</Heading>
+        <Box flexBasis="100%">
+          <Header menuItems={menuItems} />
+          <Divider />
         </Box>
       </Flex>
     </Box>

@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Box,
   Divider,
@@ -22,7 +22,6 @@ import {
   FaAddressCard,
 } from 'react-icons/fa';
 import { BsGridFill, BsFillFileEarmarkLock2Fill } from 'react-icons/bs';
-import { useRouter } from 'next/router';
 
 const navMenu = [
   {
@@ -69,7 +68,7 @@ const Navbar = ({ tabView, handleClick }) => {
       spacing={12}
       align="flex-start"
     >
-      <VStack w="100%" mt={8} alignItems="flex-start" spacing={4}>
+      <VStack w="100%" mt={3} alignItems="flex-start" spacing={4}>
         <Flex w="100%" justify="space-around" align="center">
           <IconButton
             variant="primary"
@@ -81,7 +80,6 @@ const Navbar = ({ tabView, handleClick }) => {
           />
           <Box display={tabView && 'none'}>
             <Heading size="xl">LockNest</Heading>
-            <Divider mt="5px" />
           </Box>
         </Flex>
       </VStack>

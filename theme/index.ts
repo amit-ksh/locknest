@@ -60,6 +60,24 @@ const buttonPrimaryStyles = {
   },
 };
 
+const buttonDangerStyles = {
+  color: 'white',
+  backgroundColor: 'red.500',
+
+  _hover: {
+    backgroundColor: 'red.600',
+    _disabled: { bgColor: 'red.300' },
+  },
+
+  _focus: {
+    ring: 0,
+  },
+
+  _active: {
+    backgroundColor: 'red.700',
+  },
+};
+
 const theme = extendTheme(
   {
     colors: {
@@ -81,6 +99,9 @@ const theme = extendTheme(
         variants: {
           primary: {
             ...buttonPrimaryStyles,
+          },
+          danger: {
+            ...buttonDangerStyles,
           },
         },
       },
