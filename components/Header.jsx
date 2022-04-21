@@ -10,8 +10,23 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { auth } from '../lib/mutations';
 
 const Header = ({ menuItems }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+    await auth('signout');
+    setIsLoading(false);
+    router.push('/signin');
+  };
+
   return (
     <Box w="100%" p={5} pt={7}>
       <Flex justify="space-between" alignItems="center">
@@ -47,7 +62,14 @@ const Header = ({ menuItems }) => {
           </Box>
         </Flex>
         <Box flexBasis="10%">
-          <Button variant="danger">Sign Out</Button>
+          <Button
+            variant="danger"
+            type="submit"
+            isLoading={isLoading}
+            onClick={handleSubmit}
+          >
+            Sign Out
+          </Button>
         </Box>
       </Flex>
     </Box>

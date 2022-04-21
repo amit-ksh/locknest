@@ -109,7 +109,7 @@ const Navbar = ({ tabView, handleClick }) => {
                     alignItems="center"
                     flexDirection={{ lg: 'row', md: 'column', base: 'column' }}
                   >
-                    <ListIcon as={menu.icon} w="30px" h="30px" mr="0" />
+                    <ListIcon as={menu.icon} w="25px" h="25px" mr="0" />
                     <Text
                       display={tabView && 'none'}
                       ml={{ lg: '20px', md: '0', base: '0' }}
