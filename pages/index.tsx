@@ -1,29 +1,30 @@
 import MainLayout from '../components/MainLayout';
+import PasswordFrom from '../components/PasswordForm';
 
 const menuItems = [
   {
     name: 'Password',
-    form: 'Item Form Component',
+    Form: PasswordFrom,
   },
   {
     name: 'Secure Notes',
-    form: 'Item Form Component',
+    Form: PasswordFrom,
   },
   {
     name: 'Credit/Debit Card',
-    form: 'Item Form Component',
+    Form: PasswordFrom,
   },
   {
     name: 'Bank Account',
-    form: 'Item Form Component',
+    Form: PasswordFrom,
   },
   {
     name: 'Address',
-    form: 'Item Form Component',
+    Form: PasswordFrom,
   },
   {
     name: 'ID Card',
-    form: 'Item Form Component',
+    Form: PasswordFrom,
   },
 ];
 

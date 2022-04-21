@@ -14,7 +14,7 @@ const buttonBrandRing = {
   },
 };
 
-const formStyles = {
+const labelStyles = {
   parts: ['label'],
   baseStyle: {
     container: {
@@ -27,6 +27,7 @@ const inputStyles = {
   variants: {
     outline: {
       field: {
+        color: 'black',
         borderWidth: '2px',
         borderColor: 'brand.500',
         borderRadius: '3px',
@@ -106,12 +107,12 @@ const theme = extendTheme(
         },
       },
       Input: { ...inputStyles },
-      Form: { ...formStyles },
+      Form: { ...labelStyles },
     },
   },
   withDefaultVariant({
     variant: 'outline',
-    components: ['Input'],
+    components: ['Input', 'Textarea'],
   })
 );
 

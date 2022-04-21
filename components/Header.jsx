@@ -7,18 +7,19 @@ import {
   InputLeftElement,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { auth } from '../lib/mutations';
 
+import AddNewItem from './AddNewItem';
+
 const Header = ({ menuItems }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSignout = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
@@ -36,6 +37,7 @@ const Header = ({ menuItems }) => {
           justify="space-between"
           alignItems="center"
         >
+          {/* ADD ITEM BUTTONS */}
           <Box>
             <Menu>
               <MenuButton variant="primary" as={Button} leftIcon={<AddIcon />}>
@@ -43,14 +45,13 @@ const Header = ({ menuItems }) => {
               </MenuButton>
               <MenuList>
                 {menuItems.map((item) => (
-                  <MenuItem _hover={{ color: 'white', bg: 'brand.400' }}>
-                    {item.name}
-                  </MenuItem>
+                  <AddNewItem key={item.name} item={item} />
                 ))}
               </MenuList>
             </Menu>
           </Box>
 
+          {/* SEARCH BAR */}
           <Box w="60%">
             <InputGroup>
               <InputLeftElement
@@ -61,12 +62,14 @@ const Header = ({ menuItems }) => {
             </InputGroup>
           </Box>
         </Flex>
+
+        {/* SIGN OUT */}
         <Box flexBasis="10%">
           <Button
             variant="danger"
             type="submit"
             isLoading={isLoading}
-            onClick={handleSubmit}
+            onClick={handleSignout}
           >
             Sign Out
           </Button>

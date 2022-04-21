@@ -12,9 +12,23 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  email     String    @unique
-  password  String
+  id              Int           @id @default(autoincrement())
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  email           String        @unique
+  password        String
+  user_passwords  Password[] 
+}
+
+model Password {
+  id              Int           @id @default(autoincrement())
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  name            String
+  username        String
+  url             String
+  password        String
+  notes           String
+  user            User          @relation(fields: [userId], references: [id])
+  userId          Int
 }

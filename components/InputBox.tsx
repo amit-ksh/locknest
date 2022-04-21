@@ -13,8 +13,8 @@ const InputBox: FC<{
   label: string;
   type: string;
   placeholder: string;
-  isRequired: boolean;
-  isInvalid: boolean;
+  isRequired?: boolean;
+  isInvalid?: boolean;
   isPassword?: boolean;
   helpers?: string[];
   onChange: any;
@@ -22,8 +22,8 @@ const InputBox: FC<{
   label,
   type,
   placeholder,
-  isRequired,
-  isInvalid,
+  isRequired = false,
+  isInvalid = false,
   isPassword = false,
   helpers = [],
   onChange,
@@ -36,7 +36,7 @@ const InputBox: FC<{
 
       <InputGroup>
         <Input
-          color={isInvalid ? 'red.400' : 'brand.500'}
+          color={isInvalid ? 'red.400' : 'black'}
           type={show || !isPassword ? 'text' : type}
           placeholder={placeholder}
           isRequired={isRequired}
