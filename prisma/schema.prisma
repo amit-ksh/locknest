@@ -12,23 +12,112 @@ datasource db {
 }
 
 model User {
-  id              Int           @id @default(autoincrement())
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  email           String        @unique
-  password        String
-  user_passwords  Password[] 
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  email               String        @unique
+  password            String
+  user_passwords      Password[]
+  user_notes          SecureNote[] 
+  user_payment_cards  PaymentCard[] 
+  user_bank_accounts  BankAccount[] 
+  user_emails         Email[] 
+  user_addresses      Address[] 
+  user_IDCards        IDCard[] 
 }
 
 model Password {
-  id              Int           @id @default(autoincrement())
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  name            String
-  username        String
-  url             String
-  password        String
-  notes           String
-  user            User          @relation(fields: [userId], references: [id])
-  userId          Int
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  username            String
+  url                 String
+  password            String
+  notes               String
+  user                User          @relation(fields: [userId], references: [id])
+  userId              Int
+}
+
+model SecureNote {
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  notes               String
+  user                User          @relation(fields: [userId], references: [id])
+  userId              Int
+}
+
+model PaymentCard {
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  holder_name         String
+  card_name           String
+  cvv                 String
+  expiration_date     DateTime
+  notes               String
+  user                User          @relation(fields: [userId], references: [id])
+  userId              Int
+}
+
+model BankAccount {
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  bank_name           String
+  branch_address      String
+  account_type        String
+  account_no          String
+  pin                 String
+  swift_code          String
+  iban_code           String
+  notes               String
+  user                User          @relation(fields: [userId], references: [id])
+  userId              Int
+}
+
+model Email {
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  username            String
+  password            String
+  user                User          @relation(fields: [userId], references: [id])
+  userId              Int
+}
+
+model Address {
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  address_line_1      String
+  address_line_2      String
+  address_line_3      String
+  city                String
+  state               String
+  pin_code            String
+  country             String
+  user                User          @relation(fields: [userId], references: [id])
+  userId              Int
+}
+
+model IDCard {
+  id                  Int           @id @default(autoincrement())
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String
+  type                String
+  number              String
+  issue_date          DateTime
+  expiration_date     DateTime
+  country             String
+  place_of_issue      String
+  user                User          @relation(fields: [userId], references: [id])
+  userId              Int
 }

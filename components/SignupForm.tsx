@@ -158,7 +158,6 @@ const SignUpForm = () => {
                 placeholder="Enter your master password"
                 isRequired={true}
                 isInvalid={!isPasswordValid}
-                isPassword={true}
                 helpers={passwordHelpers}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -170,7 +169,6 @@ const SignUpForm = () => {
                 placeholder="Retype your master password"
                 isRequired={true}
                 isInvalid={!isRetypedPasswordValid}
-                isPassword={true}
                 onChange={(e) => setRetypedPassword(e.target.value)}
               />
             </GridItem>

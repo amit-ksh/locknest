@@ -16,7 +16,6 @@ const InputBox: FC<{
   placeholder: string;
   isRequired?: boolean;
   isInvalid?: boolean;
-  isPassword?: boolean;
   helpers?: string[];
   onChange: any;
 }> = ({
@@ -25,7 +24,6 @@ const InputBox: FC<{
   placeholder,
   isRequired = false,
   isInvalid = false,
-  isPassword = false,
   helpers = [],
   onChange,
 }) => {
@@ -38,13 +36,13 @@ const InputBox: FC<{
       <InputGroup>
         <Input
           color={isInvalid ? 'red.400' : 'black'}
-          type={show || !isPassword ? 'text' : type}
+          type={show ? 'text' : type}
           placeholder={placeholder}
           isRequired={isRequired}
           isInvalid={isInvalid}
           onChange={onChange}
         />
-        {isPassword && (
+        {type === 'password' && (
           <InputRightElement width="4.5rem">
             <Button
               h="1.75rem"
