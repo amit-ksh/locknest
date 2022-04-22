@@ -1,34 +1,30 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import jwt from 'jsonwebtoken';
+import { validateRoute } from '../../lib/auth';
 import prisma from '../../lib/prisma';
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { name, url, username, password, notes, userId } = req.body;
-  const token = req.cookies.LOCKNEST_ACCESS_TOKEN;
+export default validateRoute(
+  async (req: NextApiRequest, res: NextApiResponse, user) => {
+    const { name, url, username, password, notes } = req.body;
 
-  let newCreatedPassword;
-
-  const user = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(user);
-
-  try {
-    newCreatedPassword = await prisma.password.create({
-      data: {
-        name,
-        username,
-        password,
-        url,
-        notes,
-        user: {
-          connect: { id: user.id },
+    try {
+      await prisma.password.create({
+        data: {
+          name,
+          username,
+          password,
+          url,
+          notes,
+          user: {
+            connect: { id: user.id },
+          },
         },
-      },
-    });
-  } catch (e) {
-    res.status(401);
-    res.json({ error: e.message });
-    return;
-  }
+      });
 
-  res.json({ newCreatedPassword });
-};
+      res.json({ success: true });
+    } catch (e) {
+      res.status(500);
+      res.json({ error: { message: 'Password not saved.' } });
+      return;
+    }
+  }
+);

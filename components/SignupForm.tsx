@@ -20,10 +20,10 @@ import { auth } from '../lib/mutations';
 
 const passwordHelpers = [
   'At least 12 character long.',
-  'At least 1 lowercase letter',
-  'At least 1 uppercase letter',
-  'At least 1 number',
-  'At least 1 symbol',
+  'At least 1 lowercase letter.',
+  'At least 1 uppercase letter.',
+  'At least 1 number.',
+  'At least 1 symbol.',
 ];
 
 const SignUpForm = () => {

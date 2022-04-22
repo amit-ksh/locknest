@@ -62,24 +62,34 @@ const Navbar = ({ tabView, handleClick }) => {
   return (
     <VStack
       color="brand.500"
-      w={tabView ? '100px' : 'full'}
+      w={{ lg: tabView ? '100px' : 'full', base: !tabView ? '100px' : 'full' }}
       h="full"
       p={4}
       spacing={12}
       align="flex-start"
     >
       <VStack w="100%" mt={3} alignItems="flex-start" spacing={4}>
-        <Flex w="100%" justify="space-around" align="center">
+        <Flex w="100%" justify="center" align="center">
           <IconButton
+            display={{ lg: 'none', md: 'block', base: 'block' }}
             variant="primary"
             aria-label="Open Menu"
             size="md"
-            mr={{ lg: !tabView && 4, md: !tabView && 6, base: !tabView && 6 }}
+            mr={{ lg: !tabView && 4 }}
             icon={<HamburgerIcon />}
             onClick={handleClick}
           />
           <Box display={tabView && 'none'}>
-            <Heading size="xl">LockNest</Heading>
+            <Heading
+              size="xl"
+              display={{
+                lg: tabView ? 'none' : 'block',
+                md: tabView ? 'block' : 'none',
+                base: tabView ? 'block' : 'none',
+              }}
+            >
+              LockNest
+            </Heading>
           </Box>
         </Flex>
       </VStack>
@@ -92,7 +102,7 @@ const Navbar = ({ tabView, handleClick }) => {
               key={menu.name}
               py="10px"
               px="20px"
-              fontSize="xl"
+              fontSize={{ lg: 'xl', md: 'lg', base: 'lg' }}
               fontWeight="bold"
               _hover={{ bg: 'brand.400', color: 'white' }}
               color={router.asPath === menu.route ? 'white' : ''}
@@ -107,12 +117,14 @@ const Navbar = ({ tabView, handleClick }) => {
                     display="flex"
                     justifyItems="center"
                     alignItems="center"
-                    flexDirection={{ lg: 'row', md: 'column', base: 'column' }}
                   >
-                    <ListIcon as={menu.icon} w="25px" h="25px" mr="0" />
+                    <ListIcon as={menu.icon} ml={1} mr={4} />
                     <Text
-                      display={tabView && 'none'}
-                      ml={{ lg: '20px', md: '0', base: '0' }}
+                      display={{
+                        lg: 'block',
+                        md: tabView ? 'block' : 'none',
+                        base: tabView ? 'block' : 'none',
+                      }}
                     >
                       {menu.name}
                     </Text>

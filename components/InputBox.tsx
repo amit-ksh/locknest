@@ -8,6 +8,7 @@ import {
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid } from '@chakra-ui/layout';
 
 const InputBox: FC<{
   label: string;
@@ -29,7 +30,7 @@ const InputBox: FC<{
   onChange,
 }) => {
   const [show, setShow] = useState(false);
-  const [showHelpers, setShowHelpers] = useState(false);
+
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
@@ -58,22 +59,17 @@ const InputBox: FC<{
       </InputGroup>
 
       {helpers.length > 0 && (
-        <Button
-          variant="primary"
-          h="1.75rem"
-          size="sm"
-          mt={2}
-          onClick={() => setShowHelpers(!showHelpers)}
-        >
-          {showHelpers ? 'Hide Helpers' : 'Show Helpers'}
-        </Button>
+        <Box mt={2}>
+          <Heading as="h5" size="md">
+            Minimum requirements:
+          </Heading>
+          <SimpleGrid columns={2}>
+            {helpers.map((helper) => (
+              <FormHelperText fontSize="md">{helper}</FormHelperText>
+            ))}
+          </SimpleGrid>
+        </Box>
       )}
-
-      {showHelpers &&
-        helpers &&
-        helpers.map((helper) => (
-          <FormHelperText fontSize="md">{helper}</FormHelperText>
-        ))}
     </FormControl>
   );
 };

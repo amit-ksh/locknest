@@ -9,32 +9,50 @@ import {
   FormControl,
   FormLabel,
   Textarea,
+  useToast,
 } from '@chakra-ui/react';
-import { Stack, Box } from '@chakra-ui/layout';
+import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
 import InputBox from './InputBox';
 
 import { auth } from '../lib/mutations';
 
-const PasswordForm = ({ isOpen, onClose, btnRef }) => {
+const PasswordForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [notes, setNotes] = useState('');
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await auth('savepassword', {
+    onClose();
+    const { success, error } = await auth('savepassword', {
       name,
       url,
       username,
       password,
       notes,
     });
-    console.log(res);
-    onClose();
+
+    if (success) {
+      toast({
+        title: 'Password Saved.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: 'Error!',
+        description: error.message,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -55,7 +73,6 @@ const PasswordForm = ({ isOpen, onClose, btnRef }) => {
           <form id="add-password-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
-                initialFocusRef={btnRef}
                 label="Name"
                 type="text"
                 placeholder="Enter a name"
@@ -93,9 +110,6 @@ const PasswordForm = ({ isOpen, onClose, btnRef }) => {
                   id="notes"
                   resize="vertical"
                   maxH="130px"
-                  onChange={(e) => {
-                    e.target.value;
-                  }}
                   color="black"
                   borderWidth="2px"
                   borderColor="brand.500"
@@ -106,6 +120,7 @@ const PasswordForm = ({ isOpen, onClose, btnRef }) => {
                   _hover={{
                     borderColor: 'brand.400',
                   }}
+                  onChange={(e) => setNotes(e.target.value)}
                 />
               </FormControl>
             </Stack>
