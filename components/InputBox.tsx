@@ -35,7 +35,7 @@ const InputBox: FC<{
 
       <InputGroup>
         <Input
-          color={isInvalid ? 'red.400' : 'black'}
+          color={isInvalid ? 'red.400' : 'brand.500'}
           type={show ? 'text' : type}
           placeholder={placeholder}
           isRequired={isRequired}

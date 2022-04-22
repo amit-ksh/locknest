@@ -12,16 +12,18 @@ import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
 
 import InputBox from './InputBox';
-import NotesInputField from './NotesInputField';
+import DateField from './DateField';
 
 import { auth } from '../lib/mutations';
 
-const PasswordForm = ({ isOpen, onClose }) => {
+const IDCardForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
-  const [url, setUrl] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [notes, setNotes] = useState('');
+  const [type, setType] = useState('');
+  const [number, setNumber] = useState('');
+  const [issueDate, setIssueDate] = useState('');
+  const [expirationDate, setExpirationDate] = useState('');
+  const [country, setCountry] = useState('');
+  const [palceOfIssue, setPalceOfIssue] = useState('');
   const toast = useToast();
 
   const handleSubmit = async (e) => {
@@ -30,15 +32,17 @@ const PasswordForm = ({ isOpen, onClose }) => {
     onClose();
     const { success, error } = await auth('savepassword', {
       name,
-      url,
-      username,
-      password,
-      notes,
+      type,
+      number,
+      issueDate,
+      expirationDate,
+      country,
+      palceOfIssue,
     });
 
     if (success) {
       toast({
-        title: 'Password Saved.',
+        title: 'Bank Account Saved.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -65,7 +69,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
           bg="brand.500"
           color="white"
         >
-          Add a password
+          Add a ID card
         </DrawerHeader>
 
         <DrawerBody>
@@ -74,36 +78,46 @@ const PasswordForm = ({ isOpen, onClose }) => {
               <InputBox
                 label="Name"
                 type="text"
-                placeholder="Enter a name"
+                placeholder="Enter name"
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <InputBox
-                label="URL"
-                type="url"
-                placeholder="Enter domain name"
-                onChange={(e) => setUrl(e.target.value)}
-              />
-
-              <InputBox
-                label="Username"
+                label="Type"
                 type="text"
-                placeholder="Enter username or email id"
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter type"
+                onChange={(e) => setType(e.target.value)}
               />
 
               <InputBox
-                label="Password"
-                type="password"
-                placeholder="Enter password"
-                isPassword={true}
-                onChange={(e) => setPassword(e.target.value)}
+                label="Number"
+                type="number"
+                placeholder="Enter number"
+                onChange={(e) => setNumber(e.target.value)}
               />
 
-              <NotesInputField
-                maxH="130px"
-                onChange={(e) => setNotes(e.target.value)}
+              <DateField
+                label="Issue Date"
+                onChange={(e) => setIssueDate(e.target.value)}
+              />
+              <DateField
+                label="Expiration Date"
+                onChange={(e) => setIssueDate(e.target.value)}
+              />
+
+              <InputBox
+                label="Country"
+                type="text"
+                placeholder="Enter country"
+                onChange={(e) => setCountry(e.target.value)}
+              />
+
+              <InputBox
+                label="Place of issue"
+                type="text"
+                placeholder="Enter place of issure"
+                onChange={(e) => setPalceOfIssue(e.target.value)}
               />
             </Stack>
           </form>
@@ -122,4 +136,4 @@ const PasswordForm = ({ isOpen, onClose }) => {
   );
 };
 
-export default PasswordForm;
+export default IDCardForm;

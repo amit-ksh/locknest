@@ -13,14 +13,17 @@ import { useState } from 'react';
 
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
+import DateField from './DateField';
 
 import { auth } from '../lib/mutations';
 
 const PasswordForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
-  const [url, setUrl] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [holderName, setHolderName] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [CVV, setCVV] = useState('');
+  const [expirationDate, setExpirationDate] = useState('');
   const [notes, setNotes] = useState('');
   const toast = useToast();
 
@@ -30,15 +33,17 @@ const PasswordForm = ({ isOpen, onClose }) => {
     onClose();
     const { success, error } = await auth('savepassword', {
       name,
-      url,
-      username,
-      password,
+      holderName,
+      cardName,
+      cardNumber,
+      CVV,
+      expirationDate,
       notes,
     });
 
     if (success) {
       toast({
-        title: 'Password Saved.',
+        title: 'Payment Card Saved.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -65,7 +70,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
           bg="brand.500"
           color="white"
         >
-          Add a password
+          Add a Payment Card
         </DrawerHeader>
 
         <DrawerBody>
@@ -80,25 +85,36 @@ const PasswordForm = ({ isOpen, onClose }) => {
               />
 
               <InputBox
-                label="URL"
-                type="url"
-                placeholder="Enter domain name"
-                onChange={(e) => setUrl(e.target.value)}
-              />
-
-              <InputBox
-                label="Username"
+                label="Cardholder Name"
                 type="text"
-                placeholder="Enter username or email id"
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter cardholder name"
+                onChange={(e) => setHolderName(e.target.value)}
               />
 
               <InputBox
-                label="Password"
-                type="password"
-                placeholder="Enter password"
-                isPassword={true}
-                onChange={(e) => setPassword(e.target.value)}
+                label="Card Name"
+                type="text"
+                placeholder="Enter card name"
+                onChange={(e) => setCardName(e.target.value)}
+              />
+
+              <InputBox
+                label="Card Number"
+                type="text"
+                placeholder="Enter card number"
+                onChange={(e) => setCardNumber(e.target.value)}
+              />
+
+              <InputBox
+                label="CVV"
+                type="text"
+                placeholder="Enter CVV"
+                onChange={(e) => setCVV(e.target.value)}
+              />
+
+              <DateField
+                label="Expiration Date"
+                onChange={(e) => setExpirationDate(e.target.value)}
               />
 
               <NotesInputField

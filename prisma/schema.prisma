@@ -68,6 +68,7 @@ model BankAccount {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
   name                String
+  holder_name         String
   bank_name           String
   branch_address      String
   account_type        String

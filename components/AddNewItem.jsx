@@ -9,7 +9,7 @@ const AddNewItem = ({ item }) => {
         {item.name}
       </MenuItem>
 
-      <item.Form isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
+      <item.Form isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

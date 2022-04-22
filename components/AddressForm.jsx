@@ -12,16 +12,19 @@ import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
 
 import InputBox from './InputBox';
-import NotesInputField from './NotesInputField';
 
 import { auth } from '../lib/mutations';
 
-const PasswordForm = ({ isOpen, onClose }) => {
+const AddressForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
-  const [url, setUrl] = useState('');
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [notes, setNotes] = useState('');
+  const [addressLine1, setAddressLine1] = useState('');
+  const [addressLine2, setAddressLine2] = useState('');
+  const [addressLine3, setAddressLine3] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [pinCode, setPinCode] = useState('');
+  const [country, setCountry] = useState('');
   const toast = useToast();
 
   const handleSubmit = async (e) => {
@@ -30,15 +33,18 @@ const PasswordForm = ({ isOpen, onClose }) => {
     onClose();
     const { success, error } = await auth('savepassword', {
       name,
-      url,
-      username,
-      password,
-      notes,
+      addressLine1,
+      addressLine2,
+      addressLine3,
+      city,
+      state,
+      pinCode,
+      country,
     });
 
     if (success) {
       toast({
-        title: 'Password Saved.',
+        title: 'Bank Account Saved.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -65,7 +71,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
           bg="brand.500"
           color="white"
         >
-          Add a password
+          Add a address
         </DrawerHeader>
 
         <DrawerBody>
@@ -74,36 +80,58 @@ const PasswordForm = ({ isOpen, onClose }) => {
               <InputBox
                 label="Name"
                 type="text"
-                placeholder="Enter a name"
+                placeholder="Enter name"
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <InputBox
-                label="URL"
-                type="url"
-                placeholder="Enter domain name"
-                onChange={(e) => setUrl(e.target.value)}
-              />
-
-              <InputBox
-                label="Username"
+                label="Address Line 1"
                 type="text"
-                placeholder="Enter username or email id"
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter address line 1"
+                onChange={(e) => setAddressLine1(e.target.value)}
               />
 
               <InputBox
-                label="Password"
-                type="password"
-                placeholder="Enter password"
-                isPassword={true}
-                onChange={(e) => setPassword(e.target.value)}
+                label="Address Line 1"
+                type="text"
+                placeholder="Enter address line 3"
+                onChange={(e) => setAddressLine2(e.target.value)}
               />
 
-              <NotesInputField
-                maxH="130px"
-                onChange={(e) => setNotes(e.target.value)}
+              <InputBox
+                label="Address Line 1"
+                type="text"
+                placeholder="Enter address line 3"
+                onChange={(e) => setAddressLine3(e.target.value)}
+              />
+
+              <InputBox
+                label="City"
+                type="text"
+                placeholder="Enter city"
+                onChange={(e) => setCity(e.target.value)}
+              />
+
+              <InputBox
+                label="State"
+                type="text"
+                placeholder="Enter state"
+                onChange={(e) => setState(e.target.value)}
+              />
+
+              <InputBox
+                label="PIN Code"
+                type="number"
+                placeholder="Enter PIN Code"
+                onChange={(e) => setPinCode(e.target.value)}
+              />
+
+              <InputBox
+                label="Country"
+                type="text"
+                placeholder="Enter country"
+                onChange={(e) => setCountry(e.target.value)}
               />
             </Stack>
           </form>
@@ -122,4 +150,4 @@ const PasswordForm = ({ isOpen, onClose }) => {
   );
 };
 
-export default PasswordForm;
+export default AddressForm;
