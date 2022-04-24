@@ -32,7 +32,7 @@ const navMenu = [
   {
     name: 'Password',
     icon: FaKey,
-    route: '/password',
+    route: '/passwords',
   },
   {
     name: 'Secure Notes',
@@ -47,12 +47,12 @@ const navMenu = [
   {
     name: 'Personal Info',
     icon: FaAddressBook,
-    route: '/personal',
+    route: '/personalinfos',
   },
   {
     name: 'IDs',
     icon: FaAddressCard,
-    route: '/id',
+    route: '/idcards',
   },
 ];
 
@@ -100,8 +100,6 @@ const Navbar = ({ tabView, handleClick }) => {
             <ListItem
               w="100%"
               key={menu.name}
-              py="10px"
-              px="20px"
               fontSize={{ lg: 'xl', md: 'lg', base: 'lg' }}
               fontWeight="bold"
               _hover={{ bg: 'brand.400', color: 'white' }}
@@ -111,7 +109,7 @@ const Navbar = ({ tabView, handleClick }) => {
               rounded="md"
               mb={2}
             >
-              <LinkBox>
+              <LinkBox py="10px" px="20px">
                 <NextLink href={menu.route} passHref>
                   <LinkOverlay
                     display="flex"
