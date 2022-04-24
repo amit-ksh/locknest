@@ -25,15 +25,14 @@ const EmailForm = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     onClose();
-    const { success, error } = await auth('savepassword', {
-      name,
-      username,
-      password,
+    const { success } = await auth('saveitem', {
+      data: { name, username, password },
+      type: 'email',
     });
 
     if (success) {
       toast({
-        title: 'Bank Account Saved.',
+        title: 'Email Saved.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -41,7 +40,7 @@ const EmailForm = ({ isOpen, onClose }) => {
     } else {
       toast({
         title: 'Error!',
-        description: error.message,
+        description: 'Email Not Saved.',
         status: 'error',
         duration: 5000,
         isClosable: true,

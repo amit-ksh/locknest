@@ -23,7 +23,8 @@ const PasswordForm = ({ isOpen, onClose }) => {
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [CVV, setCVV] = useState('');
-  const [expirationDate, setExpirationDate] = useState('');
+  const [expirationMonth, setExpirationMonth] = useState('0');
+  const [expirationYear, setExpirationYear] = useState('0');
   const [notes, setNotes] = useState('');
   const toast = useToast();
 
@@ -31,14 +32,18 @@ const PasswordForm = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     onClose();
-    const { success, error } = await auth('savepassword', {
-      name,
-      holderName,
-      cardName,
-      cardNumber,
-      CVV,
-      expirationDate,
-      notes,
+    const { success } = await auth('saveitem', {
+      data: {
+        name,
+        holderName,
+        cardName,
+        cardNumber,
+        CVV,
+        expirationMonth,
+        expirationYear,
+        notes,
+      },
+      type: 'paymentCard',
     });
 
     if (success) {
@@ -51,7 +56,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
     } else {
       toast({
         title: 'Error!',
-        description: error.message,
+        description: 'Payment Card Details Not Saved.',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -114,7 +119,8 @@ const PasswordForm = ({ isOpen, onClose }) => {
 
               <DateField
                 label="Expiration Date"
-                onChange={(e) => setExpirationDate(e.target.value)}
+                handleMonthChange={(e) => setExpirationMonth(e.target.value)}
+                handleYearChange={(e) => setExpirationYear(e.target.value)}
               />
 
               <NotesInputField

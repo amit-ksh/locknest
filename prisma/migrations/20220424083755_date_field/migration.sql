@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "IdCard" ALTER COLUMN "expirationMonth" SET DATA TYPE TEXT,
+ALTER COLUMN "expirationYear" SET DATA TYPE TEXT,
+ALTER COLUMN "issueMonth" SET DATA TYPE TEXT,
+ALTER COLUMN "issueYear" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "PaymentCard" ALTER COLUMN "expirationMonth" SET DATA TYPE TEXT,
+ALTER COLUMN "expirationYear" SET DATA TYPE TEXT;

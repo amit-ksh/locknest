@@ -20,29 +20,36 @@ const IDCardForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [number, setNumber] = useState('');
-  const [issueDate, setIssueDate] = useState('');
-  const [expirationDate, setExpirationDate] = useState('');
+  const [issueMonth, setIssueMonth] = useState('0');
+  const [issueYear, setIssueYear] = useState('0');
+  const [expirationMonth, setExpirationMonth] = useState('0');
+  const [expirationYear, setExpirationYear] = useState('0');
   const [country, setCountry] = useState('');
-  const [palceOfIssue, setPalceOfIssue] = useState('');
+  const [placeOfIssue, setPlaceOfIssue] = useState('');
   const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     onClose();
-    const { success, error } = await auth('savepassword', {
-      name,
-      type,
-      number,
-      issueDate,
-      expirationDate,
-      country,
-      palceOfIssue,
+    const { success } = await auth('saveitem', {
+      data: {
+        name,
+        type,
+        number,
+        issueMonth,
+        issueYear,
+        expirationMonth,
+        expirationYear,
+        country,
+        placeOfIssue,
+      },
+      type: 'idCard',
     });
 
     if (success) {
       toast({
-        title: 'Bank Account Saved.',
+        title: 'ID Card Saved.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -50,7 +57,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
     } else {
       toast({
         title: 'Error!',
-        description: error.message,
+        description: 'ID Card Not Saved.',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -92,18 +99,21 @@ const IDCardForm = ({ isOpen, onClose }) => {
 
               <InputBox
                 label="Number"
-                type="number"
+                type="text"
                 placeholder="Enter number"
                 onChange={(e) => setNumber(e.target.value)}
               />
 
               <DateField
                 label="Issue Date"
-                onChange={(e) => setIssueDate(e.target.value)}
+                handleMonthChange={(e) => setIssueMonth(e.target.value)}
+                handleYearChange={(e) => setIssueYear(e.target.value)}
               />
+
               <DateField
                 label="Expiration Date"
-                onChange={(e) => setIssueDate(e.target.value)}
+                handleMonthChange={(e) => setExpirationMonth(e.target.value)}
+                handleYearChange={(e) => setExpirationYear(e.target.value)}
               />
 
               <InputBox
@@ -116,8 +126,8 @@ const IDCardForm = ({ isOpen, onClose }) => {
               <InputBox
                 label="Place of issue"
                 type="text"
-                placeholder="Enter place of issure"
-                onChange={(e) => setPalceOfIssue(e.target.value)}
+                placeholder="Enter place of issue"
+                onChange={(e) => setPlaceOfIssue(e.target.value)}
               />
             </Stack>
           </form>

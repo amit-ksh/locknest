@@ -17,7 +17,6 @@ import { auth } from '../lib/mutations';
 
 const AddressForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
   const [addressLine2, setAddressLine2] = useState('');
   const [addressLine3, setAddressLine3] = useState('');
@@ -31,20 +30,23 @@ const AddressForm = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     onClose();
-    const { success, error } = await auth('savepassword', {
-      name,
-      addressLine1,
-      addressLine2,
-      addressLine3,
-      city,
-      state,
-      pinCode,
-      country,
+    const { success } = await auth('saveitem', {
+      data: {
+        name,
+        addressLine1,
+        addressLine2,
+        addressLine3,
+        city,
+        state,
+        pinCode,
+        country,
+      },
+      type: 'address',
     });
 
     if (success) {
       toast({
-        title: 'Bank Account Saved.',
+        title: 'Address Saved.',
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -52,7 +54,7 @@ const AddressForm = ({ isOpen, onClose }) => {
     } else {
       toast({
         title: 'Error!',
-        description: error.message,
+        description: 'Address Not Saved.',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -122,7 +124,7 @@ const AddressForm = ({ isOpen, onClose }) => {
 
               <InputBox
                 label="PIN Code"
-                type="number"
+                type="text"
                 placeholder="Enter PIN Code"
                 onChange={(e) => setPinCode(e.target.value)}
               />

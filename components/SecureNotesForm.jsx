@@ -24,9 +24,9 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     onClose();
-    const { success, error } = await auth('savepassword', {
-      name,
-      notes,
+    const { success } = await auth('saveitem', {
+      data: { name, notes },
+      type: 'secureNote',
     });
 
     if (success) {
@@ -39,7 +39,7 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
     } else {
       toast({
         title: 'Error!',
-        description: error.message,
+        description: 'Notes Not Saved',
         status: 'error',
         duration: 5000,
         isClosable: true,

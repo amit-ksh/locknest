@@ -12,6 +12,7 @@ import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
 
 import InputBox from './InputBox';
+import NotesInputField from './NotesInputField';
 
 import { auth } from '../lib/mutations';
 
@@ -25,22 +26,27 @@ const BankAccountForm = ({ isOpen, onClose }) => {
   const [pin, setPin] = useState('');
   const [swiftCode, setSwiftCode] = useState('');
   const [ibanCode, setIbanCode] = useState('');
+  const [notes, setNotes] = useState('');
   const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     onClose();
-    const { success, error } = await auth('savepassword', {
-      name,
-      holderName,
-      bankName,
-      branchAddress,
-      accountType,
-      accountNo,
-      pin,
-      swiftCode,
-      ibanCode,
+    const { success } = await auth('saveitem', {
+      data: {
+        name,
+        holderName,
+        bankName,
+        branchAddress,
+        accountType,
+        accountNo,
+        pin,
+        swiftCode,
+        ibanCode,
+        notes,
+      },
+      type: 'bankAccount',
     });
 
     if (success) {
@@ -53,7 +59,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
     } else {
       toast({
         title: 'Error!',
-        description: error.message,
+        description: 'Bank Account Details Not Saved.',
         status: 'error',
         duration: 5000,
         isClosable: true,
@@ -140,6 +146,11 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 type="text"
                 placeholder="Enter IBAN Code"
                 onChange={(e) => setIbanCode(e.target.value)}
+              />
+
+              <NotesInputField
+                maxH="130px"
+                onChange={(e) => setNotes(e.target.value)}
               />
             </Stack>
           </form>

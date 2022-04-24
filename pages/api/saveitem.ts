@@ -4,16 +4,12 @@ import prisma from '../../lib/prisma';
 
 export default validateRoute(
   async (req: NextApiRequest, res: NextApiResponse, user) => {
-    const { name, url, username, password, notes } = req.body;
+    const { data, type } = req.body;
 
     try {
-      await prisma.password.create({
+      await prisma[type].create({
         data: {
-          name,
-          username,
-          password,
-          url,
-          notes,
+          ...data,
           user: {
             connect: { id: user.id },
           },
@@ -22,8 +18,10 @@ export default validateRoute(
 
       res.json({ success: true });
     } catch (e) {
+      console.log(e);
+
       res.status(500);
-      res.json({ error: { message: 'Password not saved.' } });
+      res.json({ error: 'Item Not Saved' });
       return;
     }
   }

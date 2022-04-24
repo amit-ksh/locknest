@@ -28,12 +28,9 @@ const PasswordForm = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     onClose();
-    const { success, error } = await auth('savepassword', {
-      name,
-      url,
-      username,
-      password,
-      notes,
+    const { success } = await auth('saveitem', {
+      data: { name, url, username, password, notes },
+      type: 'password',
     });
 
     if (success) {
@@ -46,7 +43,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
     } else {
       toast({
         title: 'Error!',
-        description: error.message,
+        description: 'Password Not Saved.',
         status: 'error',
         duration: 5000,
         isClosable: true,

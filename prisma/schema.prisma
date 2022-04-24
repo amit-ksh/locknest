@@ -23,7 +23,7 @@ model User {
   user_bank_accounts  BankAccount[] 
   user_emails         Email[] 
   user_addresses      Address[] 
-  user_IDCards        IDCard[] 
+  user_IDCards        IdCard[] 
 }
 
 model Password {
@@ -54,10 +54,12 @@ model PaymentCard {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
   name                String
-  holder_name         String
-  card_name           String
-  cvv                 String
-  expiration_date     DateTime
+  holderName          String
+  cardName            String
+  cardNumber          String
+  CVV                 String
+  expirationMonth     String
+  expirationYear      String
   notes               String
   user                User          @relation(fields: [userId], references: [id])
   userId              Int
@@ -68,14 +70,14 @@ model BankAccount {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
   name                String
-  holder_name         String
-  bank_name           String
-  branch_address      String
-  account_type        String
-  account_no          String
+  holderName          String
+  bankName            String
+  branchAddress       String
+  accountType         String
+  accountNo           String
   pin                 String
-  swift_code          String
-  iban_code           String
+  swiftCode           String
+  ibanCode            String
   notes               String
   user                User          @relation(fields: [userId], references: [id])
   userId              Int
@@ -97,28 +99,30 @@ model Address {
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
   name                String
-  address_line_1      String
-  address_line_2      String
-  address_line_3      String
+  addressLine1        String
+  addressLine2        String
+  addressLine3        String
   city                String
   state               String
-  pin_code            String
+  pinCode             String
   country             String
   user                User          @relation(fields: [userId], references: [id])
   userId              Int
 }
 
-model IDCard {
+model IdCard {
   id                  Int           @id @default(autoincrement())
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt
   name                String
   type                String
   number              String
-  issue_date          DateTime
-  expiration_date     DateTime
+  issueMonth          String
+  issueYear           String
+  expirationMonth     String
+  expirationYear      String
   country             String
-  place_of_issue      String
+  placeOfIssue        String
   user                User          @relation(fields: [userId], references: [id])
   userId              Int
 }
