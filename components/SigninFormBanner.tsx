@@ -12,14 +12,12 @@ const SigninFormBanner = () => {
       align="flex-start"
       bg="brand.500"
     >
-      <VStack alignItems="flex-start" spacing={3}>
-        <Heading size="xl">LockNest</Heading>
-        <Divider />
+      <VStack alignItems="flex-start" spacing={4}>
+        <Heading>Welcome Back to LockNest</Heading>
+        <Divider color="white" />
       </VStack>
 
       <VStack spacing={10} alignItems="stretch" w="full">
-        <Heading size="2xl">Welcome Back to LockNest</Heading>
-
         <AspectRatio ratio={25 / 21} maxW="350px" maxH="350px">
           <Image
             ml={4}

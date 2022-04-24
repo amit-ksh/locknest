@@ -60,10 +60,10 @@ const SignUpForm = () => {
       .has()
       .digits(1) // Must have at least 1 digits
       .has()
-      .symbols(1)
+      .symbols(1) // Must have at least 1 symbol
       .has()
       .not()
-      .spaces();
+      .spaces(); // Must not have any spaces in the password
 
     if (schema.validate(password)) {
       setIsPasswordValid(true);

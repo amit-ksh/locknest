@@ -56,13 +56,16 @@ const navMenu = [
   },
 ];
 
-const Navbar = ({ tabView, handleClick }) => {
+const Navbar = ({ toggleView, handleClick }) => {
   const router = useRouter();
 
   return (
     <VStack
       color="brand.500"
-      w={{ lg: tabView ? '100px' : 'full', base: !tabView ? '100px' : 'full' }}
+      w={{
+        lg: toggleView ? '100px' : 'full',
+        base: !toggleView ? '100px' : 'full',
+      }}
       h="full"
       p={4}
       spacing={12}
@@ -75,17 +78,17 @@ const Navbar = ({ tabView, handleClick }) => {
             variant="primary"
             aria-label="Open Menu"
             size="md"
-            mr={{ lg: !tabView && 4 }}
+            mr={{ lg: !toggleView && 4 }}
             icon={<HamburgerIcon />}
             onClick={handleClick}
           />
-          <Box display={tabView && 'none'}>
+          <Box display={toggleView && 'none'}>
             <Heading
               size="xl"
               display={{
-                lg: tabView ? 'none' : 'block',
-                md: tabView ? 'block' : 'none',
-                base: tabView ? 'block' : 'none',
+                lg: toggleView ? 'none' : 'block',
+                md: toggleView ? 'block' : 'none',
+                base: toggleView ? 'block' : 'none',
               }}
             >
               LockNest
@@ -120,8 +123,8 @@ const Navbar = ({ tabView, handleClick }) => {
                     <Text
                       display={{
                         lg: 'block',
-                        md: tabView ? 'block' : 'none',
-                        base: tabView ? 'block' : 'none',
+                        md: toggleView ? 'block' : 'none',
+                        base: toggleView ? 'block' : 'none',
                       }}
                     >
                       {menu.name}

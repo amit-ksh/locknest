@@ -14,7 +14,7 @@ import { auth } from '../lib/mutations';
 import AddNewItem from './AddNewItem';
 import SearchBar from './SearchBar';
 
-const Header = ({ menuItems }) => {
+const MainHeader = ({ menuItems }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -31,7 +31,7 @@ const Header = ({ menuItems }) => {
   return (
     <Box w="100%" p={5} pt={7}>
       <Flex justify="space-between" alignItems="center">
-        <Flex flexBasis="60%" gap={4}s alignItems="center">
+        <Flex flexBasis="60%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}
           {menuItems.length > 1 ? (
             <Box>
@@ -82,4 +82,4 @@ const Header = ({ menuItems }) => {
   );
 };
 
-export default Header;
+export default MainHeader;

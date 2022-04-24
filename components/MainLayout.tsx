@@ -1,19 +1,22 @@
 import { Box, Divider, Flex } from '@chakra-ui/layout';
 import { useState } from 'react';
 import Navbar from './Navbar';
-import Header from './Header';
+import MainHeader from './MainHeader';
 
 const MainLayout = ({ menuItems }) => {
-  const [tabView, setTabView] = useState(false);
+  const [toggleView, setToggleView] = useState(false);
 
   return (
     <Box w="100%" h="100vh" p={0}>
       <Flex w="100%" h="100%" direction="row">
-        <Box flexBasis={tabView ? '100px' : '25%'}>
-          <Navbar tabView={tabView} handleClick={() => setTabView(!tabView)} />
+        <Box flexBasis={toggleView ? '100px' : '25%'}>
+          <Navbar
+            toggleView={toggleView}
+            handleClick={() => setToggleView(!toggleView)}
+          />
         </Box>
         <Box flexBasis="100%">
-          <Header menuItems={menuItems} />
+          <MainHeader menuItems={menuItems} />
           <Divider />
         </Box>
       </Flex>

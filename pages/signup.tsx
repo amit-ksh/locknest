@@ -1,16 +1,20 @@
 import { Box, Flex } from '@chakra-ui/layout';
 
+import Header from '../components/Header';
 import SignupForm from '../components/SignupForm';
 import SignupFormBanner from '../components/SignupFormBanner';
 
 const Signup = () => {
   return (
-    <Box w="100%" h="100vh" maxW="container.xl" p={0}>
-      <Flex w="100%" h="100%" direction={{ base: 'column', md: 'row-reverse' }}>
-        <Box flexBasis="55%">
+    <Box w="100%" h="100vh" p={0}>
+      <Box h="10%">
+        <Header />
+      </Box>
+      <Flex h="90%" direction={{ base: 'column', md: 'row-reverse' }}>
+        <Box flexBasis="50%">
           <SignupForm />
         </Box>
-        <Box flexBasis="45%">
+        <Box flexBasis="50%">
           <SignupFormBanner />
         </Box>
       </Flex>
