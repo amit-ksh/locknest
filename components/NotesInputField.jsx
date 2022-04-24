@@ -1,12 +1,13 @@
 import { FormControl, FormLabel, Textarea } from '@chakra-ui/react';
 
-const NotesInputField = ({ maxH, onChange }) => {
+const NotesInputField = ({ value, maxH, onChange }) => {
   return (
     <FormControl>
       <FormLabel htmlFor="notes" color="brand.500">
         Notes
       </FormLabel>
       <Textarea
+        value={value}
         id="notes"
         resize="vertical"
         maxH={maxH}

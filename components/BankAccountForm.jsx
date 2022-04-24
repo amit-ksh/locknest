@@ -15,6 +15,7 @@ import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
 
 import { auth } from '../lib/mutations';
+import { createToast, reset } from '../lib/form';
 
 const BankAccountForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
@@ -50,21 +51,23 @@ const BankAccountForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      toast({
-        title: 'Bank Account Saved.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Bank Account Details Saved.');
     } else {
-      toast({
-        title: 'Error!',
-        description: 'Bank Account Details Not Saved.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Error!', 'Bank Account Details Not Saved', 'error');
     }
+
+    reset([
+      setName,
+      setHolderName,
+      setBankName,
+      setBranchAddress,
+      setAccountType,
+      setAccountNo,
+      setPin,
+      setSwiftCode,
+      setIbanCode,
+      setNotes,
+    ]);
   };
 
   return (
@@ -82,12 +85,13 @@ const BankAccountForm = ({ isOpen, onClose }) => {
         </DrawerHeader>
 
         <DrawerBody>
-          <form id="add-password-form" onSubmit={handleSubmit}>
+          <form id="add-bank-account-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
                 label="Name"
                 type="text"
                 placeholder="Enter a name"
+                value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -96,6 +100,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="Account Holder Name"
                 type="text"
                 placeholder="Enter account holder name"
+                value={holderName}
                 onChange={(e) => setHolderName(e.target.value)}
               />
 
@@ -103,6 +108,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="Bank Name"
                 type="text"
                 placeholder="Enter bank name"
+                value={bankName}
                 onChange={(e) => setBankName(e.target.value)}
               />
 
@@ -110,6 +116,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="Branch Address"
                 type="text"
                 placeholder="Enter branch address"
+                value={branchAddress}
                 onChange={(e) => setBranchAddress(e.target.value)}
               />
 
@@ -117,6 +124,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="Account Type"
                 type="text"
                 placeholder="Enter Account Type"
+                value={accountType}
                 onChange={(e) => setAccountType(e.target.value)}
               />
 
@@ -124,6 +132,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="Account Number"
                 type="text"
                 placeholder="Enter account umber"
+                value={accountNo}
                 onChange={(e) => setAccountNo(e.target.value)}
               />
 
@@ -131,6 +140,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="PIN"
                 type="text"
                 placeholder="Enter PIN"
+                value={pin}
                 onChange={(e) => setPin(e.target.value)}
               />
 
@@ -138,6 +148,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="SWIFT Code"
                 type="text"
                 placeholder="Enter SWIFT Code"
+                value={swiftCode}
                 onChange={(e) => setSwiftCode(e.target.value)}
               />
 
@@ -145,10 +156,12 @@ const BankAccountForm = ({ isOpen, onClose }) => {
                 label="IBAN Code"
                 type="text"
                 placeholder="Enter IBAN Code"
+                value={ibanCode}
                 onChange={(e) => setIbanCode(e.target.value)}
               />
 
               <NotesInputField
+                value={notes}
                 maxH="130px"
                 onChange={(e) => setNotes(e.target.value)}
               />
@@ -160,7 +173,7 @@ const BankAccountForm = ({ isOpen, onClose }) => {
           <Button variant="danger" mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" form="add-password-form">
+          <Button variant="primary" type="submit" form="add-bank-account-form">
             Submit
           </Button>
         </DrawerFooter>

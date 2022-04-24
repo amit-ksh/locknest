@@ -15,6 +15,7 @@ import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
 
 import { auth } from '../lib/mutations';
+import { createToast, reset } from '../lib/form';
 
 const PasswordForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
@@ -34,21 +35,12 @@ const PasswordForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      toast({
-        title: 'Password Saved.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Password Saved.');
     } else {
-      toast({
-        title: 'Error!',
-        description: 'Password Not Saved.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Error!', 'Password Not Saved', 'error');
     }
+
+    reset([setName, setUrl, setUsername, setPassword, setNotes]);
   };
 
   return (
@@ -72,6 +64,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="Name"
                 type="text"
                 placeholder="Enter a name"
+                value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -80,6 +73,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="URL"
                 type="url"
                 placeholder="Enter domain name"
+                value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
 
@@ -87,6 +81,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="Username"
                 type="text"
                 placeholder="Enter username or email id"
+                value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
 
@@ -94,12 +89,14 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="Password"
                 type="password"
                 placeholder="Enter password"
+                value={password}
                 isPassword={true}
                 onChange={(e) => setPassword(e.target.value)}
               />
 
               <NotesInputField
                 maxH="130px"
+                value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               />
             </Stack>

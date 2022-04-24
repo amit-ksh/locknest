@@ -16,6 +16,7 @@ import NotesInputField from './NotesInputField';
 import DateField from './DateField';
 
 import { auth } from '../lib/mutations';
+import { createToast, reset } from '../lib/form';
 
 const PasswordForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
@@ -47,21 +48,21 @@ const PasswordForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      toast({
-        title: 'Payment Card Saved.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Payment Card Saved.');
     } else {
-      toast({
-        title: 'Error!',
-        description: 'Payment Card Details Not Saved.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Error!', 'Payment Card Details Not Saved', 'error');
     }
+
+    reset([
+      setName,
+      setHolderName,
+      setCardName,
+      setCardNumber,
+      setCVV,
+      setExpirationMonth,
+      setExpirationYear,
+      setNotes,
+    ]);
   };
 
   return (
@@ -79,12 +80,13 @@ const PasswordForm = ({ isOpen, onClose }) => {
         </DrawerHeader>
 
         <DrawerBody>
-          <form id="add-password-form" onSubmit={handleSubmit}>
+          <form id="add-payment-card-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
                 label="Name"
                 type="text"
                 placeholder="Enter a name"
+                value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -93,6 +95,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="Cardholder Name"
                 type="text"
                 placeholder="Enter cardholder name"
+                value={holderName}
                 onChange={(e) => setHolderName(e.target.value)}
               />
 
@@ -100,6 +103,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="Card Name"
                 type="text"
                 placeholder="Enter card name"
+                value={cardName}
                 onChange={(e) => setCardName(e.target.value)}
               />
 
@@ -107,6 +111,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="Card Number"
                 type="text"
                 placeholder="Enter card number"
+                value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
               />
 
@@ -114,6 +119,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 label="CVV"
                 type="text"
                 placeholder="Enter CVV"
+                value={CVV}
                 onChange={(e) => setCVV(e.target.value)}
               />
 
@@ -124,6 +130,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
               />
 
               <NotesInputField
+                value={notes}
                 maxH="130px"
                 onChange={(e) => setNotes(e.target.value)}
               />
@@ -135,7 +142,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
           <Button variant="danger" mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" form="add-password-form">
+          <Button variant="primary" type="submit" form="add-payment-card-form">
             Submit
           </Button>
         </DrawerFooter>

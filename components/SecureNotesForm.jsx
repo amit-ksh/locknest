@@ -10,10 +10,12 @@ import {
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
+
 import InputBox from './InputBox';
+import NotesInputField from './NotesInputField';
 
 import { auth } from '../lib/mutations';
-import NotesInputField from './NotesInputField';
+import { createToast, reset } from '../lib/form';
 
 const SecureNotesForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
@@ -30,21 +32,12 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      toast({
-        title: 'Notes Saved.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Notes Saved.');
     } else {
-      toast({
-        title: 'Error!',
-        description: 'Notes Not Saved',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Error!', 'Notes Not Saved', 'error');
     }
+
+    reset([setName, setNotes]);
   };
 
   return (
@@ -62,17 +55,19 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
         </DrawerHeader>
 
         <DrawerBody>
-          <form id="add-password-form" onSubmit={handleSubmit}>
+          <form id="add-notes-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
                 label="Name"
                 type="text"
                 placeholder="Enter a name"
+                value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <NotesInputField
+                value={notes}
                 maxH="400px"
                 onChange={(e) => setNotes(e.target.value)}
               />
@@ -84,7 +79,7 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
           <Button variant="danger" mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" form="add-password-form">
+          <Button variant="primary" type="submit" form="add-notes-form">
             Submit
           </Button>
         </DrawerFooter>

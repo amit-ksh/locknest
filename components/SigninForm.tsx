@@ -10,7 +10,7 @@ import {
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import emailValidator from 'email-validator';
 
@@ -59,6 +59,15 @@ const SigninForm = () => {
     router.push('/');
   };
 
+  useEffect(() => {
+    return () => {
+      setEmail('');
+      setPassword('');
+      setIsLoading(false);
+      setIsEmailValid(true);
+    };
+  }, []);
+
   return (
     <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
       <VStack spacing={3} alignItems="flex-start">
@@ -85,6 +94,7 @@ const SigninForm = () => {
                 label="Email"
                 type="email"
                 placeholder="Enter your email"
+                value={email}
                 isRequired={true}
                 isInvalid={isEmailValid}
                 onChange={(e) => setEmail(e.target.value)}
@@ -95,6 +105,7 @@ const SigninForm = () => {
                 label="Master Password"
                 type="password"
                 placeholder="Enter your master password"
+                value={password}
                 isRequired={true}
                 isInvalid={false}
                 onChange={(e) => setPassword(e.target.value)}

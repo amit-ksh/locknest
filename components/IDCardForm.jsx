@@ -15,6 +15,7 @@ import InputBox from './InputBox';
 import DateField from './DateField';
 
 import { auth } from '../lib/mutations';
+import { createToast, reset } from '../lib/form';
 
 const IDCardForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
@@ -48,21 +49,22 @@ const IDCardForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      toast({
-        title: 'ID Card Saved.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'ID Card Saved.');
     } else {
-      toast({
-        title: 'Error!',
-        description: 'ID Card Not Saved.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Error!', 'ID Card Not Saved', 'error');
     }
+
+    reset([
+      setName,
+      setType,
+      setNumber,
+      setIssueMonth,
+      setIssueYear,
+      setExpirationMonth,
+      setExpirationYear,
+      setCountry,
+      setPlaceOfIssue,
+    ]);
   };
 
   return (
@@ -80,12 +82,13 @@ const IDCardForm = ({ isOpen, onClose }) => {
         </DrawerHeader>
 
         <DrawerBody>
-          <form id="add-password-form" onSubmit={handleSubmit}>
+          <form id="add-id-card-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
                 label="Name"
                 type="text"
                 placeholder="Enter name"
+                value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -94,6 +97,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
                 label="Type"
                 type="text"
                 placeholder="Enter type"
+                value={type}
                 onChange={(e) => setType(e.target.value)}
               />
 
@@ -101,6 +105,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
                 label="Number"
                 type="text"
                 placeholder="Enter number"
+                value={number}
                 onChange={(e) => setNumber(e.target.value)}
               />
 
@@ -120,6 +125,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
                 label="Country"
                 type="text"
                 placeholder="Enter country"
+                value={country}
                 onChange={(e) => setCountry(e.target.value)}
               />
 
@@ -127,6 +133,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
                 label="Place of issue"
                 type="text"
                 placeholder="Enter place of issue"
+                value={placeOfIssue}
                 onChange={(e) => setPlaceOfIssue(e.target.value)}
               />
             </Stack>
@@ -137,7 +144,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
           <Button variant="danger" mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" form="add-password-form">
+          <Button variant="primary" type="submit" form="add-id-card-form">
             Submit
           </Button>
         </DrawerFooter>

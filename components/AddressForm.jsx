@@ -14,6 +14,7 @@ import { useState } from 'react';
 import InputBox from './InputBox';
 
 import { auth } from '../lib/mutations';
+import { createToast, reset } from '../lib/form';
 
 const AddressForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
@@ -43,23 +44,22 @@ const AddressForm = ({ isOpen, onClose }) => {
       },
       type: 'address',
     });
-
     if (success) {
-      toast({
-        title: 'Address Saved.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Address Saved.');
     } else {
-      toast({
-        title: 'Error!',
-        description: 'Address Not Saved.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(toast, 'Error!', 'Address Not Saved', 'error');
     }
+
+    reset([
+      setName,
+      setAddressLine1,
+      setAddressLine2,
+      setAddressLine3,
+      setCity,
+      setState,
+      setPinCode,
+      setCountry,
+    ]);
   };
 
   return (
@@ -77,12 +77,13 @@ const AddressForm = ({ isOpen, onClose }) => {
         </DrawerHeader>
 
         <DrawerBody>
-          <form id="add-password-form" onSubmit={handleSubmit}>
+          <form id="add-address-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
                 label="Name"
                 type="text"
                 placeholder="Enter name"
+                value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -91,20 +92,23 @@ const AddressForm = ({ isOpen, onClose }) => {
                 label="Address Line 1"
                 type="text"
                 placeholder="Enter address line 1"
+                value={addressLine1}
                 onChange={(e) => setAddressLine1(e.target.value)}
               />
 
               <InputBox
-                label="Address Line 1"
+                label="Address Line 2"
                 type="text"
-                placeholder="Enter address line 3"
+                placeholder="Enter address line 2"
+                value={addressLine2}
                 onChange={(e) => setAddressLine2(e.target.value)}
               />
 
               <InputBox
-                label="Address Line 1"
+                label="Address Line 3"
                 type="text"
                 placeholder="Enter address line 3"
+                value={addressLine3}
                 onChange={(e) => setAddressLine3(e.target.value)}
               />
 
@@ -112,6 +116,7 @@ const AddressForm = ({ isOpen, onClose }) => {
                 label="City"
                 type="text"
                 placeholder="Enter city"
+                value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
 
@@ -119,6 +124,7 @@ const AddressForm = ({ isOpen, onClose }) => {
                 label="State"
                 type="text"
                 placeholder="Enter state"
+                value={state}
                 onChange={(e) => setState(e.target.value)}
               />
 
@@ -126,6 +132,7 @@ const AddressForm = ({ isOpen, onClose }) => {
                 label="PIN Code"
                 type="text"
                 placeholder="Enter PIN Code"
+                value={pinCode}
                 onChange={(e) => setPinCode(e.target.value)}
               />
 
@@ -133,6 +140,7 @@ const AddressForm = ({ isOpen, onClose }) => {
                 label="Country"
                 type="text"
                 placeholder="Enter country"
+                value={country}
                 onChange={(e) => setCountry(e.target.value)}
               />
             </Stack>
@@ -143,7 +151,7 @@ const AddressForm = ({ isOpen, onClose }) => {
           <Button variant="danger" mr={3} onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" form="add-password-form">
+          <Button variant="primary" type="submit" form="add-address-form">
             Submit
           </Button>
         </DrawerFooter>

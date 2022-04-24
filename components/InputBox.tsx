@@ -14,6 +14,7 @@ const InputBox: FC<{
   label: string;
   type: string;
   placeholder: string;
+  value: any;
   isRequired?: boolean;
   isInvalid?: boolean;
   helpers?: string[];
@@ -22,6 +23,7 @@ const InputBox: FC<{
   label,
   type,
   placeholder,
+  value,
   isRequired = false,
   isInvalid = false,
   helpers = [],
@@ -38,6 +40,7 @@ const InputBox: FC<{
           color={isInvalid ? 'red.400' : 'brand.500'}
           type={show ? 'text' : type}
           placeholder={placeholder}
+          value={value}
           isRequired={isRequired}
           isInvalid={isInvalid}
           onChange={onChange}

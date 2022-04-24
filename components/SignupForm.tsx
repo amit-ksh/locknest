@@ -10,7 +10,7 @@ import {
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import emailValidator from 'email-validator';
 import PasswordValidator from 'password-validator';
@@ -31,9 +31,9 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [retypedPassword, setRetypedPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isRetypedPasswordValid, setIsRetypedPasswordValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isRetypedPasswordValid, setIsRetypedPasswordValid] = useState(true);
   const toast = useToast();
   const router = useRouter();
 
@@ -120,6 +120,18 @@ const SignUpForm = () => {
     router.push('/');
   };
 
+  useEffect(() => {
+    return () => {
+      setEmail('');
+      setPassword('');
+      setRetypedPassword('');
+      setIsLoading(false);
+      setIsEmailValid(true);
+      setIsPasswordValid(true);
+      setIsRetypedPasswordValid(true);
+    };
+  }, []);
+
   return (
     <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
       <VStack spacing={3} alignItems="flex-start">
@@ -146,6 +158,7 @@ const SignUpForm = () => {
                 label="Email"
                 type="email"
                 placeholder="Enter your email"
+                value={email}
                 isRequired={true}
                 isInvalid={!isEmailValid}
                 onChange={(e) => setEmail(e.target.value)}
@@ -156,6 +169,7 @@ const SignUpForm = () => {
                 label="Master Password"
                 type="password"
                 placeholder="Enter your master password"
+                value={password}
                 isRequired={true}
                 isInvalid={!isPasswordValid}
                 helpers={passwordHelpers}
@@ -167,6 +181,7 @@ const SignUpForm = () => {
                 label="Retype Master Password"
                 type="password"
                 placeholder="Retype your master password"
+                value={retypedPassword}
                 isRequired={true}
                 isInvalid={!isRetypedPasswordValid}
                 onChange={(e) => setRetypedPassword(e.target.value)}
