@@ -12,7 +12,6 @@ import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
 
 import InputBox from './InputBox';
-import DateField from './DateField';
 
 import { auth } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
@@ -21,10 +20,8 @@ const IDCardForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [number, setNumber] = useState('');
-  const [issueMonth, setIssueMonth] = useState('0');
-  const [issueYear, setIssueYear] = useState('0');
-  const [expirationMonth, setExpirationMonth] = useState('0');
-  const [expirationYear, setExpirationYear] = useState('0');
+  const [issueDate, setIssueDate] = useState('');
+  const [expirationDate, setExpirationDate] = useState('');
   const [country, setCountry] = useState('');
   const [placeOfIssue, setPlaceOfIssue] = useState('');
   const toast = useToast();
@@ -38,10 +35,8 @@ const IDCardForm = ({ isOpen, onClose }) => {
         name,
         type,
         number,
-        issueMonth,
-        issueYear,
-        expirationMonth,
-        expirationYear,
+        issueDate,
+        expirationDate,
         country,
         placeOfIssue,
       },
@@ -58,10 +53,8 @@ const IDCardForm = ({ isOpen, onClose }) => {
       setName,
       setType,
       setNumber,
-      setIssueMonth,
-      setIssueYear,
-      setExpirationMonth,
-      setExpirationYear,
+      setIssueDate,
+      setExpirationDate,
       setCountry,
       setPlaceOfIssue,
     ]);
@@ -109,16 +102,20 @@ const IDCardForm = ({ isOpen, onClose }) => {
                 onChange={(e) => setNumber(e.target.value)}
               />
 
-              <DateField
+              <InputBox
                 label="Issue Date"
-                handleMonthChange={(e) => setIssueMonth(e.target.value)}
-                handleYearChange={(e) => setIssueYear(e.target.value)}
+                type="date"
+                placeholder="Select Issue Date"
+                value={issueDate}
+                onChange={(e) => setIssueDate(e.target.value)}
               />
 
-              <DateField
+              <InputBox
                 label="Expiration Date"
-                handleMonthChange={(e) => setExpirationMonth(e.target.value)}
-                handleYearChange={(e) => setExpirationYear(e.target.value)}
+                type="date"
+                placeholder="Select Expiration Date"
+                value={expirationDate}
+                onChange={(e) => setExpirationDate(e.target.value)}
               />
 
               <InputBox

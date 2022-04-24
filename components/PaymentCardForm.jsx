@@ -13,7 +13,6 @@ import { useState } from 'react';
 
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
-import DateField from './DateField';
 
 import { auth } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
@@ -24,8 +23,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [CVV, setCVV] = useState('');
-  const [expirationMonth, setExpirationMonth] = useState('0');
-  const [expirationYear, setExpirationYear] = useState('0');
+  const [expirationDate, setExpirationDate] = useState('');
   const [notes, setNotes] = useState('');
   const toast = useToast();
 
@@ -40,8 +38,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
         cardName,
         cardNumber,
         CVV,
-        expirationMonth,
-        expirationYear,
+        expirationDate,
         notes,
       },
       type: 'paymentCard',
@@ -59,8 +56,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
       setCardName,
       setCardNumber,
       setCVV,
-      setExpirationMonth,
-      setExpirationYear,
+      setExpirationDate,
       setNotes,
     ]);
   };
@@ -123,10 +119,12 @@ const PasswordForm = ({ isOpen, onClose }) => {
                 onChange={(e) => setCVV(e.target.value)}
               />
 
-              <DateField
+              <InputBox
                 label="Expiration Date"
-                handleMonthChange={(e) => setExpirationMonth(e.target.value)}
-                handleYearChange={(e) => setExpirationYear(e.target.value)}
+                type="date"
+                placeholder="Select Expiration Date"
+                value={expirationDate}
+                onChange={(e) => setExpirationDate(e.target.value)}
               />
 
               <NotesInputField
