@@ -3,12 +3,11 @@ import emailValidator from 'email-validator';
 import PasswordValidator from 'password-validator';
 
 export const createToast = (
+  toast,
   title: string,
   description: string = '',
   status: 'success' | 'info' | 'warning' | 'error' = 'success'
 ) => {
-  const toast = useToast();
-
   toast({
     title,
     status,

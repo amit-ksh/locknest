@@ -6,6 +6,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -22,6 +23,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [notes, setNotes] = useState('');
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,9 +35,9 @@ const PasswordForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      createToast('Password Saved.');
+      createToast(toast, 'Password Saved.');
     } else {
-      createToast('Error!', 'Password Not Saved', 'error');
+      createToast(toast, 'Error!', 'Password Not Saved', 'error');
     }
 
     reset([setName, setUrl, setUsername, setPassword, setNotes]);

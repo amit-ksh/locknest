@@ -6,6 +6,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -24,6 +25,7 @@ const AddressForm = ({ isOpen, onClose }) => {
   const [state, setState] = useState('');
   const [pinCode, setPinCode] = useState('');
   const [country, setCountry] = useState('');
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,9 +45,9 @@ const AddressForm = ({ isOpen, onClose }) => {
       type: 'address',
     });
     if (success) {
-      createToast('Address Saved.');
+      createToast(toast, 'Address Saved.');
     } else {
-      createToast('Error!', 'Address Not Saved', 'error');
+      createToast(toast, 'Error!', 'Address Not Saved', 'error');
     }
 
     reset([

@@ -6,6 +6,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -23,6 +24,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
   const [expirationDate, setExpirationDate] = useState('');
   const [country, setCountry] = useState('');
   const [placeOfIssue, setPlaceOfIssue] = useState('');
+  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,9 +44,9 @@ const IDCardForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      createToast('ID Card Saved.');
+      createToast(toast, 'ID Card Saved.');
     } else {
-      createToast('Error!', 'ID Card Not Saved', 'error');
+      createToast(toast, 'Error!', 'ID Card Not Saved', 'error');
     }
 
     reset([
