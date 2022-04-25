@@ -6,7 +6,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -20,7 +19,6 @@ const EmailForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,9 +30,9 @@ const EmailForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      createToast(toast, 'Email Saved.');
+      createToast('Email Saved.');
     } else {
-      createToast(toast, 'Error!', 'Email Not Saved', 'error');
+      createToast('Error!', 'Email Not Saved', 'error');
     }
 
     reset([setName, setUsername, setPassword]);

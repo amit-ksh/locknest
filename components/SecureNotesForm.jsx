@@ -6,7 +6,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -20,7 +19,6 @@ import { createToast, reset } from '../lib/form';
 const SecureNotesForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
-  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,9 +30,9 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      createToast(toast, 'Notes Saved.');
+      createToast('Notes Saved.');
     } else {
-      createToast(toast, 'Error!', 'Notes Not Saved', 'error');
+      createToast('Error!', 'Notes Not Saved', 'error');
     }
 
     reset([setName, setNotes]);

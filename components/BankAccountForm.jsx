@@ -6,7 +6,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -28,7 +27,6 @@ const BankAccountForm = ({ isOpen, onClose }) => {
   const [swiftCode, setSwiftCode] = useState('');
   const [ibanCode, setIbanCode] = useState('');
   const [notes, setNotes] = useState('');
-  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,9 +49,9 @@ const BankAccountForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      createToast(toast, 'Bank Account Details Saved.');
+      createToast('Bank Account Details Saved.');
     } else {
-      createToast(toast, 'Error!', 'Bank Account Details Not Saved', 'error');
+      createToast('Error!', 'Bank Account Details Not Saved', 'error');
     }
 
     reset([

@@ -6,7 +6,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
 import { useState } from 'react';
@@ -25,7 +24,6 @@ const PasswordForm = ({ isOpen, onClose }) => {
   const [CVV, setCVV] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [notes, setNotes] = useState('');
-  const toast = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,9 +43,9 @@ const PasswordForm = ({ isOpen, onClose }) => {
     });
 
     if (success) {
-      createToast(toast, 'Payment Card Saved.');
+      createToast('Payment Card Saved.');
     } else {
-      createToast(toast, 'Error!', 'Payment Card Details Not Saved', 'error');
+      createToast('Error!', 'Payment Card Details Not Saved', 'error');
     }
 
     reset([

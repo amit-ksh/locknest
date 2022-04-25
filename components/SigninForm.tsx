@@ -5,68 +5,50 @@ import {
   SimpleGrid,
   GridItem,
   Button,
-  useToast,
 } from '@chakra-ui/react';
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-
-import emailValidator from 'email-validator';
+import { useState } from 'react';
 
 import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
+import { createToast, checkEmail, validate } from '../lib/form';
 
 const SigninForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const toast = useToast();
+  const [isEmailNotValid, setIsEmailNotValid] = useState(true);
   const router = useRouter();
 
-  const checkEmail = () => {
-    if (emailValidator.validate(email)) {
-      setIsEmailValid(false);
-    } else {
-      setIsEmailValid(true);
-    }
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
+
+    validate([email], checkEmail, setIsEmailNotValid);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    checkEmail();
 
-    if (isEmailValid) return;
+    validate([email], checkEmail, setIsEmailNotValid);
+
+    if (isEmailNotValid || !password) return;
 
     setIsLoading(true);
-
-    const { user, error } = await auth('signin', { email, password });
+    const { user, error } = await auth('signin', {
+      email,
+      password,
+    });
 
     setIsLoading(false);
     if (error || !user) {
-      toast({
-        position: 'top',
-        title: error,
-        description: 'Check your email and password.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      });
+      createToast(error, 'Check your email and password.', 'error');
       return;
     }
 
     router.push('/');
   };
-
-  useEffect(() => {
-    return () => {
-      setEmail('');
-      setPassword('');
-      setIsLoading(false);
-      setIsEmailValid(true);
-    };
-  }, []);
 
   return (
     <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
@@ -96,8 +78,8 @@ const SigninForm = () => {
                 placeholder="Enter your email"
                 value={email}
                 isRequired={true}
-                isInvalid={isEmailValid}
-                onChange={(e) => setEmail(e.target.value)}
+                isInvalid={isEmailNotValid}
+                onChange={onEmailChange}
               />
             </GridItem>
             <GridItem colSpan={2}>
@@ -107,7 +89,6 @@ const SigninForm = () => {
                 placeholder="Enter your master password"
                 value={password}
                 isRequired={true}
-                isInvalid={false}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </GridItem>

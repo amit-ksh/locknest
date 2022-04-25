@@ -10,13 +10,16 @@ import {
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-
-import emailValidator from 'email-validator';
-import PasswordValidator from 'password-validator';
+import { useState } from 'react';
 
 import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
+import {
+  checkEmail,
+  checkPassword,
+  checkRetypedPassword,
+  validate,
+} from '../lib/form';
 
 const passwordHelpers = [
   'At least 12 character long.',
@@ -31,65 +34,50 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [retypedPassword, setRetypedPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isRetypedPasswordValid, setIsRetypedPasswordValid] = useState(true);
+  const [isEmailNotValid, setIsEmailNotValid] = useState(true);
+  const [isPasswordNotValid, setIsPasswordNotValid] = useState(true);
+  const [isRetypedPasswordNotValid, setIsRetypedPasswordNotValid] =
+    useState(true);
   const toast = useToast();
   const router = useRouter();
 
-  const checkEmail = () => {
-    if (emailValidator.validate(email)) {
-      setIsEmailValid(true);
-    } else {
-      setIsEmailValid(false);
-    }
+  const onEmailChange = (e) => {
+    setEmail(e.target.value);
+
+    validate([email], checkEmail, setIsEmailNotValid);
   };
 
-  const checkPassword = () => {
-    const schema = new PasswordValidator();
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
 
-    schema
-      .is()
-      .min(12) // Minimum length 8
-      .is()
-      .max(100) // Maximum length 100
-      .has()
-      .uppercase() // Must have uppercase letters
-      .has()
-      .lowercase() // Must have lowercase letters
-      .has()
-      .digits(1) // Must have at least 1 digits
-      .has()
-      .symbols(1) // Must have at least 1 symbol
-      .has()
-      .not()
-      .spaces(); // Must not have any spaces in the password
-
-    if (schema.validate(password)) {
-      setIsPasswordValid(true);
-    } else {
-      setIsPasswordValid(false);
-    }
+    validate([password], checkPassword, setIsPasswordNotValid);
   };
 
-  const checkRetypedPassword = () => {
-    if (password === retypedPassword) {
-      setIsRetypedPasswordValid(true);
-    } else {
-      setIsRetypedPasswordValid(false);
-    }
+  const onRetypedPasswordChange = (e) => {
+    setRetypedPassword(e.target.value);
+
+    validate(
+      [password, retypedPassword],
+      checkRetypedPassword,
+      setIsRetypedPasswordNotValid
+    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    checkPassword();
-    checkRetypedPassword();
-    checkEmail();
 
-    if (!isEmailValid || !isPasswordValid || !isRetypedPasswordValid) return;
+    validate([email], checkEmail, setIsEmailNotValid);
+    validate([password], checkPassword, setIsPasswordNotValid);
+    validate(
+      [password, retypedPassword],
+      checkRetypedPassword,
+      setIsRetypedPasswordNotValid
+    );
+
+    if (!isEmailNotValid || !isPasswordNotValid || !isRetypedPasswordNotValid)
+      return;
 
     setIsLoading(true);
-
     const { user, error } = await auth('signup', { email, password });
 
     setIsLoading(false);
@@ -116,21 +104,8 @@ const SignUpForm = () => {
       return;
     }
 
-    setIsLoading(false);
     router.push('/');
   };
-
-  useEffect(() => {
-    return () => {
-      setEmail('');
-      setPassword('');
-      setRetypedPassword('');
-      setIsLoading(false);
-      setIsEmailValid(true);
-      setIsPasswordValid(true);
-      setIsRetypedPasswordValid(true);
-    };
-  }, []);
 
   return (
     <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
@@ -160,8 +135,8 @@ const SignUpForm = () => {
                 placeholder="Enter your email"
                 value={email}
                 isRequired={true}
-                isInvalid={!isEmailValid}
-                onChange={(e) => setEmail(e.target.value)}
+                isInvalid={!isEmailNotValid}
+                onChange={onEmailChange}
               />
             </GridItem>
             <GridItem colSpan={2}>
@@ -171,9 +146,9 @@ const SignUpForm = () => {
                 placeholder="Enter your master password"
                 value={password}
                 isRequired={true}
-                isInvalid={!isPasswordValid}
+                isInvalid={!isPasswordNotValid}
                 helpers={passwordHelpers}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={onPasswordChange}
               />
             </GridItem>
             <GridItem colSpan={2}>
@@ -183,8 +158,8 @@ const SignUpForm = () => {
                 placeholder="Retype your master password"
                 value={retypedPassword}
                 isRequired={true}
-                isInvalid={!isRetypedPasswordValid}
-                onChange={(e) => setRetypedPassword(e.target.value)}
+                isInvalid={!isRetypedPasswordNotValid}
+                onChange={onRetypedPasswordChange}
               />
             </GridItem>
             <GridItem mt={4} colSpan={2}>
