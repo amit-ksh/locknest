@@ -1,7 +1,8 @@
 import { AddIcon } from '@chakra-ui/icons';
-import { Box, Flex } from '@chakra-ui/layout';
+import { Box, Flex, Text } from '@chakra-ui/layout';
 import {
   Button,
+  ButtonGroup,
   Menu,
   MenuButton,
   MenuList,
@@ -9,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { FaPowerOff } from 'react-icons/fa';
 import { auth } from '../lib/mutations';
 
 import AddNewItem from './AddNewItem';
@@ -33,15 +35,16 @@ const MainHeader = ({ navItems }) => {
       <Flex justify="space-between" alignItems="center">
         <Flex flexBasis="60%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}
-          {menuItems.length > 1 ? (
+          {navItems.length !== undefined ? (
             <Box>
               <Menu>
                 <MenuButton
                   variant="primary"
                   as={Button}
                   leftIcon={<AddIcon />}
+                  pr={{ md: 4, base: 1.5 }}
                 >
-                  Add
+                  <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </MenuButton>
                 <MenuList>
                   {navItems.map((item) => (
@@ -52,11 +55,18 @@ const MainHeader = ({ navItems }) => {
             </Box>
           ) : (
             <Box>
-              <Button variant="primary" onClick={onOpen} leftIcon={<AddIcon />}>
-                Add
-              </Button>
+              <ButtonGroup>
+                <Button
+                  variant="primary"
+                  onClick={onOpen}
+                  leftIcon={<AddIcon />}
+                  pr={{ md: 4, base: 1.5 }}
+                >
+                  <Text display={{ md: 'block', base: 'none' }}>Add</Text>
+                </Button>
+              </ButtonGroup>
 
-              <menuItems.Form isOpen={isOpen} onClose={onClose} />
+              <navItems.Form isOpen={isOpen} onClose={onClose} />
             </Box>
           )}
 
@@ -71,10 +81,12 @@ const MainHeader = ({ navItems }) => {
           <Button
             variant="danger"
             type="submit"
+            leftIcon={<FaPowerOff />}
+            pr={{ md: 4, base: 1.5 }}
             isLoading={isLoading}
             onClick={handleSignout}
           >
-            Sign Out
+            <Text display={{ md: 'block', base: 'none' }}>Sign out</Text>
           </Button>
         </Box>
       </Flex>

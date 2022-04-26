@@ -1,13 +1,13 @@
 import MainLayout from '../components/MainLayout';
 import SecureNotesForm from '../components/SecureNotesForm';
 
-const menuItems = {
+const navItems = {
   name: 'Secure Notes',
   Form: SecureNotesForm,
 };
 
 const SecureNotes = () => {
-  return <MainLayout menuItems={menuItems} />;
+  return <MainLayout navItems={navItems} />;
 };
 
 export default SecureNotes;

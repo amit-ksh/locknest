@@ -2,7 +2,7 @@ import MainLayout from '../components/MainLayout';
 import AddressForm from '../components/AddressForm';
 import EmailForm from '../components/EmailForm';
 
-const menuItems = [
+const navItems = [
   {
     name: 'Address',
     Form: AddressForm,
@@ -14,7 +14,7 @@ const menuItems = [
 ];
 
 const PersonalInfo = () => {
-  return <MainLayout menuItems={menuItems} />;
+  return <MainLayout navItems={navItems} />;
 };
 
 export default PersonalInfo;

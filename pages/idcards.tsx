@@ -1,13 +1,13 @@
 import MainLayout from '../components/MainLayout';
 import IDCardForm from '../components/IDCardForm';
 
-const menuItems = {
+const navItems = {
   name: 'ID Card',
   Form: IDCardForm,
 };
 
 const IDCard = () => {
-  return <MainLayout menuItems={menuItems} />;
+  return <MainLayout navItems={navItems} />;
 };
 
 export default IDCard;

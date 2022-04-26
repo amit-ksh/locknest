@@ -2,7 +2,7 @@ import MainLayout from '../components/MainLayout';
 import PaymentCardForm from '../components/PaymentCardForm';
 import BankAccountForm from '../components/BankAccountForm';
 
-const menuItems = [
+const navItems = [
   {
     name: 'Credit/Debit Card',
     Form: PaymentCardForm,
@@ -14,7 +14,7 @@ const menuItems = [
 ];
 
 const Payments = () => {
-  return <MainLayout menuItems={menuItems} />;
+  return <MainLayout navItems={navItems} />;
 };
 
 export default Payments;

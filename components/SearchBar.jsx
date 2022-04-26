@@ -37,7 +37,7 @@ const SearchBar = () => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent p={4}>
+        <ModalContent py={4} px={0}>
           <ModalBody>
             <InputGroup>
               <InputLeftElement

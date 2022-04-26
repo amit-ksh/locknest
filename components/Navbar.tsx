@@ -14,7 +14,7 @@ import {
   VStack,
 } from '@chakra-ui/layout';
 import { IconButton } from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
   FaKey,
   FaCreditCard,
@@ -63,7 +63,7 @@ const Navbar = ({ toggleView, handleClick }) => {
     <VStack
       color="brand.500"
       w={{
-        lg: toggleView ? '100px' : 'full',
+        lg: 'full',
         base: !toggleView ? '100px' : 'full',
       }}
       h="full"
@@ -75,18 +75,19 @@ const Navbar = ({ toggleView, handleClick }) => {
         <Flex w="100%" justify="center" align="center">
           <IconButton
             display={{ lg: 'none', md: 'block', base: 'block' }}
-            variant="primary"
+            variant={toggleView ? 'danger' : 'primary'}
             aria-label="Open Menu"
             size="md"
-            mr={{ lg: !toggleView && 4 }}
-            icon={<HamburgerIcon />}
+            mr={{ lg: 4 }}
+            p="auto"
+            icon={toggleView ? <CloseIcon /> : <HamburgerIcon />}
             onClick={handleClick}
           />
-          <Box display={toggleView && 'none'}>
+          <Box display={{ lg: 'block', base: toggleView && 'none' }}>
             <Heading
               size="xl"
               display={{
-                lg: toggleView ? 'none' : 'block',
+                lg: 'block',
                 md: toggleView ? 'block' : 'none',
                 base: toggleView ? 'block' : 'none',
               }}
@@ -99,27 +100,27 @@ const Navbar = ({ toggleView, handleClick }) => {
 
       <Flex w="100%" justify="space-around" align="center">
         <List w="100%" spacing={2}>
-          {navMenu.map((menu) => (
+          {navMenu.map((item) => (
             <ListItem
               w="100%"
-              key={menu.name}
-              fontSize={{ lg: 'xl', md: 'lg', base: 'lg' }}
+              key={item.name}
+              fontSize="xl"
               fontWeight="bold"
               _hover={{ bg: 'brand.400', color: 'white' }}
-              color={router.asPath === menu.route ? 'white' : ''}
-              bg={router.asPath === menu.route ? 'brand.500' : ''}
+              color={router.asPath === item.route ? 'white' : ''}
+              bg={router.asPath === item.route ? 'brand.500' : ''}
               boxShadow="lg"
               rounded="md"
               mb={2}
             >
               <LinkBox py="10px" px="20px">
-                <NextLink href={menu.route} passHref>
+                <NextLink href={item.route} passHref>
                   <LinkOverlay
                     display="flex"
                     justifyItems="center"
                     alignItems="center"
                   >
-                    <ListIcon as={menu.icon} ml={1} mr={4} />
+                    <ListIcon as={item.icon} ml={1} mr={4} />
                     <Text
                       display={{
                         lg: 'block',
@@ -127,7 +128,7 @@ const Navbar = ({ toggleView, handleClick }) => {
                         base: toggleView ? 'block' : 'none',
                       }}
                     >
-                      {menu.name}
+                      {item.name}
                     </Text>
                   </LinkOverlay>
                 </NextLink>
