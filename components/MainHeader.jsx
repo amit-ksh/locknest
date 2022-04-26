@@ -14,7 +14,7 @@ import { auth } from '../lib/mutations';
 import AddNewItem from './AddNewItem';
 import SearchBar from './SearchBar';
 
-const MainHeader = ({ menuItems }) => {
+const MainHeader = ({ navItems }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -44,7 +44,7 @@ const MainHeader = ({ menuItems }) => {
                   Add
                 </MenuButton>
                 <MenuList>
-                  {menuItems.map((item) => (
+                  {navItems.map((item) => (
                     <AddNewItem key={item.name} item={item} />
                   ))}
                 </MenuList>

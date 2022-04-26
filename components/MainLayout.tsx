@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Navbar from './Navbar';
 import MainHeader from './MainHeader';
 
-const MainLayout = ({ menuItems }) => {
+const MainLayout = ({ navItems }) => {
   const [toggleView, setToggleView] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ const MainLayout = ({ menuItems }) => {
           />
         </Box>
         <Box flexBasis="100%">
-          <MainHeader menuItems={menuItems} />
+          <MainHeader navItems={navItems} />
           <Divider />
         </Box>
       </Flex>
