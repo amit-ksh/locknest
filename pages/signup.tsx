@@ -10,7 +10,7 @@ const Signup = () => {
       <Box h="10%">
         <Header />
       </Box>
-      <Flex h="90%" direction={{ base: 'column', md: 'row-reverse' }}>
+      <Flex h="92%" mt="-1%" direction={{ base: 'column', md: 'row-reverse' }}>
         <Box flexBasis="50%">
           <SignupForm />
         </Box>
