@@ -1,13 +1,13 @@
 import MainLayout from '../components/MainLayout';
 import PasswordFrom from '../components/PasswordForm';
 
-const navItems = {
+const addItemsList = {
   name: 'Password',
   Form: PasswordFrom,
 };
 
 const Password = () => {
-  return <MainLayout navItems={navItems} />;
+  return <MainLayout addItemsList={addItemsList} />;
 };
 
 export default Password;

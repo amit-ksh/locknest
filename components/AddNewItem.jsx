@@ -5,7 +5,11 @@ const AddNewItem = ({ item }) => {
 
   return (
     <>
-      <MenuItem onClick={onOpen} _hover={{ color: 'white', bg: 'brand.400' }}>
+      <MenuItem
+        onClick={onOpen}
+        _hover={{ color: 'white', bg: 'brand.400' }}
+        _focus={{ color: 'white', bg: 'brand.400' }}
+      >
         {item.name}
       </MenuItem>
 

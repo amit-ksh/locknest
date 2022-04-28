@@ -45,7 +45,7 @@ const SearchBar = () => {
                 children={<SearchIcon htmlFor="search" color="brand.400" />}
               />
               <Input id="search" type="text" placeholder="Search" />
-            </InputGroup>{' '}
+            </InputGroup>
           </ModalBody>
         </ModalContent>
       </Modal>

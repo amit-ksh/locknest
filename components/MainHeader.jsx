@@ -16,7 +16,7 @@ import { auth } from '../lib/mutations';
 import AddNewItem from './AddNewItem';
 import SearchBar from './SearchBar';
 
-const MainHeader = ({ navItems }) => {
+const MainHeader = ({ addItemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -35,7 +35,7 @@ const MainHeader = ({ navItems }) => {
       <Flex justify="space-between" alignItems="center">
         <Flex flexBasis="60%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}
-          {navItems.length !== undefined ? (
+          {addItemsList.length !== undefined ? (
             <Box>
               <Menu>
                 <MenuButton
@@ -46,8 +46,8 @@ const MainHeader = ({ navItems }) => {
                 >
                   <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </MenuButton>
-                <MenuList>
-                  {navItems.map((item) => (
+                <MenuList bg="brand.500">
+                  {addItemsList.map((item) => (
                     <AddNewItem key={item.name} item={item} />
                   ))}
                 </MenuList>
@@ -66,7 +66,7 @@ const MainHeader = ({ navItems }) => {
                 </Button>
               </ButtonGroup>
 
-              <navItems.Form isOpen={isOpen} onClose={onClose} />
+              <addItemsList.Form isOpen={isOpen} onClose={onClose} />
             </Box>
           )}
 
