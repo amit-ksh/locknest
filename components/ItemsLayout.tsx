@@ -42,7 +42,7 @@ const ItemsLayout = ({ items }) => {
   };
 
   return (
-    <Box>
+    <Box p={4}>
       {items.map((item) => (
         <Items key={item.name} name={item.name} items={getItems(item.name)} />
       ))}

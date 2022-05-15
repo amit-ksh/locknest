@@ -1,24 +1,40 @@
-import { Box } from '@chakra-ui/layout';
+import { Box, Drawer, DrawerContent, useDisclosure } from '@chakra-ui/react';
 
 import ItemsLayout from './ItemsLayout';
-
-import SidebarWithHeader from './SidebarWithHeader';
+import MainHeaderLayout from './MainHeaderLayout';
+import Sidebar from './Sidebar';
 
 const MainLayout = ({ addItemsList }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Box w="100%" h="100vh" p={0}>
-      <Box>
-        <SidebarWithHeader addItemsList={addItemsList} />
-      </Box>
-      <Box
-        position="absolute"
-        left={60}
-        w="100%"
-        h="89%"
-        p={4}
-        overflowY="scroll"
+    <Box minH="100%" bg="gray.100">
+      <Sidebar
+        onClose={() => onClose}
+        display={{ base: 'none', md: 'block' }}
+      />
+      <Drawer
+        autoFocus={false}
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        returnFocusOnClose={false}
+        onOverlayClick={onClose}
+        size="sm"
       >
-        <ItemsLayout items={addItemsList} />
+        <DrawerContent>
+          <Sidebar onClose={onClose} />
+        </DrawerContent>
+      </Drawer>
+      {/* Header In Top */}
+      <MainHeaderLayout addItemsList={addItemsList} onOpen={onOpen} />
+
+      {/* User Content */}
+      <Box minH="89vh" ml={{ base: 0, md: 60 }} p={4}>
+        {/* <ItemsLayout items={addItemsList} /> */}
+        {new Array(10).fill(1).map((_, idx) => (
+          <Box key={idx}>Item {idx + 1}</Box>
+        ))}
       </Box>
     </Box>
   );
