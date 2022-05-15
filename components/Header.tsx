@@ -6,9 +6,16 @@ const Header = () => {
   const router = useRouter();
 
   return (
-    <Flex p={4} px={20} bg="brand.500" color="white" justify="space-between">
+    <Flex
+      p={4}
+      px={20}
+      bg="brand.500"
+      color="white"
+      justify="space-between"
+      align="center"
+    >
       <Heading size="xl">LockNest</Heading>
-      <Text fontSize="24px">
+      <Text fontSize={{ base: 18, md: '24px' }}>
         <NextLink
           href={{
             pathname: router.asPath === '/signin' ? '/signup' : '/signin',

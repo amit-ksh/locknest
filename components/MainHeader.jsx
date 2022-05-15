@@ -9,7 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaPowerOff } from 'react-icons/fa';
 import { auth } from '../lib/mutations';
 
@@ -35,7 +35,7 @@ const MainHeader = ({ addItemsList }) => {
       <Flex justify="space-between" alignItems="center">
         <Flex flexBasis="60%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}
-          {addItemsList.length !== undefined ? (
+          {addItemsList.length > 1 ? (
             <Box>
               <Menu>
                 <MenuButton
@@ -65,8 +65,14 @@ const MainHeader = ({ addItemsList }) => {
                   <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </Button>
               </ButtonGroup>
-
-              <addItemsList.Form isOpen={isOpen} onClose={onClose} />
+              {/* 
+                  This will run only once. We have to do this because we can't access the 
+                  'Form' component using this way 'addItemsList[0].Form. Mapping the list array 
+                  allow us to access the item 'Form' without indexing.
+                */}
+              {addItemsList.map((item) => (
+                <item.Form key={item.name} isOpen={isOpen} onClose={onClose} />
+              ))}
             </Box>
           )}
 

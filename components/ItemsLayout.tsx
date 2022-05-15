@@ -1,0 +1,53 @@
+import { Box } from '@chakra-ui/layout';
+
+import {
+  useAddresses,
+  useBankAccounts,
+  useEmails,
+  useIDCards,
+  usePasswords,
+  usePaymentCards,
+  useSecureNotes,
+} from '../lib/hooks';
+import Items from './Items';
+
+const ItemsLayout = ({ items }) => {
+  const { passwords } = usePasswords();
+  const { secureNotes } = useSecureNotes();
+  const { bankAccounts } = useBankAccounts();
+  const { paymentCards } = usePaymentCards();
+  const { addresses } = useAddresses();
+  const { emails } = useEmails();
+  const { IDCards } = useIDCards();
+
+  const getItems = (name) => {
+    const val = name.toLowerCase().split(' ').join('');
+
+    switch (val) {
+      case 'password':
+        return passwords;
+      case 'securenotes':
+        return secureNotes;
+      case 'bankaccount':
+        return bankAccounts;
+      case 'paymentcard':
+        return paymentCards;
+      case 'address':
+        return addresses;
+      case 'email':
+        return emails;
+      case 'idcard':
+        return IDCards;
+    }
+  };
+
+  return (
+    <Box>
+      {items.map((item) => (
+        <Items key={item.name} name={item.name} items={getItems(item.name)} />
+      ))}
+    </Box>
+  );
+};
+
+export default ItemsLayout;

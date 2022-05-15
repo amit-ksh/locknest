@@ -1,8 +1,8 @@
 import useSWR from 'swr';
 import fetcher from './fetcher';
 
-export const usePassword = () => {
-  const { data, error } = useSWR('/passwords', fetcher);
+export const usePasswords = () => {
+  const { data, error } = useSWR('/items/password', fetcher);
 
   return {
     passwords: (data as any) || [],
@@ -12,7 +12,7 @@ export const usePassword = () => {
 };
 
 export const useSecureNotes = () => {
-  const { data, error } = useSWR('/securenotes', fetcher);
+  const { data, error } = useSWR('/items/secureNote', fetcher);
 
   return {
     secureNotes: (data as any) || [],
@@ -22,7 +22,7 @@ export const useSecureNotes = () => {
 };
 
 export const usePaymentCards = () => {
-  const { data, error } = useSWR('/paymentcards', fetcher);
+  const { data, error } = useSWR('/items/paymentCard', fetcher);
 
   return {
     paymentCards: (data as any) || [],
@@ -32,7 +32,7 @@ export const usePaymentCards = () => {
 };
 
 export const useBankAccounts = () => {
-  const { data, error } = useSWR('/bankAccounts', fetcher);
+  const { data, error } = useSWR('/items/bankAccount', fetcher);
 
   return {
     bankAccounts: (data as any) || [],
@@ -42,7 +42,7 @@ export const useBankAccounts = () => {
 };
 
 export const useEmails = () => {
-  const { data, error } = useSWR('/emails', fetcher);
+  const { data, error } = useSWR('/items/email', fetcher);
 
   return {
     emails: (data as any) || [],
@@ -52,7 +52,7 @@ export const useEmails = () => {
 };
 
 export const useAddresses = () => {
-  const { data, error } = useSWR('/addresses', fetcher);
+  const { data, error } = useSWR('/items/address', fetcher);
 
   return {
     addresses: (data as any) || [],
@@ -62,7 +62,7 @@ export const useAddresses = () => {
 };
 
 export const useIDCards = () => {
-  const { data, error } = useSWR('/idcards', fetcher);
+  const { data, error } = useSWR('/items/idCard', fetcher);
 
   return {
     IDCards: (data as any) || [],

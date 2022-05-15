@@ -1,4 +1,3 @@
-import { useToast } from '@chakra-ui/react';
 import emailValidator from 'email-validator';
 import PasswordValidator from 'password-validator';
 

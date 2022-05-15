@@ -17,7 +17,7 @@ const addItemsList = [
     Form: SecureNotesForm,
   },
   {
-    name: 'Credit/Debit Card',
+    name: 'Payment card',
     Form: PaymentCardForm,
   },
   {
