@@ -31,10 +31,7 @@ const MainLayout = ({ addItemsList }) => {
 
       {/* User Content */}
       <Box minH="89vh" ml={{ base: 0, md: 60 }} p={4}>
-        {/* <ItemsLayout items={addItemsList} /> */}
-        {new Array(10).fill(1).map((_, idx) => (
-          <Box key={idx}>Item {idx + 1}</Box>
-        ))}
+        <ItemsLayout itemNames={addItemsList} />
       </Box>
     </Box>
   );

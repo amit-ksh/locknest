@@ -31,7 +31,7 @@ const MainHeader = ({ addItemsList }) => {
   };
 
   return (
-    <Box w="100%" p={5} pt={7}>
+    <Box w="100%" p={5}>
       <Flex justify="space-between" alignItems="center">
         <Flex flexBasis="60%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}

@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/layout';
+import { Box, Heading } from '@chakra-ui/layout';
 
 import {
   useAddresses,
@@ -11,7 +11,7 @@ import {
 } from '../lib/hooks';
 import Items from './Items';
 
-const ItemsLayout = ({ items }) => {
+const ItemsLayout = ({ itemNames }) => {
   const { passwords } = usePasswords();
   const { secureNotes } = useSecureNotes();
   const { bankAccounts } = useBankAccounts();
@@ -43,8 +43,13 @@ const ItemsLayout = ({ items }) => {
 
   return (
     <Box p={4}>
-      {items.map((item) => (
-        <Items key={item.name} name={item.name} items={getItems(item.name)} />
+      {itemNames.map((item, idx) => (
+        <Box key={`${item.name}`}>
+          <Heading as="h3" size="lg" mb={2} color="brand.500" letterSpacing={1}>
+            {item.name}
+          </Heading>
+          <Items items={getItems(item.name)} Form={item.Form} />
+        </Box>
       ))}
     </Box>
   );
