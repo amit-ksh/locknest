@@ -1,7 +1,7 @@
 import MainLayout from '../components/MainLayout';
 import SecureNotesForm from '../components/SecureNotesForm';
 
-const addItemsList = [
+const itemsList = [
   {
     name: 'Secure Notes',
     Form: SecureNotesForm,
@@ -9,7 +9,7 @@ const addItemsList = [
 ];
 
 const SecureNotes = () => {
-  return <MainLayout addItemsList={addItemsList} />;
+  return <MainLayout itemsList={itemsList} />;
 };
 
 export default SecureNotes;

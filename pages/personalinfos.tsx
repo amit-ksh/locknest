@@ -2,7 +2,7 @@ import MainLayout from '../components/MainLayout';
 import AddressForm from '../components/AddressForm';
 import EmailForm from '../components/EmailForm';
 
-const addItemsList = [
+const itemsList = [
   {
     name: 'Address',
     Form: AddressForm,
@@ -14,7 +14,7 @@ const addItemsList = [
 ];
 
 const PersonalInfo = () => {
-  return <MainLayout addItemsList={addItemsList} />;
+  return <MainLayout itemsList={itemsList} />;
 };
 
 export default PersonalInfo;

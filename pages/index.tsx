@@ -7,7 +7,7 @@ import AddressForm from '../components/AddressForm';
 import EmailForm from '../components/EmailForm';
 import IDCardForm from '../components/IDCardForm';
 
-const addItemsList = [
+const itemsList = [
   {
     name: 'Password',
     Form: PasswordFrom,
@@ -39,7 +39,7 @@ const addItemsList = [
 ];
 
 const Home = () => {
-  return <MainLayout addItemsList={addItemsList} />;
+  return <MainLayout itemsList={itemsList} />;
 };
 
 export default Home;

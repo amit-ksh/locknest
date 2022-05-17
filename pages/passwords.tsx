@@ -1,7 +1,7 @@
 import MainLayout from '../components/MainLayout';
 import PasswordFrom from '../components/PasswordForm';
 
-const addItemsList = [
+const itemsList = [
   {
     name: 'Password',
     Form: PasswordFrom,
@@ -9,7 +9,7 @@ const addItemsList = [
 ];
 
 const Password = () => {
-  return <MainLayout addItemsList={addItemsList} />;
+  return <MainLayout itemsList={itemsList} />;
 };
 
 export default Password;

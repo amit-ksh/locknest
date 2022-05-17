@@ -1,7 +1,7 @@
 import MainLayout from '../components/MainLayout';
 import IDCardForm from '../components/IDCardForm';
 
-const addItemsList = [
+const itemsList = [
   {
     name: 'ID Card',
     Form: IDCardForm,
@@ -9,7 +9,7 @@ const addItemsList = [
 ];
 
 const IDCard = () => {
-  return <MainLayout addItemsList={addItemsList} />;
+  return <MainLayout itemsList={itemsList} />;
 };
 
 export default IDCard;

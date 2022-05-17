@@ -2,7 +2,7 @@ import MainLayout from '../components/MainLayout';
 import PaymentCardForm from '../components/PaymentCardForm';
 import BankAccountForm from '../components/BankAccountForm';
 
-const addItemsList = [
+const itemsList = [
   {
     name: 'Credit/Debit Card',
     Form: PaymentCardForm,
@@ -14,7 +14,7 @@ const addItemsList = [
 ];
 
 const Payments = () => {
-  return <MainLayout addItemsList={addItemsList} />;
+  return <MainLayout itemsList={itemsList} />;
 };
 
 export default Payments;

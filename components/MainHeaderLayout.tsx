@@ -3,21 +3,22 @@ import { IconButton } from '@chakra-ui/react';
 import { FiMenu } from 'react-icons/fi';
 import MainHeader from './MainHeader';
 
-const MainHeaderLayout = ({ addItemsList, onOpen }) => {
+const MainHeaderLayout = ({ itemsList, onOpen }) => {
   return (
     <Flex
+      zIndex={5}
       pos="sticky"
       ml={{ base: 0, md: 60 }}
       px={{ base: 4, md: 4 }}
-      top="0"
-      height="20"
-      alignItems="center"
+      top={0}
+      height={20}
       bg="white"
       color="white"
-      justifyContent={{ base: 'space-between' }}
+      align="center"
+      gap={4}
     >
       <IconButton
-        mr="4"
+        mx={4}
         display={{ base: 'flex', md: 'none' }}
         color="brand.500"
         onClick={onOpen}
@@ -26,7 +27,7 @@ const MainHeaderLayout = ({ addItemsList, onOpen }) => {
         icon={<FiMenu />}
       />
 
-      <MainHeader addItemsList={addItemsList} />
+      <MainHeader itemsList={itemsList} />
     </Flex>
   );
 };

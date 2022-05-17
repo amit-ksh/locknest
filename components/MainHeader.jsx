@@ -16,7 +16,7 @@ import { auth } from '../lib/mutations';
 import AddNewItem from './AddNewItem';
 import SearchBar from './SearchBar';
 
-const MainHeader = ({ addItemsList }) => {
+const MainHeader = ({ itemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -35,7 +35,7 @@ const MainHeader = ({ addItemsList }) => {
       <Flex justify="space-between" alignItems="center">
         <Flex flexBasis="60%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}
-          {addItemsList.length > 1 ? (
+          {itemsList.length > 1 ? (
             <Box>
               <Menu>
                 <MenuButton
@@ -47,7 +47,7 @@ const MainHeader = ({ addItemsList }) => {
                   <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </MenuButton>
                 <MenuList bg="brand.500">
-                  {addItemsList.map((item) => (
+                  {itemsList.map((item) => (
                     <AddNewItem key={item.name} item={item} />
                   ))}
                 </MenuList>
@@ -67,10 +67,10 @@ const MainHeader = ({ addItemsList }) => {
               </ButtonGroup>
               {/* 
                   This will run only once. We have to do this because we can't access the 
-                  'Form' component using this way 'addItemsList[0].Form. Mapping the list array 
+                  'Form' component using this way 'itemsList[0].Form. Mapping the list array 
                   allow us to access the item 'Form' without indexing.
                 */}
-              {addItemsList.map((item) => (
+              {itemsList.map((item) => (
                 <item.Form key={item.name} isOpen={isOpen} onClose={onClose} />
               ))}
             </Box>

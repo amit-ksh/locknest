@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa';
 import { BsGridFill, BsFillFileEarmarkLock2Fill } from 'react-icons/bs';
 
-const LinkItems = [
+const links = [
   {
     name: 'All Items',
     icon: BsGridFill,
@@ -46,7 +46,6 @@ const LinkItems = [
 const Sidebar = ({ onClose, ...rest }) => {
   return (
     <Box
-      transition="3s ease"
       bg="white"
       borderRight="1px"
       borderRightColor="gray.200"
@@ -61,7 +60,7 @@ const Sidebar = ({ onClose, ...rest }) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
+      {links.map((link) => (
         <NavItem key={link.name} icon={link.icon} route={link.route}>
           {link.name}
         </NavItem>
