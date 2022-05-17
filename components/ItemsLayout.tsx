@@ -49,7 +49,11 @@ const ItemsLayout = ({ itemNames }) => {
           <Heading as="h3" size="lg" mb={2} color="brand.500" letterSpacing={1}>
             {item.name}
           </Heading>
-          <Items items={getItems(item.name)} Form={item.Form} />
+          <Items
+            items={getItems(item.name)}
+            type={item.name}
+            Form={item.Form}
+          />
         </Box>
       ))}
     </Box>

@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 
-import { auth } from '../lib/mutations';
+import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 
 const EmailForm = ({ isOpen, onClose, item = {} }) => {
@@ -26,7 +26,7 @@ const EmailForm = ({ isOpen, onClose, item = {} }) => {
     e.preventDefault();
 
     onClose();
-    const { success } = await auth('saveitem', {
+    const { success } = await itemCRUD('save', {
       data: { id: item.id, name, username, password },
       type: 'email',
     });

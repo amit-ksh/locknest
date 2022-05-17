@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
 
-import { auth } from '../lib/mutations';
+import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 
 const BankAccountForm = ({ isOpen, onClose, item = {} }) => {
@@ -34,7 +34,7 @@ const BankAccountForm = ({ isOpen, onClose, item = {} }) => {
     e.preventDefault();
 
     onClose();
-    const { success } = await auth('saveitem', {
+    const { success } = await itemCRUD('save', {
       data: {
         id: item.id,
         name,

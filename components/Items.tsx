@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Divider, Flex, Text } from '@chakra-ui/layout';
+import { Box, Flex, Text } from '@chakra-ui/layout';
 import {
   Button,
   IconButton,
@@ -8,12 +8,16 @@ import {
   MenuItem,
   MenuList,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import { BsThreeDots } from 'react-icons/bs';
+import { itemCRUD } from '../lib/mutations';
+import { createToast } from '../lib/form';
 
-const Items = ({ items, Form }) => {
+const Items = ({ items, type, Form }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [itemData, setItemData] = useState({});
+  const toast = useToast();
 
   const handleClick = (item) => {
     setItemData(item);
@@ -24,8 +28,19 @@ const Items = ({ items, Form }) => {
     onClose();
   };
 
-  const handleDelete = (item) => {
-    console.log('deleting item');
+  const handleDelete = async (item) => {
+    onClose();
+    const { success } = await itemCRUD('delete', {
+      data: { id: item.id },
+      type,
+    });
+
+    const itemName = type[0].toUpperCase() + type.slice(1);
+    if (success) {
+      createToast(toast, `${itemName} Deleted.`, '', 'error');
+    } else {
+      createToast(toast, 'Error!', type + `${itemName} Not Deleted.`, 'error');
+    }
   };
 
   return (
