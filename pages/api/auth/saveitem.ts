@@ -1,14 +1,26 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { validateRoute } from '../../lib/auth';
-import prisma from '../../lib/prisma';
+import { validateRoute } from '../../../lib/auth';
+import prisma from '../../../lib/prisma';
 
 export default validateRoute(
   async (req: NextApiRequest, res: NextApiResponse, user) => {
     const { data, type } = req.body;
+    const id = data.id || -999999; // this never exist in DB
+
+    delete data.id;
 
     try {
-      await prisma[type].create({
-        data: {
+      await prisma[type].upsert({
+        where: {
+          id,
+        },
+        update: {
+          ...data,
+          user: {
+            connect: { id: user.id },
+          },
+        },
+        create: {
           ...data,
           user: {
             connect: { id: user.id },

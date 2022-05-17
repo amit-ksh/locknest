@@ -1,12 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { validateRoute } from '../../../lib/auth';
-import getItems from '../../../lib/getItems';
+import prisma from '../../../lib/prisma';
 
 export default validateRoute(
   async (req: NextApiRequest, res: NextApiResponse, user) => {
-    const { name } = req.query;
+    const name: any = req.query.name;
 
-    const addresses = await getItems(user.id, name);
-    res.json(addresses);
+    const items = await prisma[name].findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        name: 'asc',
+      },
+    });
+    res.json(items);
   }
 );

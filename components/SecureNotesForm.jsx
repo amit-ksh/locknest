@@ -9,7 +9,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
@@ -17,7 +17,7 @@ import NotesInputField from './NotesInputField';
 import { auth } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 
-const SecureNotesForm = ({ isOpen, onClose }) => {
+const SecureNotesForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const toast = useToast();
@@ -27,7 +27,7 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
 
     onClose();
     const { success } = await auth('saveitem', {
-      data: { name, notes },
+      data: { id: item.id, name, notes },
       type: 'secureNote',
     });
 
@@ -40,8 +40,18 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
     reset([setName, setNotes]);
   };
 
+  const handleClose = () => {
+    reset([setName, setNotes]);
+    onClose();
+  };
+
+  useEffect(() => {
+    setName(item.name || name);
+    setNotes(item.notes || notes);
+  }, [item]);
+
   return (
-    <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer isOpen={isOpen} placement="right" size="md" onClose={handleClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader
@@ -76,7 +86,7 @@ const SecureNotesForm = ({ isOpen, onClose }) => {
         </DrawerBody>
 
         <DrawerFooter borderTopWidth="1px">
-          <Button variant="danger" mr={3} onClick={onClose}>
+          <Button variant="danger" mr={3} onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" type="submit" form="add-notes-form">

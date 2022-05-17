@@ -9,14 +9,14 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 
 import { auth } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 
-const AddressForm = ({ isOpen, onClose }) => {
+const AddressForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
   const [addressLine1, setAddressLine1] = useState('');
   const [addressLine2, setAddressLine2] = useState('');
@@ -33,6 +33,7 @@ const AddressForm = ({ isOpen, onClose }) => {
     onClose();
     const { success } = await auth('saveitem', {
       data: {
+        id: item.id,
         name,
         addressLine1,
         addressLine2,
@@ -62,8 +63,33 @@ const AddressForm = ({ isOpen, onClose }) => {
     ]);
   };
 
+  const handleClose = () => {
+    reset([
+      setName,
+      setAddressLine1,
+      setAddressLine2,
+      setAddressLine3,
+      setCity,
+      setState,
+      setPinCode,
+      setCountry,
+    ]);
+    onClose();
+  };
+
+  useEffect(() => {
+    setName(item.name || name);
+    setAddressLine1(item.addressLine1 || addressLine1);
+    setAddressLine2(item.addressLine2 || addressLine2);
+    setAddressLine3(item.addressLine3 || addressLine3);
+    setCity(item.city || city);
+    setState(item.state || state);
+    setPinCode(item.pinCode || pinCode);
+    setCountry(item.country || country);
+  }, [item]);
+
   return (
-    <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer isOpen={isOpen} placement="right" size="md" onClose={handleClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader
@@ -148,7 +174,7 @@ const AddressForm = ({ isOpen, onClose }) => {
         </DrawerBody>
 
         <DrawerFooter borderTopWidth="1px">
-          <Button variant="danger" mr={3} onClick={onClose}>
+          <Button variant="danger" mr={3} onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" type="submit" form="add-address-form">

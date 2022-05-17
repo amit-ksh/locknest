@@ -9,7 +9,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
@@ -17,7 +17,7 @@ import NotesInputField from './NotesInputField';
 import { auth } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 
-const PasswordForm = ({ isOpen, onClose }) => {
+const PasswordForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [username, setUsername] = useState('');
@@ -30,7 +30,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
 
     onClose();
     const { success } = await auth('saveitem', {
-      data: { name, url, username, password, notes },
+      data: { id: item.id, name, url, username, password, notes },
       type: 'password',
     });
 
@@ -43,8 +43,21 @@ const PasswordForm = ({ isOpen, onClose }) => {
     reset([setName, setUrl, setUsername, setPassword, setNotes]);
   };
 
+  const handleClose = () => {
+    reset([setName, setUrl, setUsername, setPassword, setNotes]);
+    onClose();
+  };
+
+  useEffect(() => {
+    setName(item.name || name);
+    setUrl(item.url || url);
+    setUsername(item.username || username);
+    setPassword(item.password || password);
+    setNotes(item.notes || notes);
+  }, [item]);
+
   return (
-    <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer isOpen={isOpen} placement="right" size="md" onClose={handleClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader
@@ -104,7 +117,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
         </DrawerBody>
 
         <DrawerFooter borderTopWidth="1px">
-          <Button variant="danger" mr={3} onClick={onClose}>
+          <Button variant="danger" mr={3} onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" type="submit" form="add-password-form">

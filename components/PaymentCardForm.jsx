@@ -9,7 +9,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
@@ -17,7 +17,7 @@ import NotesInputField from './NotesInputField';
 import { auth } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 
-const PasswordForm = ({ isOpen, onClose }) => {
+const PasswordForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
   const [holderName, setHolderName] = useState('');
   const [cardName, setCardName] = useState('');
@@ -33,6 +33,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
     onClose();
     const { success } = await auth('saveitem', {
       data: {
+        id: item.id,
         name,
         holderName,
         cardName,
@@ -61,8 +62,31 @@ const PasswordForm = ({ isOpen, onClose }) => {
     ]);
   };
 
+  const handleClose = () => {
+    reset([
+      setName,
+      setHolderName,
+      setCardName,
+      setCardNumber,
+      setCVV,
+      setExpirationDate,
+      setNotes,
+    ]);
+    onClose();
+  };
+
+  useEffect(() => {
+    setName(item.name || name);
+    setHolderName(item.holderName || holderName);
+    setCardName(item.cardName || cardName);
+    setCardNumber(item.cardNumber || cardNumber);
+    setCVV(item.CVV || CVV);
+    setExpirationDate(item.expirationDate || expirationDate);
+    setNotes(item.notes || notes);
+  }, [item]);
+
   return (
-    <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer isOpen={isOpen} placement="right" size="md" onClose={handleClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader
@@ -137,7 +161,7 @@ const PasswordForm = ({ isOpen, onClose }) => {
         </DrawerBody>
 
         <DrawerFooter borderTopWidth="1px">
-          <Button variant="danger" mr={3} onClick={onClose}>
+          <Button variant="danger" mr={3} onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" type="submit" form="add-payment-card-form">

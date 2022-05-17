@@ -9,14 +9,14 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 
 import { auth } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 
-const IDCardForm = ({ isOpen, onClose }) => {
+const IDCardForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [number, setNumber] = useState('');
@@ -32,6 +32,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
     onClose();
     const { success } = await auth('saveitem', {
       data: {
+        id: item.id,
         name,
         type,
         number,
@@ -60,8 +61,31 @@ const IDCardForm = ({ isOpen, onClose }) => {
     ]);
   };
 
+  const handleClose = () => {
+    reset([
+      setName,
+      setType,
+      setNumber,
+      setIssueDate,
+      setExpirationDate,
+      setCountry,
+      setPlaceOfIssue,
+    ]);
+    onClose();
+  };
+
+  useEffect(() => {
+    setName(item.name || name);
+    setType(item.type || type);
+    setNumber(item.number || number);
+    setIssueDate(item.issueDate || issueDate);
+    setExpirationDate(item.expirationDate || expirationDate);
+    setCountry(item.country || country);
+    setPlaceOfIssue(item.placeOfIssue || placeOfIssue);
+  }, [item]);
+
   return (
-    <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer isOpen={isOpen} placement="right" size="md" onClose={handleClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader
@@ -138,7 +162,7 @@ const IDCardForm = ({ isOpen, onClose }) => {
         </DrawerBody>
 
         <DrawerFooter borderTopWidth="1px">
-          <Button variant="danger" mr={3} onClick={onClose}>
+          <Button variant="danger" mr={3} onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" type="submit" form="add-id-card-form">

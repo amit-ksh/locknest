@@ -14,7 +14,7 @@ const MainLayout = ({ itemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box bg="gray.100" w="100vw" h="100vh">
+    <Box bg="gray.100" minW="100vw" minH="100vh">
       <Sidebar onClose={onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         autoFocus={false}
