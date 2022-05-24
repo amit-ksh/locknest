@@ -13,11 +13,29 @@ import {
 import { BsThreeDots } from 'react-icons/bs';
 import { itemCRUD } from '../lib/mutations';
 import { createToast } from '../lib/form';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
-const Items = ({ items, type, Form }) => {
+const itemNames = {
+  password: 'passwords',
+  securenotes: 'secureNotes',
+  paymentcard: 'paymentCards',
+  bankaccount: 'bankAccounts',
+  email: 'emails',
+  address: 'addresses',
+  idcard: 'idCards',
+};
+
+const returnItemPuralName = (name) => {
+  return itemNames[name.toLowerCase().split(' ').join('')];
+};
+
+const Items = ({ type, Form }) => {
+  const items = useStoreState((state) => state[returnItemPuralName(type)]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [itemData, setItemData] = useState({});
   const toast = useToast();
+
+  const deleteItem = useStoreActions((actions: any) => actions.deleteItem);
 
   const handleClick = (item) => {
     setItemData(item);
@@ -30,23 +48,30 @@ const Items = ({ items, type, Form }) => {
 
   const handleDelete = async (item) => {
     onClose();
-    const { success } = await itemCRUD('delete', {
-      data: { id: item.id },
-      type,
-    });
+    let itemName = type.split(' ').join('');
+    itemName = itemName[0].toLowerCase() + itemName.slice(1);
 
-    const itemName = type[0].toUpperCase() + type.slice(1);
-    if (success) {
-      createToast(toast, `${itemName} Deleted.`, '', 'error');
-    } else {
-      createToast(toast, 'Error!', type + `${itemName} Not Deleted.`, 'error');
+    try {
+      const { id, error } = await itemCRUD('delete', {
+        data: { id: item.id },
+        type: itemName,
+      });
+
+      if (id) {
+        deleteItem({ itemName, item });
+        createToast(toast, `${type} Deleted.`, '', 'error');
+      } else {
+        createToast(toast, 'Error!', error.cause, 'error');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
   };
 
   return (
     <Box mb={4}>
       {/* Items */}
-      {!items.error &&
+      {items &&
         items.map((item, idx) => (
           <Flex
             key={`${item.name}${idx}`}

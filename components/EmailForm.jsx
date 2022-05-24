@@ -15,6 +15,7 @@ import InputBox from './InputBox';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
+import { useStoreActions } from 'easy-peasy';
 
 const EmailForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
@@ -22,19 +23,33 @@ const EmailForm = ({ isOpen, onClose, item = {} }) => {
   const [password, setPassword] = useState('');
   const toast = useToast();
 
+  const saveItem = useStoreActions((actions) => actions.saveItem);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = { id: item.id, name, username, password };
+    const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
     onClose();
-    const { success } = await itemCRUD('save', {
-      data: { id: item.id, name, username, password },
-      type: 'email',
-    });
 
-    if (success) {
-      createToast(toast, 'Email Saved.');
-    } else {
-      createToast(toast, 'Error!', 'Email Not Saved', 'error');
+    try {
+      const { id, error } = await itemCRUD('save', {
+        data,
+        type: 'email',
+      });
+
+      if (id) {
+        saveItem({
+          item: { ...data, id },
+          actionName,
+          itemName: 'email',
+        });
+        createToast(toast, 'Email Saved.');
+      } else {
+        createToast(toast, 'Error!', error.cause, 'error');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
 
     reset([setName, setUsername, setPassword]);

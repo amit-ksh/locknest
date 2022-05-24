@@ -15,6 +15,7 @@ import InputBox from './InputBox';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
+import { useStoreActions } from 'easy-peasy';
 
 const IDCardForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
@@ -26,28 +27,42 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
   const [placeOfIssue, setPlaceOfIssue] = useState('');
   const toast = useToast();
 
+  const saveItem = useStoreActions((actions) => actions.saveItem);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = {
+      id: item.id,
+      name,
+      type,
+      number,
+      issueDate,
+      expirationDate,
+      country,
+      placeOfIssue,
+    };
+    const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
     onClose();
-    const { success } = await itemCRUD('save', {
-      data: {
-        id: item.id,
-        name,
-        type,
-        number,
-        issueDate,
-        expirationDate,
-        country,
-        placeOfIssue,
-      },
-      type: 'idCard',
-    });
 
-    if (success) {
-      createToast(toast, 'ID Card Saved.');
-    } else {
-      createToast(toast, 'Error!', 'ID Card Not Saved', 'error');
+    try {
+      const { id, error } = await itemCRUD('save', {
+        data,
+        type: 'secureNote',
+      });
+
+      if (id) {
+        saveItem({
+          item: { ...data, id },
+          actionName,
+          itemName: 'idCard',
+        });
+        createToast(toast, 'ID Card Saved.');
+      } else {
+        createToast(toast, 'Error!', error.cause, 'error');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
 
     reset([

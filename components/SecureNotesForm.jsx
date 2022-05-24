@@ -16,25 +16,40 @@ import NotesInputField from './NotesInputField';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
+import { useStoreActions } from 'easy-peasy';
 
 const SecureNotesForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const toast = useToast();
 
+  const saveItem = useStoreActions((actions) => actions.saveItem);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = { id: item.id, name, notes };
+    const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
     onClose();
-    const { success } = await itemCRUD('save', {
-      data: { id: item.id, name, notes },
-      type: 'secureNote',
-    });
 
-    if (success) {
-      createToast(toast, 'Notes Saved.');
-    } else {
-      createToast(toast, 'Error!', 'Notes Not Saved', 'error');
+    try {
+      const { id, error } = await itemCRUD('save', {
+        data,
+        type: 'secureNote',
+      });
+
+      if (id) {
+        saveItem({
+          item: { ...data, id },
+          actionName,
+          itemName: 'secureNotes',
+        });
+        createToast(toast, 'Notes Saved.');
+      } else {
+        createToast(toast, 'Error!', error.cause, 'error');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
 
     reset([setName, setNotes]);

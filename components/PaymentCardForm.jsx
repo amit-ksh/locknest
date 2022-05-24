@@ -30,25 +30,37 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = {
+      id: item.id,
+      name,
+      holderName,
+      cardName,
+      cardNumber,
+      CVV,
+      expirationDate,
+      notes,
+    };
+    const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
     onClose();
-    const { success } = await itemCRUD('save', {
-      data: {
-        id: item.id,
-        name,
-        holderName,
-        cardName,
-        cardNumber,
-        CVV,
-        expirationDate,
-        notes,
-      },
-      type: 'paymentCard',
-    });
 
-    if (success) {
-      createToast(toast, 'Payment Card Saved.');
-    } else {
-      createToast(toast, 'Error!', 'Payment Card Details Not Saved', 'error');
+    try {
+      const { id, error } = await itemCRUD('save', {
+        data,
+        type: 'paymentCard',
+      });
+
+      if (id) {
+        saveItem({
+          item: { ...data, id },
+          actionName,
+          itemName: 'paymentcard',
+        });
+        createToast(toast, 'Payment Card Saved.');
+      } else {
+        createToast(toast, 'Error!', error.cause, 'error');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
 
     reset([

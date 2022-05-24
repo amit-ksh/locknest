@@ -16,6 +16,7 @@ import NotesInputField from './NotesInputField';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
+import { useStoreActions } from 'easy-peasy';
 
 const BankAccountForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
@@ -30,31 +31,45 @@ const BankAccountForm = ({ isOpen, onClose, item = {} }) => {
   const [notes, setNotes] = useState('');
   const toast = useToast();
 
+  const saveItem = useStoreActions((actions) => actions.saveItem);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     onClose();
-    const { success } = await itemCRUD('save', {
-      data: {
-        id: item.id,
-        name,
-        holderName,
-        bankName,
-        branchAddress,
-        accountType,
-        accountNo,
-        pin,
-        swiftCode,
-        ibanCode,
-        notes,
-      },
-      type: 'bankAccount',
-    });
+    const data = {
+      id: item.id,
+      name,
+      holderName,
+      bankName,
+      branchAddress,
+      accountType,
+      accountNo,
+      pin,
+      swiftCode,
+      ibanCode,
+      notes,
+    };
+    const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
 
-    if (success) {
-      createToast(toast, 'Bank Account Details Saved.');
-    } else {
-      createToast(toast, 'Error!', 'Bank Account Details Not Saved', 'error');
+    try {
+      const { id, error } = await itemCRUD('save', {
+        data,
+        type: 'bankAccount',
+      });
+
+      if (id) {
+        saveItem({
+          item: { ...data, id },
+          actionName,
+          itemName: 'bankaccount',
+        });
+        createToast(toast, 'Bank Account Details Saved.');
+      } else {
+        createToast(toast, 'Error!', error.cause, 'error');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
 
     reset([

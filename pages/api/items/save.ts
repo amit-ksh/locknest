@@ -5,12 +5,12 @@ import prisma from '../../../lib/prisma';
 export default validateRoute(
   async (req: NextApiRequest, res: NextApiResponse, user) => {
     const { data, type } = req.body;
-    const id = data.id || -999999; // this never exist in DB
+    let id = data.id || -999999; // this id never exist in DB
 
     delete data.id;
 
     try {
-      await prisma[type].upsert({
+      id = await prisma[type].upsert({
         where: {
           id,
         },
@@ -28,12 +28,12 @@ export default validateRoute(
         },
       });
 
-      res.json({ success: true });
+      res.json({ id });
     } catch (e) {
       console.log(e);
 
       res.status(500);
-      res.json({ error: 'Item Not Saved' });
+      res.json({ error: e.meta });
       return;
     }
   }

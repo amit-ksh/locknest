@@ -15,6 +15,7 @@ import InputBox from './InputBox';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
+import { useStoreActions } from 'easy-peasy';
 
 const AddressForm = ({ isOpen, onClose, item = {} }) => {
   const [name, setName] = useState('');
@@ -27,28 +28,43 @@ const AddressForm = ({ isOpen, onClose, item = {} }) => {
   const [country, setCountry] = useState('');
   const toast = useToast();
 
+  const saveItem = useStoreActions((actions) => actions.saveItem);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = {
+      id: item.id,
+      name,
+      addressLine1,
+      addressLine2,
+      addressLine3,
+      city,
+      state,
+      pinCode,
+      country,
+    };
+    const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
     onClose();
-    const { success } = await itemCRUD('save', {
-      data: {
-        id: item.id,
-        name,
-        addressLine1,
-        addressLine2,
-        addressLine3,
-        city,
-        state,
-        pinCode,
-        country,
-      },
-      type: 'address',
-    });
-    if (success) {
-      createToast(toast, 'Address Saved.');
-    } else {
-      createToast(toast, 'Error!', 'Address Not Saved', 'error');
+
+    try {
+      const { id, error } = await itemCRUD('save', {
+        data,
+        type: 'address',
+      });
+
+      if (id) {
+        saveItem({
+          item: { ...data, id },
+          actionName,
+          itemName: 'address',
+        });
+        createToast(toast, 'Address Saved.');
+      } else {
+        createToast(toast, 'Error!', error.cause, 'error');
+      }
+    } catch (e) {
+      console.log(e.message);
     }
 
     reset([
