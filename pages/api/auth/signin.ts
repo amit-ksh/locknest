@@ -37,7 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       })
     );
 
-    res.json({ user });
+    res.json({ user: { id: user.id, email: user.email } });
   } else {
     res.status(401);
     res.json({ error: 'Incorrect Credentials.' });

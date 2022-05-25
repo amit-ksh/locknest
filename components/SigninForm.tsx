@@ -15,14 +15,16 @@ import { useState } from 'react';
 import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
 import { createToast, checkEmail, validate } from '../lib/form';
+import { useStoreActions } from 'easy-peasy';
 
 const SigninForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailNotValid, setIsEmailNotValid] = useState(true);
+  const [isEmailNotValid, setIsEmailNotValid] = useState(false);
   const router = useRouter();
   const toast = useToast();
+  const setUser = useStoreActions((actions: any) => actions.setUser);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -49,6 +51,7 @@ const SigninForm = () => {
       return;
     }
 
+    setUser({ user });
     router.push('/');
   };
 

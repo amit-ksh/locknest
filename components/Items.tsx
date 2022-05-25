@@ -15,22 +15,7 @@ import { itemCRUD } from '../lib/mutations';
 import { createToast } from '../lib/form';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
-const itemNames = {
-  password: 'passwords',
-  securenotes: 'secureNotes',
-  paymentcard: 'paymentCards',
-  bankaccount: 'bankAccounts',
-  email: 'emails',
-  address: 'addresses',
-  idcard: 'idCards',
-};
-
-const returnItemPuralName = (name) => {
-  return itemNames[name.toLowerCase().split(' ').join('')];
-};
-
-const Items = ({ type, Form }) => {
-  const items = useStoreState((state) => state[returnItemPuralName(type)]);
+const Items = ({ items, type, Form }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [itemData, setItemData] = useState({});
   const toast = useToast();

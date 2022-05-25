@@ -8,8 +8,9 @@ import {
   MenuList,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useStoreActions } from 'easy-peasy';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaPowerOff } from 'react-icons/fa';
 import { auth } from '../lib/mutations';
 
@@ -20,12 +21,14 @@ const MainHeader = ({ itemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const resetStore = useStoreActions((actions) => actions.resetStore);
 
   const handleSignout = async (e) => {
     e.preventDefault();
 
     setIsLoading(true);
     await auth('signout');
+    resetStore();
     setIsLoading(false);
     router.push('/signin');
   };
