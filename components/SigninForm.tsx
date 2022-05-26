@@ -10,21 +10,23 @@ import {
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
 import { createToast, checkEmail, validate } from '../lib/form';
-import { useStoreActions } from 'easy-peasy';
+import { useStoreActions, useStoreState } from 'easy-peasy';
 
 const SigninForm = () => {
+  const router = useRouter();
+  const user = useStoreState((state: any) => state.user);
+  const setUser = useStoreActions((actions: any) => actions.setUser);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailNotValid, setIsEmailNotValid] = useState(false);
-  const router = useRouter();
   const toast = useToast();
-  const setUser = useStoreActions((actions: any) => actions.setUser);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -54,6 +56,11 @@ const SigninForm = () => {
     setUser({ user });
     router.push('/');
   };
+
+  useEffect(() => {
+    if (!user) return;
+    router.push('/');
+  }, []);
 
   return (
     <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">

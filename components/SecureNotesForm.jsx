@@ -35,7 +35,7 @@ const SecureNotesForm = ({ isOpen, onClose, item = {} }) => {
     try {
       const { id, error } = await itemCRUD('save', {
         data,
-        type: 'secureNote',
+        type: 'secureNotes',
       });
 
       if (id) {

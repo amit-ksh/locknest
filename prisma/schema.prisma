@@ -18,7 +18,7 @@ model User {
   email               String        @unique
   password            String
   user_passwords      Password[]
-  user_notes          SecureNote[] 
+  user_notes          SecureNotes[] 
   user_payment_cards  PaymentCard[] 
   user_bank_accounts  BankAccount[] 
   user_emails         Email[] 
@@ -39,7 +39,7 @@ model Password {
   userId              Int
 }
 
-model SecureNote {
+model SecureNotes {
   id                  Int           @id @default(autoincrement())
   createdAt           DateTime      @default(now())
   updatedAt           DateTime      @updatedAt

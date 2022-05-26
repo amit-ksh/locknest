@@ -10,7 +10,7 @@ import {
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
@@ -20,6 +20,7 @@ import {
   checkRetypedPassword,
   validate,
 } from '../lib/form';
+import { useStoreState } from 'easy-peasy';
 
 const passwordHelpers = [
   'At least 12 character long.',
@@ -30,6 +31,9 @@ const passwordHelpers = [
 ];
 
 const SignUpForm = () => {
+  const router = useRouter();
+  const user = useStoreState((state: any) => state.user);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [retypedPassword, setRetypedPassword] = useState('');
@@ -39,7 +43,6 @@ const SignUpForm = () => {
   const [isRetypedPasswordNotValid, setIsRetypedPasswordNotValid] =
     useState(true);
   const toast = useToast();
-  const router = useRouter();
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -106,6 +109,11 @@ const SignUpForm = () => {
 
     router.push('/');
   };
+
+  useEffect(() => {
+    if (!user) return;
+    router.push('/');
+  }, []);
 
   return (
     <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">

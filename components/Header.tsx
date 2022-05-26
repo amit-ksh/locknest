@@ -15,7 +15,7 @@ const Header = () => {
       align="center"
     >
       <Heading size="xl">LockNest</Heading>
-      <Text fontSize={{ base: 18, md: '24px' }}>
+      <Text fontSize={18} textDecor="underline">
         <NextLink
           href={{
             pathname: router.asPath === '/signin' ? '/signup' : '/signin',

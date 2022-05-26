@@ -2,9 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { validateRoute } from '../../../lib/auth';
 import prisma from '../../../lib/prisma';
 
+/* 
+  TABLE_NAME: ARRAY_NAME
+*/
 const itemNames = {
   password: 'passwords',
-  secureNote: 'secureNotes',
+  secureNotes: 'secureNotes',
   paymentCard: 'paymentCards',
   bankAccount: 'bankAccounts',
   email: 'emails',
@@ -16,17 +19,22 @@ export default validateRoute(
   async (req: NextApiRequest, res: NextApiResponse, user) => {
     const items = {};
 
-    for (const name in itemNames) {
-      items[itemNames[name]] = await prisma[name].findMany({
-        where: {
-          userId: user.id,
-        },
-        orderBy: {
-          name: 'asc',
-        },
-      });
-    }
+    try {
+      for (const name in itemNames) {
+        items[itemNames[name]] = await prisma[name].findMany({
+          where: {
+            userId: user.id,
+          },
+          orderBy: {
+            name: 'asc',
+          },
+        });
+      }
 
-    res.json(items);
+      return res.json(items);
+    } catch (error) {
+      console.log(error);
+      return res.json({ error: error.meta });
+    }
   }
 );

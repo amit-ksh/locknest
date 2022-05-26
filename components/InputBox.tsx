@@ -64,9 +64,11 @@ const InputBox: FC<{
           <Heading as="h5" size="md">
             Minimum requirements:
           </Heading>
-          <SimpleGrid columns={2}>
-            {helpers.map((helper) => (
-              <FormHelperText fontSize="md">{helper}</FormHelperText>
+          <SimpleGrid columns={{ base: 1, lg: 2 }}>
+            {helpers.map((helper, idx) => (
+              <FormHelperText key={`helper-${idx + 1}`} fontSize="md">
+                {helper}
+              </FormHelperText>
             ))}
           </SimpleGrid>
         </Box>

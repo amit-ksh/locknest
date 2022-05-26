@@ -39,7 +39,7 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
       const { id } = await itemCRUD('save', { data, type: 'password' });
 
       if (id) {
-        saveItem({ item: { ...data, id }, actionName, itemName: 'password' });
+        saveItem({ item: { ...data }, actionName, itemName: 'password' });
         createToast(toast, 'Password Saved.');
       } else {
         createToast(toast, 'Error!', 'Password Not Saved', 'error');

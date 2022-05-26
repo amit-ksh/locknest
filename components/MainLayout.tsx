@@ -5,6 +5,7 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 import ItemsLayout from './ItemsLayout';
 import MainHeaderLayout from './MainHeaderLayout';
@@ -14,7 +15,7 @@ const MainLayout = ({ itemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box bg="gray.100" minW="100vw" minH="100vh">
+    <Box bg="gray.100" minW="97vw" minH="100vh">
       <Sidebar onClose={onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         autoFocus={false}
