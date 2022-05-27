@@ -9,25 +9,34 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
+import NotesInputField from './NotesInputField';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
-import { useStoreActions } from 'easy-peasy';
+import { SavePaymentCardFormPropsTypes } from '../lib/propsTypes';
+import { Actions, useStoreActions } from 'easy-peasy';
+import { StoreModel } from '../lib/model';
 
-const IDCardForm = ({ isOpen, onClose, item = {} }) => {
+const PasswordForm: FC<SavePaymentCardFormPropsTypes> = ({
+  isOpen,
+  onClose,
+  item = {},
+}) => {
   const [name, setName] = useState('');
-  const [type, setType] = useState('');
-  const [number, setNumber] = useState('');
-  const [issueDate, setIssueDate] = useState('');
+  const [holderName, setHolderName] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [CVV, setCVV] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
-  const [country, setCountry] = useState('');
-  const [placeOfIssue, setPlaceOfIssue] = useState('');
+  const [notes, setNotes] = useState('');
   const toast = useToast();
 
-  const saveItem = useStoreActions((actions) => actions.saveItem);
+  const saveItem = useStoreActions(
+    (actions: Actions<StoreModel>) => actions.saveItem
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,12 +44,12 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
     const data = {
       id: item.id,
       name,
-      type,
-      number,
-      issueDate,
+      holderName,
+      cardName,
+      cardNumber,
+      CVV,
       expirationDate,
-      country,
-      placeOfIssue,
+      notes,
     };
     const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
     onClose();
@@ -48,16 +57,16 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
     try {
       const { id, error } = await itemCRUD('save', {
         data,
-        type: 'secureNote',
+        type: 'paymentCard',
       });
 
       if (id) {
         saveItem({
           item: { ...data, id },
           actionName,
-          itemName: 'idCard',
+          itemName: 'paymentcard',
         });
-        createToast(toast, 'ID Card Saved.');
+        createToast(toast, 'Payment Card Saved.');
       } else {
         createToast(toast, 'Error!', error.cause, 'error');
       }
@@ -67,36 +76,36 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
 
     reset([
       setName,
-      setType,
-      setNumber,
-      setIssueDate,
+      setHolderName,
+      setCardName,
+      setCardNumber,
+      setCVV,
       setExpirationDate,
-      setCountry,
-      setPlaceOfIssue,
+      setNotes,
     ]);
   };
 
   const handleClose = () => {
     reset([
       setName,
-      setType,
-      setNumber,
-      setIssueDate,
+      setHolderName,
+      setCardName,
+      setCardNumber,
+      setCVV,
       setExpirationDate,
-      setCountry,
-      setPlaceOfIssue,
+      setNotes,
     ]);
     onClose();
   };
 
   useEffect(() => {
     setName(item.name || name);
-    setType(item.type || type);
-    setNumber(item.number || number);
-    setIssueDate(item.issueDate || issueDate);
+    setHolderName(item.holderName || holderName);
+    setCardName(item.cardName || cardName);
+    setCardNumber(item.cardNumber || cardNumber);
+    setCVV(item.CVV || CVV);
     setExpirationDate(item.expirationDate || expirationDate);
-    setCountry(item.country || country);
-    setPlaceOfIssue(item.placeOfIssue || placeOfIssue);
+    setNotes(item.notes || notes);
   }, [item]);
 
   return (
@@ -110,43 +119,51 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
           bg="brand.500"
           color="white"
         >
-          Add a ID card
+          Add a Payment Card
         </DrawerHeader>
 
         <DrawerBody>
-          <form id="add-id-card-form" onSubmit={handleSubmit}>
+          <form id="add-payment-card-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
                 label="Name"
                 type="text"
-                placeholder="Enter name"
+                placeholder="Enter a name"
                 value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <InputBox
-                label="Type"
+                label="Cardholder Name"
                 type="text"
-                placeholder="Enter type"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
+                placeholder="Enter cardholder name"
+                value={holderName}
+                onChange={(e) => setHolderName(e.target.value)}
               />
 
               <InputBox
-                label="Number"
+                label="Card Name"
                 type="text"
-                placeholder="Enter number"
-                value={number}
-                onChange={(e) => setNumber(e.target.value)}
+                placeholder="Enter card name"
+                value={cardName}
+                onChange={(e) => setCardName(e.target.value)}
               />
 
               <InputBox
-                label="Issue Date"
-                type="date"
-                placeholder="Select Issue Date"
-                value={issueDate}
-                onChange={(e) => setIssueDate(e.target.value)}
+                label="Card Number"
+                type="text"
+                placeholder="Enter card number"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+              />
+
+              <InputBox
+                label="CVV"
+                type="text"
+                placeholder="Enter CVV"
+                value={CVV}
+                onChange={(e) => setCVV(e.target.value)}
               />
 
               <InputBox
@@ -157,20 +174,10 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
                 onChange={(e) => setExpirationDate(e.target.value)}
               />
 
-              <InputBox
-                label="Country"
-                type="text"
-                placeholder="Enter country"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              />
-
-              <InputBox
-                label="Place of issue"
-                type="text"
-                placeholder="Enter place of issue"
-                value={placeOfIssue}
-                onChange={(e) => setPlaceOfIssue(e.target.value)}
+              <NotesInputField
+                value={notes}
+                maxH="130px"
+                onChange={(e) => setNotes(e.target.value)}
               />
             </Stack>
           </form>
@@ -180,7 +187,7 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
           <Button variant="danger" mr={3} onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" form="add-id-card-form">
+          <Button variant="primary" type="submit" form="add-payment-card-form">
             Submit
           </Button>
         </DrawerFooter>
@@ -189,4 +196,4 @@ const IDCardForm = ({ isOpen, onClose, item = {} }) => {
   );
 };
 
-export default IDCardForm;
+export default PasswordForm;

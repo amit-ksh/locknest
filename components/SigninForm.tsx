@@ -10,17 +10,20 @@ import {
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
 import { createToast, checkEmail, validate } from '../lib/form';
-import { useStoreActions, useStoreState } from 'easy-peasy';
+import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
+import { ActionModel, StateModel } from '../lib/model';
 
-const SigninForm = () => {
+const SigninForm: FC<{}> = () => {
   const router = useRouter();
-  const user = useStoreState((state: any) => state.user);
-  const setUser = useStoreActions((actions: any) => actions.setUser);
+  const user = useStoreState((state: State<StateModel>) => state.user);
+  const setUser = useStoreActions(
+    (actions: Actions<ActionModel>) => actions.setUser
+  );
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -9,21 +9,29 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
-import { useStoreActions } from 'easy-peasy';
+import { Actions, useStoreActions } from 'easy-peasy';
+import { StoreModel } from '../lib/model';
+import { SaveEmailFormPropsTypes } from '../lib/propsTypes';
 
-const EmailForm = ({ isOpen, onClose, item = {} }) => {
+const EmailForm: FC<SaveEmailFormPropsTypes> = ({
+  isOpen,
+  onClose,
+  item = {},
+}) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const toast = useToast();
 
-  const saveItem = useStoreActions((actions) => actions.saveItem);
+  const saveItem = useStoreActions(
+    (actions: Actions<StoreModel>) => actions.saveItem
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();

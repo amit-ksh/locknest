@@ -9,11 +9,19 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useStoreActions } from 'easy-peasy';
+import { FC } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { createToast } from '../lib/form';
+import { ItemPropsTypes } from '../lib/propsTypes';
 import { itemCRUD } from '../lib/mutations';
 
-const Item = ({ item, type, setItemData, onOpen, onClose }) => {
+const Item: FC<ItemPropsTypes> = ({
+  item,
+  type,
+  setItemData,
+  onOpen,
+  onClose,
+}) => {
   const deleteItem = useStoreActions((actions: any) => actions.deleteItem);
   const toast = useToast();
 

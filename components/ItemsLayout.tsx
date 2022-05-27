@@ -1,10 +1,11 @@
 import { Box, Heading } from '@chakra-ui/layout';
-import { useStoreActions, useStoreRehydrated, useStoreState } from 'easy-peasy';
-import { useEffect } from 'react';
+import { useStoreActions, useStoreRehydrated } from 'easy-peasy';
+import { FC, useEffect } from 'react';
+import { ItemsLayoutPropsTypes } from '../lib/propsTypes';
 
 import Items from './Items';
 
-const ItemsLayout = ({ itemNames }) => {
+const ItemsLayout: FC<ItemsLayoutPropsTypes> = ({ itemNames }) => {
   const hydrateStore = useStoreActions((actions: any) => actions.hydrateStore);
   const isHydrated = useStoreRehydrated();
 
@@ -28,7 +29,7 @@ const ItemsLayout = ({ itemNames }) => {
         return 'idCards';
 
       default:
-        return [];
+        throw new Error('Not A Valid Item Name');
     }
   };
 

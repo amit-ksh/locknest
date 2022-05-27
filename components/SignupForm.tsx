@@ -10,7 +10,7 @@ import {
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
@@ -20,7 +20,8 @@ import {
   checkRetypedPassword,
   validate,
 } from '../lib/form';
-import { useStoreState } from 'easy-peasy';
+import { State, useStoreState } from 'easy-peasy';
+import { StateModel } from '../lib/model';
 
 const passwordHelpers = [
   'At least 12 character long.',
@@ -30,9 +31,9 @@ const passwordHelpers = [
   'At least 1 symbol.',
 ];
 
-const SignUpForm = () => {
+const SignUpForm: FC<{}> = () => {
   const router = useRouter();
-  const user = useStoreState((state: any) => state.user);
+  const user = useStoreState((state: State<StateModel>) => state.user);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

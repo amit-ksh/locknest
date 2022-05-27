@@ -1,12 +1,10 @@
 export interface User {
-  id: number;
+  id: number | null;
   email: string;
 }
 
 export interface Password {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number | null;
   name: string;
   username: string;
   url: string;
@@ -15,17 +13,13 @@ export interface Password {
 }
 
 export interface SecureNotes {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number | null;
   name: string;
   notes: string;
 }
 
 export interface PaymentCard {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number | null;
   name: string;
   holderName: string;
   cardName: string;
@@ -36,9 +30,7 @@ export interface PaymentCard {
 }
 
 export interface BankAccount {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number | null;
   name: string;
   holderName: string;
   bankName: string;
@@ -52,19 +44,14 @@ export interface BankAccount {
 }
 
 export interface Email {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number | null;
   name: string;
   username: string;
   password: string;
-  notes: string;
 }
 
 export interface Address {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number | null;
   name: string;
   addressLine1: string;
   addressLine2: string;
@@ -76,9 +63,7 @@ export interface Address {
 }
 
 export interface IDCard {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  id: number | null;
   name: string;
   type: string;
   number: string;

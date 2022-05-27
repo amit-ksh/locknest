@@ -9,8 +9,16 @@ import {
   FaAddressCard,
 } from 'react-icons/fa';
 import { BsGridFill, BsFillFileEarmarkLock2Fill } from 'react-icons/bs';
+import { FC } from 'react';
+import { SidebarPropsTypes } from '../lib/propsTypes';
 
-const links = [
+interface LinksTypes {
+  name: string;
+  icon: FC<{}>;
+  route: string;
+}
+
+const links: LinksTypes[] = [
   {
     name: 'All Items',
     icon: BsGridFill,
@@ -43,7 +51,7 @@ const links = [
   },
 ];
 
-const Sidebar = ({ onClose, ...rest }) => {
+const Sidebar: FC<SidebarPropsTypes> = ({ onClose, ...rest }) => {
   return (
     <Box
       bg="white"

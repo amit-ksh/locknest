@@ -1,8 +1,9 @@
 import NextLink from 'next/link';
 import { Flex, Heading, Link, Text } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 
-const Header = () => {
+const Header: FC<{}> = () => {
   const router = useRouter();
 
   return (

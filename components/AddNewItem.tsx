@@ -1,6 +1,8 @@
 import { MenuItem, useDisclosure } from '@chakra-ui/react';
+import { FC } from 'react';
+import { AddNewItemPropsTypes } from '../lib/propsTypes';
 
-const AddNewItem = ({ item }) => {
+const AddNewItem: FC<AddNewItemPropsTypes> = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

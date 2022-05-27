@@ -9,23 +9,33 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
-import NotesInputField from './NotesInputField';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
+import { Actions, useStoreActions } from 'easy-peasy';
+import { StoreModel } from '../lib/model';
+import { SaveIDCardFormPropsTypes } from '../lib/propsTypes';
 
-const PasswordForm = ({ isOpen, onClose, item = {} }) => {
+const IDCardForm: FC<SaveIDCardFormPropsTypes> = ({
+  isOpen,
+  onClose,
+  item = {},
+}) => {
   const [name, setName] = useState('');
-  const [holderName, setHolderName] = useState('');
-  const [cardName, setCardName] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [CVV, setCVV] = useState('');
+  const [type, setType] = useState('');
+  const [number, setNumber] = useState('');
+  const [issueDate, setIssueDate] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
-  const [notes, setNotes] = useState('');
+  const [country, setCountry] = useState('');
+  const [placeOfIssue, setPlaceOfIssue] = useState('');
   const toast = useToast();
+
+  const saveItem = useStoreActions(
+    (actions: Actions<StoreModel>) => actions.saveItem
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,12 +43,12 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
     const data = {
       id: item.id,
       name,
-      holderName,
-      cardName,
-      cardNumber,
-      CVV,
+      type,
+      number,
+      issueDate,
       expirationDate,
-      notes,
+      country,
+      placeOfIssue,
     };
     const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
     onClose();
@@ -46,16 +56,16 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
     try {
       const { id, error } = await itemCRUD('save', {
         data,
-        type: 'paymentCard',
+        type: 'secureNote',
       });
 
       if (id) {
         saveItem({
           item: { ...data, id },
           actionName,
-          itemName: 'paymentcard',
+          itemName: 'idCard',
         });
-        createToast(toast, 'Payment Card Saved.');
+        createToast(toast, 'ID Card Saved.');
       } else {
         createToast(toast, 'Error!', error.cause, 'error');
       }
@@ -65,36 +75,36 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
 
     reset([
       setName,
-      setHolderName,
-      setCardName,
-      setCardNumber,
-      setCVV,
+      setType,
+      setNumber,
+      setIssueDate,
       setExpirationDate,
-      setNotes,
+      setCountry,
+      setPlaceOfIssue,
     ]);
   };
 
   const handleClose = () => {
     reset([
       setName,
-      setHolderName,
-      setCardName,
-      setCardNumber,
-      setCVV,
+      setType,
+      setNumber,
+      setIssueDate,
       setExpirationDate,
-      setNotes,
+      setCountry,
+      setPlaceOfIssue,
     ]);
     onClose();
   };
 
   useEffect(() => {
     setName(item.name || name);
-    setHolderName(item.holderName || holderName);
-    setCardName(item.cardName || cardName);
-    setCardNumber(item.cardNumber || cardNumber);
-    setCVV(item.CVV || CVV);
+    setType(item.type || type);
+    setNumber(item.number || number);
+    setIssueDate(item.issueDate || issueDate);
     setExpirationDate(item.expirationDate || expirationDate);
-    setNotes(item.notes || notes);
+    setCountry(item.country || country);
+    setPlaceOfIssue(item.placeOfIssue || placeOfIssue);
   }, [item]);
 
   return (
@@ -108,51 +118,43 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
           bg="brand.500"
           color="white"
         >
-          Add a Payment Card
+          Add a ID card
         </DrawerHeader>
 
         <DrawerBody>
-          <form id="add-payment-card-form" onSubmit={handleSubmit}>
+          <form id="add-id-card-form" onSubmit={handleSubmit}>
             <Stack spacing={5}>
               <InputBox
                 label="Name"
                 type="text"
-                placeholder="Enter a name"
+                placeholder="Enter name"
                 value={name}
                 isRequired={true}
                 onChange={(e) => setName(e.target.value)}
               />
 
               <InputBox
-                label="Cardholder Name"
+                label="Type"
                 type="text"
-                placeholder="Enter cardholder name"
-                value={holderName}
-                onChange={(e) => setHolderName(e.target.value)}
+                placeholder="Enter type"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
               />
 
               <InputBox
-                label="Card Name"
+                label="Number"
                 type="text"
-                placeholder="Enter card name"
-                value={cardName}
-                onChange={(e) => setCardName(e.target.value)}
+                placeholder="Enter number"
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
               />
 
               <InputBox
-                label="Card Number"
-                type="text"
-                placeholder="Enter card number"
-                value={cardNumber}
-                onChange={(e) => setCardNumber(e.target.value)}
-              />
-
-              <InputBox
-                label="CVV"
-                type="text"
-                placeholder="Enter CVV"
-                value={CVV}
-                onChange={(e) => setCVV(e.target.value)}
+                label="Issue Date"
+                type="date"
+                placeholder="Select Issue Date"
+                value={issueDate}
+                onChange={(e) => setIssueDate(e.target.value)}
               />
 
               <InputBox
@@ -163,10 +165,20 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
                 onChange={(e) => setExpirationDate(e.target.value)}
               />
 
-              <NotesInputField
-                value={notes}
-                maxH="130px"
-                onChange={(e) => setNotes(e.target.value)}
+              <InputBox
+                label="Country"
+                type="text"
+                placeholder="Enter country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              />
+
+              <InputBox
+                label="Place of issue"
+                type="text"
+                placeholder="Enter place of issue"
+                value={placeOfIssue}
+                onChange={(e) => setPlaceOfIssue(e.target.value)}
               />
             </Stack>
           </form>
@@ -176,7 +188,7 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
           <Button variant="danger" mr={3} onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" type="submit" form="add-payment-card-form">
+          <Button variant="primary" type="submit" form="add-id-card-form">
             Submit
           </Button>
         </DrawerFooter>
@@ -185,4 +197,4 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
   );
 };
 
-export default PasswordForm;
+export default IDCardForm;

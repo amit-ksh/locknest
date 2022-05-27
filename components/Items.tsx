@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Box } from '@chakra-ui/layout';
 import { Spinner, useDisclosure } from '@chakra-ui/react';
 import { useStoreState } from 'easy-peasy';
 
 import Item from './Item';
+import { ItemsPropsTypes } from '../lib/propsTypes';
 
-const Items = ({ type, name, Form }) => {
+const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
   const items = useStoreState((state) => state[name]);
   const [itemData, setItemData] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -1,9 +1,14 @@
 import { Flex } from '@chakra-ui/layout';
 import { IconButton } from '@chakra-ui/react';
+import { FC } from 'react';
 import { FiMenu } from 'react-icons/fi';
+import { MainHeaderLayoutPropsTypes } from '../lib/propsTypes';
 import MainHeader from './MainHeader';
 
-const MainHeaderLayout = ({ itemsList, onOpen }) => {
+const MainHeaderLayout: FC<MainHeaderLayoutPropsTypes> = ({
+  itemsList,
+  onOpen,
+}) => {
   return (
     <Flex
       zIndex={5}

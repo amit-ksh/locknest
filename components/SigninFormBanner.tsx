@@ -1,7 +1,8 @@
 import { Heading, VStack, Image, AspectRatio, Divider } from '@chakra-ui/react';
+import { FC } from 'react';
 import WelcomeBackIcon from '../public/welcomeBack.svg';
 
-const SigninFormBanner = () => {
+const SigninFormBanner: FC<{}> = () => {
   return (
     <VStack
       color="white"

@@ -9,16 +9,22 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
 
-import { auth, itemCRUD } from '../lib/mutations';
+import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
-import { useStoreActions } from 'easy-peasy';
+import { Actions, useStoreActions } from 'easy-peasy';
+import { StoreModel } from '../lib/model';
+import { SavePasswordFormPropsTypes } from '../lib/propsTypes';
 
-const PasswordForm = ({ isOpen, onClose, item = {} }) => {
+const PasswordForm: FC<SavePasswordFormPropsTypes> = ({
+  isOpen,
+  onClose,
+  item = {},
+}) => {
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [username, setUsername] = useState('');
@@ -26,7 +32,9 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
   const [notes, setNotes] = useState('');
   const toast = useToast();
 
-  const saveItem = useStoreActions((actions) => actions.saveItem);
+  const saveItem = useStoreActions(
+    (actions: Actions<StoreModel>) => actions.saveItem
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -111,7 +119,6 @@ const PasswordForm = ({ isOpen, onClose, item = {} }) => {
                 type="password"
                 placeholder="Enter password"
                 value={password}
-                isPassword={true}
                 onChange={(e) => setPassword(e.target.value)}
               />
 

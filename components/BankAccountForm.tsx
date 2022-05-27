@@ -9,16 +9,22 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Stack } from '@chakra-ui/layout';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import InputBox from './InputBox';
 import NotesInputField from './NotesInputField';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
-import { useStoreActions } from 'easy-peasy';
+import { Actions, useStoreActions } from 'easy-peasy';
+import { SaveBankAccountFormPropsTypes } from '../lib/propsTypes';
+import { StoreModel } from '../lib/model';
 
-const BankAccountForm = ({ isOpen, onClose, item = {} }) => {
+const BankAccountForm: FC<SaveBankAccountFormPropsTypes> = ({
+  isOpen,
+  onClose,
+  item = {},
+}) => {
   const [name, setName] = useState('');
   const [holderName, setHolderName] = useState('');
   const [bankName, setBankName] = useState('');
@@ -31,7 +37,9 @@ const BankAccountForm = ({ isOpen, onClose, item = {} }) => {
   const [notes, setNotes] = useState('');
   const toast = useToast();
 
-  const saveItem = useStoreActions((actions) => actions.saveItem);
+  const saveItem = useStoreActions(
+    (actions: Actions<StoreModel>) => actions.saveItem
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();

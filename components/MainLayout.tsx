@@ -5,13 +5,14 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { FC } from 'react';
+import { MainlayoutPropsTypes } from '../lib/propsTypes';
 
 import ItemsLayout from './ItemsLayout';
 import MainHeaderLayout from './MainHeaderLayout';
 import Sidebar from './Sidebar';
 
-const MainLayout = ({ itemsList }) => {
+const MainLayout: FC<MainlayoutPropsTypes> = ({ itemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (

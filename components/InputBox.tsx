@@ -9,17 +9,9 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { Box, Heading, SimpleGrid } from '@chakra-ui/layout';
+import { InputBoxPropsTypes } from '../lib/propsTypes';
 
-const InputBox: FC<{
-  label: string;
-  type: string;
-  placeholder: string;
-  value: any;
-  isRequired?: boolean;
-  isInvalid?: boolean;
-  helpers?: string[];
-  onChange: any;
-}> = ({
+const InputBox: FC<InputBoxPropsTypes> = ({
   label,
   type,
   placeholder,

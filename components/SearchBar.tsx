@@ -11,8 +11,9 @@ import {
   Tooltip,
   useDisclosure,
 } from '@chakra-ui/react';
+import { FC } from 'react';
 
-const SearchBar = () => {
+const SearchBar: FC<{}> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -42,7 +43,7 @@ const SearchBar = () => {
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
-                children={<SearchIcon htmlFor="search" color="brand.400" />}
+                children={<SearchIcon color="brand.400" />}
               />
               <Input id="search" type="text" placeholder="Search" />
             </InputGroup>
