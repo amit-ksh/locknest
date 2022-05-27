@@ -56,12 +56,12 @@ const IDCardForm: FC<SaveIDCardFormPropsTypes> = ({
     try {
       const { id, error } = await itemCRUD('save', {
         data,
-        type: 'secureNote',
+        type: 'IdCard',
       });
 
       if (id) {
         saveItem({
-          item: { ...data, id },
+          item: { ...data },
           actionName,
           itemName: 'idCard',
         });

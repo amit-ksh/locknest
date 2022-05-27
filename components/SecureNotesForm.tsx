@@ -48,7 +48,7 @@ const SecureNotesForm: FC<SaveSecureNotesFormPropsTypes> = ({
 
       if (id) {
         saveItem({
-          item: { ...data, id },
+          item: { ...data },
           actionName,
           itemName: 'secureNotes',
         });

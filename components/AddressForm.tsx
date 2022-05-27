@@ -64,7 +64,7 @@ const AddressForm: FC<SaveAddressFormPropsTypes> = ({
 
       if (id) {
         saveItem({
-          item: { ...data, id },
+          item: { ...data },
           actionName,
           itemName: 'address',
         });

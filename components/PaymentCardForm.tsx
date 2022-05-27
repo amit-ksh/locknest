@@ -62,7 +62,7 @@ const PasswordForm: FC<SavePaymentCardFormPropsTypes> = ({
 
       if (id) {
         saveItem({
-          item: { ...data, id },
+          item: { ...data },
           actionName,
           itemName: 'paymentcard',
         });
