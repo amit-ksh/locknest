@@ -1,4 +1,5 @@
-import { createStore, persist } from 'easy-peasy';
-import model from './model';
+import { createStore, persist, Store } from 'easy-peasy';
 
-export const store = createStore(persist(model));
+import { model, StoreModel } from './model';
+
+export const store: Store<StoreModel> = createStore(persist(model));

@@ -1,5 +1,15 @@
-import { action, reducer, thunk } from 'easy-peasy';
+import { Action, action, Thunk, thunk } from 'easy-peasy';
 import fetcher from '../lib/fetcher';
+import {
+  Address,
+  BankAccount,
+  Email,
+  IDCard,
+  Password,
+  PaymentCard,
+  SecureNotes,
+  User,
+} from './itemsTypes';
 
 const itemNames = {
   password: 'passwords',
@@ -11,7 +21,91 @@ const itemNames = {
   idcard: 'idCards',
 };
 
-const model = {
+export interface UsersDataModel {
+  passwords: Password[];
+  secureNotes: SecureNotes[];
+  paymentCards: PaymentCard[];
+  bankAccounts: BankAccount[];
+  emails: Email[];
+  addresses: Address[];
+  idCards: IDCard[];
+}
+
+export interface StateModel extends UsersDataModel {
+  user: User | null;
+  isHydrated: boolean;
+}
+
+export interface ActionModel extends StateModel {
+  setUser: Action<StateModel, { user: User }>;
+  setIsHydrated: Action<StateModel, { isHydrated: boolean }>;
+  hydrateStoreHelper: Action<StateModel, UsersDataModel>;
+  addItem: Action<
+    StateModel,
+    {
+      itemName: string;
+      item:
+        | Password
+        | SecureNotes
+        | PaymentCard
+        | BankAccount
+        | Email
+        | Address
+        | IDCard;
+    }
+  >;
+  modifyItem: Action<
+    StateModel,
+    {
+      itemName: string;
+      item:
+        | Password
+        | SecureNotes
+        | PaymentCard
+        | BankAccount
+        | Email
+        | Address
+        | IDCard;
+    }
+  >;
+  deleteItem: Action<
+    StateModel,
+    {
+      itemName: string;
+      item:
+        | Password
+        | SecureNotes
+        | PaymentCard
+        | BankAccount
+        | Email
+        | Address
+        | IDCard;
+    }
+  >;
+  resetItems: Action<StateModel>;
+}
+
+export interface StoreModel extends ActionModel {
+  hydrateStore: Thunk<ActionModel, undefined, any>;
+  saveItem: Thunk<
+    ActionModel,
+    {
+      actionName: string;
+      itemName: string;
+      item:
+        | Password
+        | SecureNotes
+        | PaymentCard
+        | BankAccount
+        | Email
+        | Address
+        | IDCard;
+    }
+  >;
+  resetStore: Thunk<ActionModel>;
+}
+
+export const model: StoreModel = {
   user: null,
   passwords: [],
   secureNotes: [],
@@ -22,21 +116,7 @@ const model = {
   idCards: [],
   isHydrated: false,
 
-  setUser: action((state: any, payload) => {
-    state.user = payload.user;
-  }),
-
-  setIsHydrated: action((state: any, payload) => {
-    state.isHydrated = payload.isHydrated;
-  }),
-
-  hydrateStoreHelper: action((state: any, payload: any) => {
-    for (const name in payload) {
-      state[name] = payload[name];
-    }
-  }),
-
-  hydrateStore: thunk(async (actions: any, _, helpers: any) => {
+  hydrateStore: thunk(async (actions, _, helpers) => {
     if (helpers.getState().isHydrated) return;
 
     try {
@@ -50,50 +130,58 @@ const model = {
     }
   }),
 
-  saveItem: thunk((actions: any, payload: any) => {
+  resetStore: thunk((actions) => {
+    actions.setUser({ user: null });
+    actions.resetItems();
+    actions.setIsHydrated({ isHydrated: false });
+  }),
+
+  setUser: action((state, payload) => {
+    state.user = payload.user;
+  }),
+
+  setIsHydrated: action((state, payload) => {
+    state.isHydrated = payload.isHydrated;
+  }),
+
+  hydrateStoreHelper: action((state, payload) => {
+    for (const name in payload) {
+      state[name] = payload[name];
+    }
+  }),
+
+  saveItem: thunk((actions, payload) => {
     const { actionName } = payload;
 
     if (actionName === 'ADD_ITEM') actions.addItem(payload);
     else actions.modifyItem(payload);
   }),
 
-  addItem: action((state: any, payload) => {
+  addItem: action((state, payload) => {
     const { itemName, item } = payload;
     const name = itemNames[itemName.toLowerCase()];
     state[name].push(item);
   }),
 
-  modifyItem: action((state: any, payload) => {
+  modifyItem: action((state, payload) => {
     const { itemName, item } = payload;
     const name = itemNames[itemName.toLowerCase()];
-
-    console.log(item);
 
     state[name] = state[name].map((_item) =>
       item.id !== _item.id ? _item : item
     );
-
-    console.log(state[name]);
   }),
 
-  deleteItem: action((state: any, payload) => {
+  deleteItem: action((state, payload) => {
     const { itemName, item } = payload;
     const name = itemNames[itemName.toLowerCase()];
 
     state[name] = state[name].filter((_item) => item.id !== _item.id && _item);
   }),
 
-  resetItems: action((state: any) => {
+  resetItems: action((state) => {
     for (const name in itemNames) {
       state[itemNames[name]] = [];
     }
   }),
-
-  resetStore: thunk((actions: any) => {
-    actions.setUser({ user: null });
-    actions.resetItems();
-    actions.setIsHydrated({ isHydrated: false });
-  }),
 };
-
-export default model;
