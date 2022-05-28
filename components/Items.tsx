@@ -1,16 +1,29 @@
 import { FC, useState } from 'react';
 import { Box } from '@chakra-ui/layout';
 import { Spinner, useDisclosure } from '@chakra-ui/react';
-import { useStoreState } from 'easy-peasy';
+import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
 
 import Item from './Item';
 import { ItemsPropsTypes } from '../lib/propsTypes';
+import { StateModel } from '../lib/model';
 
 const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
-  const items = useStoreState((state) => state[name]);
+  const items = useStoreState((state: State<StateModel>) => state[name]);
+  const searchFor = useStoreState(
+    (state: State<StateModel>) => state.searchFor
+  );
   const [itemData, setItemData] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const isHydrated = useStoreState((state: any) => state.isHydrated);
+  const isHydrated = useStoreState(
+    (state: State<StateModel>) => state.isHydrated
+  );
+
+  const getFilteredItems = (filterText) => {
+    return items.filter(
+      (item) =>
+        item.name.toLowerCase().includes(filterText.toLowerCase()) && item
+    );
+  };
 
   const handleClose = () => {
     setItemData({});
@@ -28,7 +41,7 @@ const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
   return (
     <Box mb={4}>
       {/* Items */}
-      {items.map((item, idx) => (
+      {getFilteredItems(searchFor).map((item, idx) => (
         <Item
           key={`${item.name}${idx}`}
           item={item}

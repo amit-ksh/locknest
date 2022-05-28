@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 const itemsList = [
   {
-    name: 'Credit/Debit Card',
+    name: 'Payment Card',
     Form: PaymentCardForm,
   },
   {

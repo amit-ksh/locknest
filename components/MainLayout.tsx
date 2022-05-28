@@ -16,15 +16,16 @@ const MainLayout: FC<MainlayoutPropsTypes> = ({ itemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box bg="gray.100" minW="97vw" minH="100vh">
+    <Box bg="gray.100" w="100%" h="100%">
+      {/* Side Navbar in Desktop Mode */}
       <Sidebar onClose={onClose} display={{ base: 'none', md: 'block' }} />
+
+      {/* Side Navbar in Tablet and Mobile Mode */}
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
-        placement="left"
+        placement="right"
         onClose={onClose}
-        returnFocusOnClose={false}
-        isFullHeight={false}
         onOverlayClick={onClose}
         size="sm"
       >

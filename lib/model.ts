@@ -1,4 +1,4 @@
-import { Action, action, Thunk, thunk } from 'easy-peasy';
+import { Action, action, State, Thunk, thunk } from 'easy-peasy';
 import fetcher from '../lib/fetcher';
 import {
   Address,
@@ -33,6 +33,7 @@ export interface UsersDataModel {
 
 export interface StateModel extends UsersDataModel {
   user: User | null;
+  searchFor: string;
   isHydrated: boolean;
 }
 
@@ -83,6 +84,7 @@ export interface ActionModel extends StateModel {
     }
   >;
   resetItems: Action<StateModel>;
+  setSearchFor: Action<StateModel, { text: string }>;
 }
 
 export interface StoreModel extends ActionModel {
@@ -115,6 +117,7 @@ export const model: StoreModel = {
   addresses: [],
   idCards: [],
   isHydrated: false,
+  searchFor: '',
 
   hydrateStore: thunk(async (actions, _, helpers) => {
     if (helpers.getState().isHydrated) return;
@@ -134,6 +137,7 @@ export const model: StoreModel = {
     actions.setUser({ user: null });
     actions.resetItems();
     actions.setIsHydrated({ isHydrated: false });
+    actions.setSearchFor({ text: '' });
   }),
 
   setUser: action((state, payload) => {
@@ -183,5 +187,9 @@ export const model: StoreModel = {
     for (const name in itemNames) {
       state[itemNames[name]] = [];
     }
+  }),
+
+  setSearchFor: action((state, payload) => {
+    state.searchFor = payload.text;
   }),
 };

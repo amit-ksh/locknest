@@ -8,12 +8,13 @@ import {
   MenuList,
   useToast,
 } from '@chakra-ui/react';
-import { useStoreActions } from 'easy-peasy';
+import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
 import { FC } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { createToast } from '../lib/form';
 import { ItemPropsTypes } from '../lib/propsTypes';
 import { itemCRUD } from '../lib/mutations';
+import { ActionModel, StateModel } from '../lib/model';
 
 const Item: FC<ItemPropsTypes> = ({
   item,
@@ -22,7 +23,12 @@ const Item: FC<ItemPropsTypes> = ({
   onOpen,
   onClose,
 }) => {
-  const deleteItem = useStoreActions((actions: any) => actions.deleteItem);
+  const deleteItem = useStoreActions(
+    (actions: Actions<ActionModel>) => actions.deleteItem
+  );
+  const searchFor = useStoreState(
+    (state: State<StateModel>) => state.searchFor
+  );
   const toast = useToast();
 
   const handleClick = (item) => {

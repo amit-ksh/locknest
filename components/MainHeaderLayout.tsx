@@ -23,7 +23,6 @@ const MainHeaderLayout: FC<MainHeaderLayoutPropsTypes> = ({
       gap={4}
     >
       <IconButton
-        mx={4}
         display={{ base: 'flex', md: 'none' }}
         color="brand.500"
         onClick={onOpen}

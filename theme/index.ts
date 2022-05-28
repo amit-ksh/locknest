@@ -96,6 +96,13 @@ const theme = extendTheme(
       },
     },
     components: {
+      styles: {
+        global: {
+          body: {
+            bg: 'gray.100',
+          },
+        },
+      },
       Button: {
         variants: {
           primary: {

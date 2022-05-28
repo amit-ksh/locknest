@@ -37,9 +37,9 @@ const MainHeader = ({ itemsList }) => {
   };
 
   return (
-    <Box w="100%" p={5}>
+    <Box w="100%" ml={6}>
       <Flex justify="space-between" alignItems="center">
-        <Flex flexBasis="60%" gap={4} alignItems="center">
+        <Flex flexBasis="75%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}
           {itemsList.length > 1 ? (
             <Box>
@@ -48,7 +48,7 @@ const MainHeader = ({ itemsList }) => {
                   variant="primary"
                   as={Button}
                   leftIcon={<AddIcon />}
-                  pr={{ md: 4, base: 1.5 }}
+                  pr={{ md: 4, base: 1 }}
                 >
                   <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </MenuButton>
@@ -66,7 +66,7 @@ const MainHeader = ({ itemsList }) => {
                   variant="primary"
                   onClick={onOpen}
                   leftIcon={<AddIcon />}
-                  pr={{ md: 4, base: 1.5 }}
+                  pr={{ md: 4, base: 2 }}
                 >
                   <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </Button>
@@ -83,18 +83,18 @@ const MainHeader = ({ itemsList }) => {
           )}
 
           {/* SEARCH BAR */}
-          <Box w="60%" mr={2}>
+          <Box flexBasis="80%">
             <SearchBar />
           </Box>
         </Flex>
 
         {/* SIGN OUT */}
-        <Box flexBasis="10%">
+        <Box flexBasis="5%">
           <Button
             variant="danger"
             type="submit"
             leftIcon={<FaPowerOff />}
-            pr={{ md: 4, base: 1.5 }}
+            pr={{ md: 4, base: 2 }}
             isLoading={isLoading}
             onClick={handleSignout}
           >
