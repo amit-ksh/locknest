@@ -1,6 +1,7 @@
 import MainLayout from '../components/MainLayout';
 import AddressForm from '../components/AddressForm';
 import EmailForm from '../components/EmailForm';
+import { FC } from 'react';
 
 const itemsList = [
   {
@@ -13,7 +14,7 @@ const itemsList = [
   },
 ];
 
-const PersonalInfo = () => {
+const PersonalInfo: FC<{}> = () => {
   return <MainLayout itemsList={itemsList} />;
 };
 

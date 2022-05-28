@@ -6,6 +6,7 @@ import BankAccountForm from '../components/BankAccountForm';
 import AddressForm from '../components/AddressForm';
 import EmailForm from '../components/EmailForm';
 import IDCardForm from '../components/IDCardForm';
+import { FC } from 'react';
 
 const itemsList = [
   {
@@ -38,7 +39,7 @@ const itemsList = [
   },
 ];
 
-const Home = () => {
+const Home: FC<{}> = () => {
   return <MainLayout itemsList={itemsList} />;
 };
 

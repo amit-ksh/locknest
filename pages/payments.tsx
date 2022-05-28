@@ -1,6 +1,7 @@
 import MainLayout from '../components/MainLayout';
 import PaymentCardForm from '../components/PaymentCardForm';
 import BankAccountForm from '../components/BankAccountForm';
+import { FC } from 'react';
 
 const itemsList = [
   {
@@ -13,7 +14,7 @@ const itemsList = [
   },
 ];
 
-const Payments = () => {
+const Payments: FC<{}> = () => {
   return <MainLayout itemsList={itemsList} />;
 };
 

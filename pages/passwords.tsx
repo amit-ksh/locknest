@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import MainLayout from '../components/MainLayout';
 import PasswordFrom from '../components/PasswordForm';
 
@@ -8,7 +9,7 @@ const itemsList = [
   },
 ];
 
-const Password = () => {
+const Password: FC<{}> = () => {
   return <MainLayout itemsList={itemsList} />;
 };
 

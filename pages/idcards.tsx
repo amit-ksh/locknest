@@ -1,5 +1,6 @@
 import MainLayout from '../components/MainLayout';
 import IDCardForm from '../components/IDCardForm';
+import { FC } from 'react';
 
 const itemsList = [
   {
@@ -8,7 +9,7 @@ const itemsList = [
   },
 ];
 
-const IDCard = () => {
+const IDCard: FC<{}> = () => {
   return <MainLayout itemsList={itemsList} />;
 };
 

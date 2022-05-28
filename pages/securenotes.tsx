@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import MainLayout from '../components/MainLayout';
 import SecureNotesForm from '../components/SecureNotesForm';
 
@@ -8,7 +9,7 @@ const itemsList = [
   },
 ];
 
-const SecureNotes = () => {
+const SecureNotes: FC<{}> = () => {
   return <MainLayout itemsList={itemsList} />;
 };
 
