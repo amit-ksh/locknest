@@ -83,7 +83,7 @@ const MainHeader = ({ itemsList }) => {
           )}
 
           {/* SEARCH BAR */}
-          <Box flexBasis="80%">
+          <Box flexBasis={{ base: '80%', md: '60%' }}>
             <SearchBar />
           </Box>
         </Flex>

@@ -1,6 +1,14 @@
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Box, CloseButton, Flex, Icon, Text } from '@chakra-ui/react';
+import {
+  Box,
+  CloseButton,
+  Flex,
+  Icon,
+  IconButton,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
 import { LinkBox, LinkOverlay } from '@chakra-ui/layout';
 import {
   FaKey,
@@ -11,6 +19,7 @@ import {
 import { BsGridFill, BsFillFileEarmarkLock2Fill } from 'react-icons/bs';
 import { FC } from 'react';
 import { SidebarPropsTypes } from '../lib/propsTypes';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 interface LinksTypes {
   name: string;
@@ -52,6 +61,8 @@ const links: LinksTypes[] = [
 ];
 
 const Sidebar: FC<SidebarPropsTypes> = ({ onClose, ...rest }) => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Box
       bg="white"
@@ -66,7 +77,32 @@ const Sidebar: FC<SidebarPropsTypes> = ({ onClose, ...rest }) => {
         <Text fontSize="2xl" color="brand.500" fontWeight="bold">
           LockNest
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        <Flex align="center" justify="space-between">
+          <IconButton
+            mr={2}
+            aria-label="Toggle Mode"
+            bg={colorMode === 'light' ? 'brand.800' : 'brand.300'}
+            color="white"
+            _hover={{
+              ring: 2,
+              ringColor: 'brand.400',
+            }}
+            _focus={{
+              ring: 2,
+              ringColor: 'brand.400',
+            }}
+            _active={{
+              bg: colorMode === 'light' ? 'brand.900' : 'brand.100',
+            }}
+            onClick={toggleColorMode}
+          >
+            {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+          </IconButton>
+          <CloseButton
+            display={{ base: 'flex', md: 'none' }}
+            onClick={onClose}
+          />
+        </Flex>
       </Flex>
       {links.map((link) => (
         <NavItem key={link.name} icon={link.icon} route={link.route}>
