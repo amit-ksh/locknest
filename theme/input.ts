@@ -1,3 +1,5 @@
+import { mode } from '@chakra-ui/theme-tools';
+
 const inputBrandRing = {
   _focus: {
     ring: 1,
@@ -18,7 +20,7 @@ export const inputStyles = {
   variants: {
     outline: {
       field: {
-        color: 'black',
+        color: mode('brand.400', 'white'),
         borderWidth: '2px',
         borderColor: 'brand.500',
         borderRadius: '3px',
@@ -28,6 +30,9 @@ export const inputStyles = {
         },
         _hover: {
           borderColor: 'brand.400',
+        },
+        _placeholder: {
+          color: mode('gray.400', 'white'),
         },
       },
     },

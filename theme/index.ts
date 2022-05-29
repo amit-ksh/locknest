@@ -4,7 +4,7 @@ import { brand } from './colors';
 import { inputStyles, labelStyles } from './input';
 
 const config: ThemeConfig = {
-  initialColorMode: 'light',
+  initialColorMode: 'dark',
   useSystemColorMode: false,
 };
 

@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/layout';
-import { IconButton } from '@chakra-ui/react';
+import { IconButton, useColorModeValue } from '@chakra-ui/react';
 import { FC } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { MainHeaderLayoutPropsTypes } from '../lib/propsTypes';
@@ -9,6 +9,8 @@ const MainHeaderLayout: FC<MainHeaderLayoutPropsTypes> = ({
   itemsList,
   onOpen,
 }) => {
+  const bg = useColorModeValue('white', 'gray.800');
+
   return (
     <Flex
       zIndex={5}
@@ -17,7 +19,7 @@ const MainHeaderLayout: FC<MainHeaderLayoutPropsTypes> = ({
       px={{ base: 4, md: 4 }}
       top={0}
       height={20}
-      bg="white"
+      bg={bg}
       color="white"
       align="center"
       gap={4}

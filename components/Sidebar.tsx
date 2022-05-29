@@ -8,6 +8,7 @@ import {
   IconButton,
   Text,
   useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { LinkBox, LinkOverlay } from '@chakra-ui/layout';
 import {
@@ -62,12 +63,13 @@ const links: LinksTypes[] = [
 
 const Sidebar: FC<SidebarPropsTypes> = ({ onClose, ...rest }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const bg = useColorModeValue('white', 'gray.800');
 
   return (
     <Box
-      bg="white"
+      bg={bg}
       borderRight="1px"
-      borderRightColor="gray.200"
+      borderRightColor={colorMode === 'light' ? 'gray.200' : 'gray.700'}
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"

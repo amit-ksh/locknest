@@ -6,6 +6,7 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import { Actions, useStoreActions } from 'easy-peasy';
@@ -20,6 +21,7 @@ import SearchBar from './SearchBar';
 
 const MainHeader = ({ itemsList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const menuListBGColor = useColorModeValue('brand.500', 'brand.800');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const resetStore = useStoreActions(
@@ -48,11 +50,11 @@ const MainHeader = ({ itemsList }) => {
                   variant="primary"
                   as={Button}
                   leftIcon={<AddIcon />}
-                  pr={{ md: 4, base: 1 }}
+                  pr={{ md: 4, base: '6px' }}
                 >
                   <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </MenuButton>
-                <MenuList bg="brand.500">
+                <MenuList bg={menuListBGColor}>
                   {itemsList.map((item) => (
                     <AddNewItem key={item.name} item={item} />
                   ))}
@@ -73,7 +75,7 @@ const MainHeader = ({ itemsList }) => {
               </ButtonGroup>
               {/* 
                   This will run only once. We have to do this because we can't access the 
-                  'Form' component using this way 'itemsList[0].Form. Mapping the list array 
+                  'Form' component using this way '<itemsList[0].Form />'. Mapping the list array 
                   allow us to access the item 'Form' without indexing.
                 */}
               {itemsList.map((item) => (

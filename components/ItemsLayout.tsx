@@ -1,4 +1,5 @@
 import { Box, Heading } from '@chakra-ui/layout';
+import { useColorModeValue } from '@chakra-ui/react';
 import { Actions, useStoreActions, useStoreRehydrated } from 'easy-peasy';
 import { FC, useEffect } from 'react';
 import { StoreModel } from '../lib/model';
@@ -7,6 +8,7 @@ import { ItemsLayoutPropsTypes } from '../lib/propsTypes';
 import Items from './Items';
 
 const ItemsLayout: FC<ItemsLayoutPropsTypes> = ({ itemNames }) => {
+  const bg = useColorModeValue('gray.100', 'gray.700');
   const hydrateStore = useStoreActions(
     (actions: Actions<StoreModel>) => actions.hydrateStore
   );
@@ -43,7 +45,7 @@ const ItemsLayout: FC<ItemsLayoutPropsTypes> = ({ itemNames }) => {
   }, []);
 
   return (
-    <Box minH="87vh" p={8} ml={{ base: 0, md: 60 }}>
+    <Box minH="87vh" bg={bg} p={8} ml={{ base: 0, md: 60 }}>
       {itemNames.map((item) => (
         <Box key={`${item.name}`}>
           <Heading as="h3" size="md" mb={2} color="brand.500" letterSpacing={1}>

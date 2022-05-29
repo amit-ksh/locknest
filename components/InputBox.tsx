@@ -7,6 +7,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { Box, Heading, SimpleGrid } from '@chakra-ui/layout';
 import { InputBoxPropsTypes } from '../lib/propsTypes';
@@ -22,6 +23,8 @@ const InputBox: FC<InputBoxPropsTypes> = ({
   onChange,
 }) => {
   const [show, setShow] = useState(false);
+
+  const helperFontColor = useColorModeValue('gray.400', 'white');
 
   return (
     <FormControl>
@@ -58,7 +61,11 @@ const InputBox: FC<InputBoxPropsTypes> = ({
           </Heading>
           <SimpleGrid columns={{ base: 1, lg: 2 }}>
             {helpers.map((helper, idx) => (
-              <FormHelperText key={`helper-${idx + 1}`} fontSize="md">
+              <FormHelperText
+                color={helperFontColor}
+                key={`helper-${idx + 1}`}
+                fontSize="md"
+              >
                 {helper}
               </FormHelperText>
             ))}

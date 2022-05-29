@@ -6,6 +6,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  useColorMode,
   useToast,
 } from '@chakra-ui/react';
 import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
@@ -26,9 +27,8 @@ const Item: FC<ItemPropsTypes> = ({
   const deleteItem = useStoreActions(
     (actions: Actions<ActionModel>) => actions.deleteItem
   );
-  const searchFor = useStoreState(
-    (state: State<StateModel>) => state.searchFor
-  );
+  const { colorMode } = useColorMode();
+
   const toast = useToast();
 
   const handleClick = (item) => {
@@ -66,9 +66,10 @@ const Item: FC<ItemPropsTypes> = ({
   };
 
   return (
-    <Flex justify="space-between" align="center" mb={1}>
+    <Flex justify="space-between" align="center" mb={2}>
       {/* Item Info */}
       <Button
+        bg={''}
         display="block"
         textAlign="left"
         justifySelf="flex-start"
@@ -90,8 +91,8 @@ const Item: FC<ItemPropsTypes> = ({
       {/* Edit Button */}
       <Box justifySelf="flex-end" cursor="pointer">
         <Menu>
-          <MenuButton as="div">
-            <IconButton aria-label="Edit Button" icon={<BsThreeDots />} />
+          <MenuButton>
+            <IconButton bg="" aria-label="Edit Button" icon={<BsThreeDots />} />
           </MenuButton>
           <MenuList>
             <MenuItem
@@ -103,6 +104,8 @@ const Item: FC<ItemPropsTypes> = ({
             </MenuItem>
             <MenuItem
               color="red.500"
+              fontWeight="bold"
+              letterSpacing={1}
               _hover={{ bg: 'red.500', color: 'white' }}
               _focus={{ bg: 'red.500', color: 'white' }}
               onClick={() => handleDelete(item)}
