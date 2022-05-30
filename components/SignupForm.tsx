@@ -6,6 +6,7 @@ import {
   GridItem,
   Button,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react';
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
@@ -44,6 +45,7 @@ const SignUpForm: FC<{}> = () => {
   const [isRetypedPasswordNotValid, setIsRetypedPasswordNotValid] =
     useState(true);
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -122,7 +124,7 @@ const SignUpForm: FC<{}> = () => {
         <Heading color="brand.500" size="2xl">
           Sign Up
         </Heading>
-        <Text color="gray.500">
+        <Text color={colorMode === 'light' ? 'gray.500' : 'gray.100'}>
           Alread have an account?{' '}
           <NextLink
             href={{

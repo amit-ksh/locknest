@@ -6,6 +6,7 @@ import {
   GridItem,
   Button,
   useToast,
+  useColorMode,
 } from '@chakra-ui/react';
 import { Box, Link } from '@chakra-ui/layout';
 import NextLink from 'next/link';
@@ -30,6 +31,7 @@ const SigninForm: FC<{}> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailNotValid, setIsEmailNotValid] = useState(false);
   const toast = useToast();
+  const { colorMode } = useColorMode();
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -71,7 +73,7 @@ const SigninForm: FC<{}> = () => {
         <Heading color="brand.500" size="2xl">
           Sign In
         </Heading>
-        <Text color="gray.500">
+        <Text color={colorMode === 'light' ? 'gray.500' : 'gray.100'}>
           Don't have an account?{' '}
           <NextLink
             href={{
@@ -83,7 +85,7 @@ const SigninForm: FC<{}> = () => {
           </NextLink>
         </Text>
       </VStack>
-      <Box w="80%" h="100%">
+      <Box w="100%" h="100%">
         <form onSubmit={handleSubmit}>
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan={2}>

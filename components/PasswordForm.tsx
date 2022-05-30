@@ -53,6 +53,7 @@ const PasswordForm: FC<SavePasswordFormPropsTypes> = ({
         createToast(toast, 'Error!', 'Password Not Saved', 'error');
       }
     } catch (e) {
+      createToast(toast, 'Error!', 'Server Error', 'error');
       console.log(e.message);
     }
 

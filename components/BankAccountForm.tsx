@@ -77,6 +77,7 @@ const BankAccountForm: FC<SaveBankAccountFormPropsTypes> = ({
         createToast(toast, 'Error!', error.cause, 'error');
       }
     } catch (e) {
+      createToast(toast, 'Error!', 'Server Error', 'error');
       console.log(e.message);
     }
 

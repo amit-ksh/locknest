@@ -107,7 +107,12 @@ const Sidebar: FC<SidebarPropsTypes> = ({ onClose, ...rest }) => {
         </Flex>
       </Flex>
       {links.map((link) => (
-        <NavItem key={link.name} icon={link.icon} route={link.route}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          route={link.route}
+          onClose={onClose}
+        >
           {link.name}
         </NavItem>
       ))}
@@ -115,7 +120,7 @@ const Sidebar: FC<SidebarPropsTypes> = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, route, children }) => {
+const NavItem = ({ icon, route, onClose, children }) => {
   const router = useRouter();
 
   return (
@@ -132,6 +137,7 @@ const NavItem = ({ icon, route, children }) => {
         bg: 'brand.400',
         color: 'white',
       }}
+      onClick={onClose}
     >
       <NextLink href={route} passHref>
         <LinkOverlay display="flex" justifyItems="center" alignItems="center">

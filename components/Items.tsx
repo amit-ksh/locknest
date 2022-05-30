@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
-import { Box } from '@chakra-ui/layout';
-import { Spinner, useDisclosure } from '@chakra-ui/react';
-import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
+import { Box, Center, Text } from '@chakra-ui/layout';
+import { Spinner, useColorMode, useDisclosure } from '@chakra-ui/react';
+import { State, useStoreState } from 'easy-peasy';
 
 import Item from './Item';
 import { ItemsPropsTypes } from '../lib/propsTypes';
@@ -12,11 +12,13 @@ const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
   const searchFor = useStoreState(
     (state: State<StateModel>) => state.searchFor
   );
-  const [itemData, setItemData] = useState({});
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const isHydrated = useStoreState(
     (state: State<StateModel>) => state.isHydrated
   );
+
+  const [itemData, setItemData] = useState({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode } = useColorMode();
 
   const getFilteredItems = (filterText) => {
     return items.filter(
@@ -35,6 +37,17 @@ const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
       <Box ml={4} mb={2}>
         <Spinner color="brand.400" size="lg" />
       </Box>
+    );
+  }
+
+  if (items.length === 0) {
+    return (
+      <Center
+        fontSize="xl"
+        color={colorMode === 'light' ? 'gray.400' : 'whiteAlpha.500'}
+      >
+        Empty
+      </Center>
     );
   }
 

@@ -22,7 +22,7 @@ const MainLayout: FC<MainlayoutPropsTypes> = ({ itemsList }) => {
 
       {/* Side Navbar in Tablet and Mobile Mode */}
       <Drawer
-        autoFocus={false}
+        autoFocus={true}
         isOpen={isOpen}
         placement="right"
         onClose={onClose}

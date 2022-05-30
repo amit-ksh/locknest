@@ -1,16 +1,16 @@
 import { FC, useState } from 'react';
 import {
-  Button,
   FormControl,
   FormHelperText,
   FormLabel,
+  IconButton,
   Input,
   InputGroup,
-  InputRightElement,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Box, Heading, SimpleGrid } from '@chakra-ui/layout';
 import { InputBoxPropsTypes } from '../lib/propsTypes';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const InputBox: FC<InputBoxPropsTypes> = ({
   label,
@@ -24,13 +24,17 @@ const InputBox: FC<InputBoxPropsTypes> = ({
 }) => {
   const [show, setShow] = useState(false);
 
-  const helperFontColor = useColorModeValue('gray.400', 'white');
+  const helperFontColor = useColorModeValue('black', 'white');
 
   return (
     <FormControl>
       <FormLabel>{label}</FormLabel>
 
-      <InputGroup>
+      <InputGroup
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
         <Input
           color={isInvalid ? 'red.400' : 'brand.500'}
           type={show ? 'text' : type}
@@ -41,16 +45,23 @@ const InputBox: FC<InputBoxPropsTypes> = ({
           onChange={onChange}
         />
         {type === 'password' && (
-          <InputRightElement width="4.5rem">
-            <Button
-              h="1.75rem"
-              size="sm"
-              variant="primary"
-              onClick={() => setShow(!show)}
-            >
-              {show ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
+          <Box ml={1}>
+            {show ? (
+              <IconButton
+                variant="primary"
+                aria-label="show password"
+                icon={<ViewIcon />}
+                onClick={() => setShow(!show)}
+              />
+            ) : (
+              <IconButton
+                variant="primary"
+                aria-label="hide password"
+                icon={<ViewOffIcon />}
+                onClick={() => setShow(!show)}
+              />
+            )}
+          </Box>
         )}
       </InputGroup>
 
