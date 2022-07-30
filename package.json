@@ -22,6 +22,7 @@
     "framer-motion": "^6.2.9",
     "jsonwebtoken": "^8.5.1",
     "next": "12.1.4",
+    "next-pwa": "^5.5.4",
     "password-validator": "^5.2.1",
     "react": "18.0.0",
     "react-dom": "18.0.0",
