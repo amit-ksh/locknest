@@ -16,7 +16,7 @@ import { FaPowerOff } from 'react-icons/fa';
 import { StoreModel } from '../lib/model';
 import { auth } from '../lib/mutations';
 
-import AddNewItem from './AddNewItem';
+import OpenFormButton from './OpenFormButton';
 import SearchBar from './SearchBar';
 
 const MainHeader = ({ itemsList }) => {
@@ -56,7 +56,7 @@ const MainHeader = ({ itemsList }) => {
                 </MenuButton>
                 <MenuList bg={menuListBGColor}>
                   {itemsList.map((item) => (
-                    <AddNewItem key={item.name} item={item} />
+                    <OpenFormButton key={item.name} item={item} />
                   ))}
                 </MenuList>
               </Menu>

@@ -27,6 +27,7 @@ const MainLayout: FC<MainlayoutPropsTypes> = ({ itemsList }) => {
         placement="right"
         onClose={onClose}
         onOverlayClick={onClose}
+        blockScrollOnMount={false}
         size="sm"
       >
         <DrawerOverlay />

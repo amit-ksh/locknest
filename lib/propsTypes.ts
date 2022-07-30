@@ -42,7 +42,7 @@ export interface SaveSecureNotesFormPropsTypes extends SaveItemFormPropsTypes {
   item: PaymentCard;
 }
 
-export interface AddNewItemPropsTypes {
+export interface OpenFormButtonPropsTypes {
   item: {
     name: string;
     Form: FC<{

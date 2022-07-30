@@ -1,4 +1,5 @@
 import 'reset-css';
+import '../styles/globals.css'
 import { store } from '../lib/store';
 import { StoreProvider } from 'easy-peasy';
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';

@@ -1,8 +1,8 @@
 import { MenuItem, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { FC } from 'react';
-import { AddNewItemPropsTypes } from '../lib/propsTypes';
+import { OpenFormButtonPropsTypes } from '../lib/propsTypes';
 
-const AddNewItem: FC<AddNewItemPropsTypes> = ({ item }) => {
+const OpenFormButton: FC<OpenFormButtonPropsTypes> = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const menuItemBGColor = useColorModeValue('brand.400', 'brand.700');
 
@@ -21,4 +21,4 @@ const AddNewItem: FC<AddNewItemPropsTypes> = ({ item }) => {
   );
 };
 
-export default AddNewItem;
+export default OpenFormButton;
