@@ -1,23 +1,27 @@
 import { mode } from '@chakra-ui/theme-tools';
 
-const buttonBrandRing = {
-  _focus: {
-    ring: 2,
-    ringColor: 'brand.400',
-  },
+const primaryButtonBrandRing = {
+  ring: 2,
+  ringColor: 'brand.400',
+};
+
+const dangerButtonBrandRing = {
+  ring: 2,
+  ringColor: 'red.400',
 };
 
 export const buttonPrimaryStyles = {
   color: 'white',
   backgroundColor: 'brand.500',
-  ...buttonBrandRing,
 
   _hover: {
+    ...primaryButtonBrandRing,
     backgroundColor: 'brand.600',
     _disabled: { bgColor: 'brand.400' },
   },
 
   _focus: {
+    ...primaryButtonBrandRing,
     backgroundColor: 'brand.600',
     _disabled: { bgColor: 'brand.400' },
   },
@@ -32,11 +36,13 @@ export const buttonDangerStyles = {
   backgroundColor: 'red.500',
 
   _hover: {
+    ...dangerButtonBrandRing,
     backgroundColor: 'red.600',
     _disabled: { bgColor: 'red.300' },
   },
 
   _focus: {
+    ...dangerButtonBrandRing,
     backgroundColor: 'red.600',
     _disabled: { bgColor: 'red.300' },
   },

@@ -6,6 +6,10 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -44,26 +48,32 @@ const MainHeader = ({ itemsList }) => {
         <Flex flexBasis="75%" gap={4} alignItems="center">
           {/* ADD ITEM BUTTONS */}
           {itemsList.length > 1 ? (
-            <Box>
-              <Menu>
-                <MenuButton
+            <Popover>
+              <PopoverTrigger>
+                <Button
                   variant="primary"
                   as={Button}
                   leftIcon={<AddIcon />}
                   pr={{ md: 4, base: '6px' }}
                 >
-                  <Text display={{ md: 'block', base: 'none' }}>Add</Text>
-                </MenuButton>
-                <MenuList bg={menuListBGColor}>
+                  Add
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverBody
+                  bg={menuListBGColor}
+                  borderRadius='md'
+                  ring='2'
+                  ringColor='brand.400'
+                >
                   {itemsList.map((item) => (
                     <OpenFormButton key={item.name} item={item} />
                   ))}
-                </MenuList>
-              </Menu>
-            </Box>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
           ) : (
             <Box>
-              <ButtonGroup>
                 <Button
                   variant="primary"
                   onClick={onOpen}
@@ -72,7 +82,6 @@ const MainHeader = ({ itemsList }) => {
                 >
                   <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </Button>
-              </ButtonGroup>
               {/* 
                   This will run only once. We have to do this because we can't access the 
                   'Form' component using this way '<itemsList[0].Form />'. Mapping the list array 

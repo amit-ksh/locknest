@@ -91,8 +91,17 @@ const Item: FC<ItemPropsTypes> = ({
       {/* Edit Button */}
       <Box justifySelf="flex-end" cursor="pointer">
         <Menu>
-          <MenuButton>
-            <IconButton bg="" aria-label="Edit Button" icon={<BsThreeDots />} />
+          <MenuButton
+            borderRadius='md'
+            _hover={{
+              bg: 'gray.300'
+            }}
+            _focus={{
+              ring: 3,
+              ringColor: 'brand.300',
+            }}
+          >
+            <IconButton as='span' bg="" aria-label="Edit Button" icon={<BsThreeDots />} />
           </MenuButton>
           <MenuList>
             <MenuItem

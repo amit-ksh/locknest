@@ -22,13 +22,13 @@ import { FC } from 'react';
 import { SidebarPropsTypes } from '../lib/propsTypes';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-interface LinksTypes {
+interface LinkType {
   name: string;
   icon: FC<{}>;
   route: string;
 }
 
-const links: LinksTypes[] = [
+const links: LinkType[] = [
   {
     name: 'All Items',
     icon: BsGridFill,
