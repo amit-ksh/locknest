@@ -6,11 +6,12 @@ import {
   IconButton,
   Input,
   InputGroup,
+  TagLeftIcon,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Box, Heading, SimpleGrid } from '@chakra-ui/layout';
 import { InputBoxPropsTypes } from '../lib/propsTypes';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { InfoIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const InputBox: FC<InputBoxPropsTypes> = ({
   label,
@@ -25,6 +26,7 @@ const InputBox: FC<InputBoxPropsTypes> = ({
   const [show, setShow] = useState(false);
 
   const helperFontColor = useColorModeValue('black', 'white');
+  const placeholderFontColor = useColorModeValue('gray.400', 'gray.300');
 
   return (
     <FormControl>
@@ -43,25 +45,21 @@ const InputBox: FC<InputBoxPropsTypes> = ({
           isRequired={isRequired}
           isInvalid={isInvalid}
           onChange={onChange}
+          onFocus={onChange}
+          _placeholder={{
+            color: placeholderFontColor
+          }}
         />
+
+        {/* PASSWORD SHOW AND HIDE BUTTON */}
         {type === 'password' && (
-          <Box ml={1}>
-            {show ? (
-              <IconButton
-                variant="primary"
-                aria-label="show password"
-                icon={<ViewIcon />}
-                onClick={() => setShow(!show)}
-              />
-            ) : (
-              <IconButton
-                variant="primary"
-                aria-label="hide password"
-                icon={<ViewOffIcon />}
-                onClick={() => setShow(!show)}
-              />
-            )}
-          </Box>
+          <IconButton
+            ml={1}
+            variant="primary"
+            aria-label={show ? "hide password" : "show password"}
+            icon={show ? <ViewOffIcon /> : <ViewIcon />}
+            onClick={() => setShow(!show)}
+          />
         )}
       </InputGroup>
 
@@ -75,8 +73,10 @@ const InputBox: FC<InputBoxPropsTypes> = ({
               <FormHelperText
                 color={helperFontColor}
                 key={`helper-${idx + 1}`}
+                ml={4}
                 fontSize="md"
               >
+                <TagLeftIcon mt={1} boxSize='18px' as={InfoIcon} color='green.400' />
                 {helper}
               </FormHelperText>
             ))}

@@ -6,11 +6,11 @@ import SignupFormBanner from '../components/SignupFormBanner';
 
 const Signup = () => {
   return (
-    <Box w="100%" h="100vh" p={0}>
-      <Box h="10%">
+    <>
+      <Box>
         <Header />
       </Box>
-      <Flex h="92%" mt="-1%" direction={{ base: 'column', md: 'row-reverse' }}>
+      <Flex h='90vh' direction={{ base: 'column', md: 'row-reverse' }}>
         <Box flexBasis="50%">
           <SignupForm />
         </Box>
@@ -18,7 +18,7 @@ const Signup = () => {
           <SignupFormBanner />
         </Box>
       </Flex>
-    </Box>
+    </>
   );
 };
 

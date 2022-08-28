@@ -81,11 +81,9 @@ const Item: FC<ItemPropsTypes> = ({
         }}
         onClick={() => handleClick(item)}
       >
-        <Box p={2}>
-          <Text fontWeight="semibold" fontSize="lg">
+          <Text p={2} fontWeight="semibold" fontSize="lg">
             {item.name}
           </Text>
-        </Box>
       </Button>
 
       {/* Edit Button */}
@@ -103,7 +101,7 @@ const Item: FC<ItemPropsTypes> = ({
           >
             <IconButton as='span' bg="" aria-label="Edit Button" icon={<BsThreeDots />} />
           </MenuButton>
-          <MenuList>
+          <MenuList as='span'>
             <MenuItem
               _hover={{ bg: 'gray.500', color: 'white' }}
               _focus={{ bg: 'gray.500', color: 'white' }}

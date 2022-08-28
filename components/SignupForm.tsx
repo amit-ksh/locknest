@@ -25,7 +25,7 @@ import { State, useStoreState } from 'easy-peasy';
 import { StateModel } from '../lib/model';
 
 const passwordHelpers = [
-  'At least 12 character long.',
+  'At least 12 characters long.',
   'At least 1 lowercase letter.',
   'At least 1 uppercase letter.',
   'At least 1 number.',

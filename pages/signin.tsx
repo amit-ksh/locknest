@@ -6,11 +6,11 @@ import SigninFormBanner from '../components/SigninFormBanner';
 
 const Signin = () => {
   return (
-    <Box w="100%" h="100vh">
-      <Box h="10%">
+    <>
+      <Box>
         <Header />
       </Box>
-      <Flex h="92%" mt="-1%" direction={{ base: 'column', md: 'row' }}>
+      <Flex h='90vh' direction={{ base: 'column', md: 'row' }}>
         <Box flexBasis="50%">
           <SigninForm />
         </Box>
@@ -18,7 +18,7 @@ const Signin = () => {
           <SigninFormBanner />
         </Box>
       </Flex>
-    </Box>
+    </>
   );
 };
 

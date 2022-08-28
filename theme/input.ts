@@ -31,9 +31,6 @@ export const inputStyles = {
         _hover: {
           borderColor: 'brand.400',
         },
-        _placeholder: {
-          color: mode('gray.400', 'white'),
-        },
       },
     },
   },

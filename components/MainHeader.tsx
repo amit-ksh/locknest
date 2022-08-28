@@ -2,10 +2,6 @@ import { AddIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import {
   Button,
-  ButtonGroup,
-  Menu,
-  MenuButton,
-  MenuList,
   Popover,
   PopoverBody,
   PopoverContent,
@@ -56,10 +52,10 @@ const MainHeader = ({ itemsList }) => {
                   leftIcon={<AddIcon />}
                   pr={{ md: 4, base: '6px' }}
                 >
-                  Add
+                  <Text display={{md: 'block', base: 'none'}}>Add</Text>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent>
+              <PopoverContent w={{base: '200px', md: '250px'}}>
                 <PopoverBody
                   bg={menuListBGColor}
                   borderRadius='md'

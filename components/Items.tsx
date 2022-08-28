@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Box, Center, Text } from '@chakra-ui/layout';
+import { Box, Center, Divider, Text } from '@chakra-ui/layout';
 import { Spinner, useColorMode, useDisclosure } from '@chakra-ui/react';
 import { State, useStoreState } from 'easy-peasy';
 
@@ -44,9 +44,11 @@ const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
     return (
       <Center
         fontSize="xl"
-        color={colorMode === 'light' ? 'gray.400' : 'whiteAlpha.500'}
+        color={colorMode === 'light' ? 'gray.400' : 'whiteAlpha.400'}
       >
-        Empty
+        <Divider ml='10%' />
+        <Text mx={4}>Empty</Text>
+        <Divider mr='10%' />
       </Center>
     );
   }
