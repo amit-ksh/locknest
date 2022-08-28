@@ -45,7 +45,6 @@ const InputBox: FC<InputBoxPropsTypes> = ({
           isRequired={isRequired}
           isInvalid={isInvalid}
           onChange={onChange}
-          onFocus={onChange}
           _placeholder={{
             color: placeholderFontColor
           }}
