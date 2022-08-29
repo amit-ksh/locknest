@@ -37,7 +37,7 @@ const theme = extendTheme(
     },
   },
   withDefaultVariant({
-    variant: 'outline',
+    variant: 'filled',
     components: ['Input', 'Textarea'],
   })
 );

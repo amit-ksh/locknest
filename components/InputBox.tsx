@@ -29,7 +29,7 @@ const InputBox: FC<InputBoxPropsTypes> = ({
   const placeholderFontColor = useColorModeValue('gray.400', 'gray.300');
 
   return (
-    <FormControl>
+    <FormControl variant='filled' isRequired={isRequired} isInvalid={isInvalid}>
       <FormLabel>{label}</FormLabel>
 
       <InputGroup
@@ -42,8 +42,6 @@ const InputBox: FC<InputBoxPropsTypes> = ({
           type={show ? 'text' : type}
           placeholder={placeholder}
           value={value}
-          isRequired={isRequired}
-          isInvalid={isInvalid}
           onChange={onChange}
           _placeholder={{
             color: placeholderFontColor

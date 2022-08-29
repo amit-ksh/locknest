@@ -18,19 +18,14 @@ export const labelStyles = {
 
 export const inputStyles = {
   variants: {
-    outline: {
+    filled: {
       field: {
-        color: mode('brand.400', 'white'),
-        borderWidth: '2px',
-        borderColor: 'brand.500',
+        color: mode('brand.400', 'brand.600'),
         borderRadius: '3px',
         _focus: {
           borderColor: 'brand.400',
           ...inputBrandRing,
-        },
-        _hover: {
-          borderColor: 'brand.400',
-        },
+        }
       },
     },
   },
