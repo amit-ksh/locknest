@@ -16,9 +16,9 @@ import NotesInputField from './NotesInputField';
 
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
-import { SavePaymentCardFormPropsTypes } from '../lib/propsTypes';
+import { SavePaymentCardFormPropsTypes } from '../types/props';
 import { Actions, useStoreActions } from 'easy-peasy';
-import { StoreModel } from '../lib/model';
+import { StoreModel } from '../store/model';
 
 const PasswordForm: FC<SavePaymentCardFormPropsTypes> = ({
   isOpen,

@@ -17,8 +17,8 @@ import NotesInputField from './NotesInputField';
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 import { Actions, useStoreActions } from 'easy-peasy';
-import { SaveBankAccountFormPropsTypes } from '../lib/propsTypes';
-import { StoreModel } from '../lib/model';
+import { SaveBankAccountFormPropsTypes } from '../types/props';
+import { StoreModel } from '../store/model';
 
 const BankAccountForm: FC<SaveBankAccountFormPropsTypes> = ({
   isOpen,

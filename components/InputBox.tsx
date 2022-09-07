@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Box, Heading, SimpleGrid } from '@chakra-ui/layout';
-import { InputBoxPropsTypes } from '../lib/propsTypes';
+import { InputBoxPropsTypes } from '../types/props';
 import { InfoIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const InputBox: FC<InputBoxPropsTypes> = ({

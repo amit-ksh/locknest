@@ -17,8 +17,8 @@ import NotesInputField from './NotesInputField';
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 import { Actions, useStoreActions } from 'easy-peasy';
-import { StoreModel } from '../lib/model';
-import { SavePasswordFormPropsTypes } from '../lib/propsTypes';
+import { StoreModel } from '../store/model';
+import { SavePasswordFormPropsTypes } from '../types/props';
 
 const PasswordForm: FC<SavePasswordFormPropsTypes> = ({
   isOpen,

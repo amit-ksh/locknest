@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/layout';
 import { IconButton, useColorModeValue } from '@chakra-ui/react';
 import { FC } from 'react';
 import { FiMenu } from 'react-icons/fi';
-import { MainHeaderLayoutPropsTypes } from '../lib/propsTypes';
+import { MainHeaderLayoutPropsTypes } from '../types/props';
 import MainHeader from './MainHeader';
 
 const MainHeaderLayout: FC<MainHeaderLayoutPropsTypes> = ({

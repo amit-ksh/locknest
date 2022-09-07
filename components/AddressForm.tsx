@@ -16,9 +16,9 @@ import InputBox from './InputBox';
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 import { Actions, useStoreActions } from 'easy-peasy';
-import { StoreModel } from '../lib/model';
+import { StoreModel } from '../store/model';
 
-import { SaveAddressFormPropsTypes } from '../lib/propsTypes';
+import { SaveAddressFormPropsTypes } from '../types/props';
 
 const AddressForm: FC<SaveAddressFormPropsTypes> = ({
   isOpen,

@@ -2,8 +2,8 @@ import { Box, Heading } from '@chakra-ui/layout';
 import { useColorModeValue } from '@chakra-ui/react';
 import { Actions, useStoreActions, useStoreRehydrated } from 'easy-peasy';
 import { FC, useEffect } from 'react';
-import { StoreModel } from '../lib/model';
-import { ItemsLayoutPropsTypes } from '../lib/propsTypes';
+import { StoreModel } from '../store/model';
+import { ItemsLayoutPropsTypes } from '../types/props';
 
 import Items from './Items';
 

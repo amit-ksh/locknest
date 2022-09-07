@@ -7,7 +7,7 @@ import {
   Password,
   PaymentCard,
   SecureNotes,
-} from './itemsTypes';
+} from './items';
 
 interface SaveItemFormPropsTypes {
   isOpen: boolean;

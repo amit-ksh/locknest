@@ -17,8 +17,8 @@ import NotesInputField from './NotesInputField';
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 import { Actions, useStoreActions } from 'easy-peasy';
-import { SaveSecureNotesFormPropsTypes } from '../lib/propsTypes';
-import { StoreModel } from '../lib/model';
+import { SaveSecureNotesFormPropsTypes } from '../types/props';
+import { StoreModel } from '../store/model';
 
 const SecureNotesForm: FC<SaveSecureNotesFormPropsTypes> = ({
   isOpen,

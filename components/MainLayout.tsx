@@ -6,7 +6,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { FC } from 'react';
-import { MainlayoutPropsTypes } from '../lib/propsTypes';
+import { MainlayoutPropsTypes } from '../types/props';
 
 import ItemsLayout from './ItemsLayout';
 import MainHeaderLayout from './MainHeaderLayout';

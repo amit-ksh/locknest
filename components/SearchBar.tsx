@@ -2,7 +2,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { FC } from 'react';
-import { ActionModel } from '../lib/model';
+import { ActionModel } from '../store/model';
 
 const SearchBar: FC<{}> = () => {
   const setSearchFor = useStoreActions(

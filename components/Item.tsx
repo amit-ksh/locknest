@@ -13,9 +13,9 @@ import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
 import { FC } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { createToast } from '../lib/form';
-import { ItemPropsTypes } from '../lib/propsTypes';
+import { ItemPropsTypes } from '../types/props';
 import { itemCRUD } from '../lib/mutations';
-import { ActionModel, StateModel } from '../lib/model';
+import { ActionModel, StateModel } from '../store/model';
 
 const Item: FC<ItemPropsTypes> = ({
   item,

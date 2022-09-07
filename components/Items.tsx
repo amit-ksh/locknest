@@ -4,8 +4,8 @@ import { Spinner, useColorMode, useDisclosure } from '@chakra-ui/react';
 import { State, useStoreState } from 'easy-peasy';
 
 import Item from './Item';
-import { ItemsPropsTypes } from '../lib/propsTypes';
-import { StateModel } from '../lib/model';
+import { ItemsPropsTypes } from '../types/props';
+import { StateModel } from '../store/model';
 
 const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
   const items = useStoreState((state: State<StateModel>) => state[name]);

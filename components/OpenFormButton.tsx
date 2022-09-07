@@ -1,6 +1,6 @@
 import {  Button, MenuItem, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import { FC } from 'react';
-import { OpenFormButtonPropsTypes } from '../lib/propsTypes';
+import { OpenFormButtonPropsTypes } from '../types/props';
 
 const OpenFormButton: FC<OpenFormButtonPropsTypes> = ({ item }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -17,7 +17,7 @@ import InputBox from './InputBox';
 import { auth } from '../lib/mutations';
 import { createToast, checkEmail, validate } from '../lib/form';
 import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
-import { ActionModel, StateModel } from '../lib/model';
+import { ActionModel, StateModel } from '../store/model';
 
 const SigninForm: FC<{}> = () => {
   const router = useRouter();

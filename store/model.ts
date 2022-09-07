@@ -9,7 +9,7 @@ import {
   PaymentCard,
   SecureNotes,
   User,
-} from './itemsTypes';
+} from '../types/items';
 
 const itemNames = {
   password: 'passwords',

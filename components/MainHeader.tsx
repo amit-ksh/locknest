@@ -13,7 +13,7 @@ import { Actions, useStoreActions } from 'easy-peasy';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FaPowerOff } from 'react-icons/fa';
-import { StoreModel } from '../lib/model';
+import { StoreModel } from '../store/model';
 import { auth } from '../lib/mutations';
 
 import OpenFormButton from './OpenFormButton';

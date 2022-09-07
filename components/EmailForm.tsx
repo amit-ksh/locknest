@@ -16,8 +16,8 @@ import InputBox from './InputBox';
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 import { Actions, useStoreActions } from 'easy-peasy';
-import { StoreModel } from '../lib/model';
-import { SaveEmailFormPropsTypes } from '../lib/propsTypes';
+import { StoreModel } from '../store/model';
+import { SaveEmailFormPropsTypes } from '../types/props';
 
 const EmailForm: FC<SaveEmailFormPropsTypes> = ({
   isOpen,

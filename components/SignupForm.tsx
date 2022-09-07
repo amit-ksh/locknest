@@ -22,7 +22,7 @@ import {
   validate,
 } from '../lib/form';
 import { State, useStoreState } from 'easy-peasy';
-import { StateModel } from '../lib/model';
+import { StateModel } from '../store/model';
 
 const passwordHelpers = [
   'At least 12 characters long.',

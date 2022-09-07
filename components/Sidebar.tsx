@@ -19,7 +19,7 @@ import {
 } from 'react-icons/fa';
 import { BsGridFill, BsFillFileEarmarkLock2Fill } from 'react-icons/bs';
 import { FC } from 'react';
-import { SidebarPropsTypes } from '../lib/propsTypes';
+import { SidebarPropsTypes } from '../types/props';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 interface LinkType {

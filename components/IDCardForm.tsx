@@ -16,8 +16,8 @@ import InputBox from './InputBox';
 import { itemCRUD } from '../lib/mutations';
 import { createToast, reset } from '../lib/form';
 import { Actions, useStoreActions } from 'easy-peasy';
-import { StoreModel } from '../lib/model';
-import { SaveIDCardFormPropsTypes } from '../lib/propsTypes';
+import { StoreModel } from '../store/model';
+import { SaveIDCardFormPropsTypes } from '../types/props';
 
 const IDCardForm: FC<SaveIDCardFormPropsTypes> = ({
   isOpen,
