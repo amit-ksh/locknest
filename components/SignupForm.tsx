@@ -40,47 +40,47 @@ const SignUpForm: FC<{}> = () => {
   const [password, setPassword] = useState('');
   const [retypedPassword, setRetypedPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailNotValid, setIsEmailNotValid] = useState(true);
-  const [isPasswordNotValid, setIsPasswordNotValid] = useState(true);
-  const [isRetypedPasswordNotValid, setIsRetypedPasswordNotValid] =
-    useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isRetypedPasswordValid, setIsRetypedPasswordValid] =
+    useState(false);
   const toast = useToast();
   const { colorMode } = useColorMode();
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
 
-    validate([email], checkEmail, setIsEmailNotValid);
+    validate([email], checkEmail, setIsEmailValid);    
   };
 
   const onPasswordChange = (e) => {
     setPassword(e.target.value);
 
-    validate([password], checkPassword, setIsPasswordNotValid);
+    validate([password], checkPassword, setIsPasswordValid);
   };
 
   const onRetypedPasswordChange = (e) => {
     setRetypedPassword(e.target.value);
 
     validate(
-      [password, retypedPassword],
+      [password, e.target.value],
       checkRetypedPassword,
-      setIsRetypedPasswordNotValid
+      setIsRetypedPasswordValid
     );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    validate([email], checkEmail, setIsEmailNotValid);
-    validate([password], checkPassword, setIsPasswordNotValid);
+    validate([email], checkEmail, setIsEmailValid);
+    validate([password], checkPassword, setIsPasswordValid);
     validate(
       [password, retypedPassword],
       checkRetypedPassword,
-      setIsRetypedPasswordNotValid
+      setIsRetypedPasswordValid
     );
 
-    if (!isEmailNotValid || !isPasswordNotValid || !isRetypedPasswordNotValid)
+    if (!isEmailValid || !isPasswordValid || !isRetypedPasswordValid)
       return;
 
     setIsLoading(true);
@@ -93,6 +93,7 @@ const SignUpForm: FC<{}> = () => {
         title: error,
         description: (
           <Button
+            as='a'
             color="brand.600"
             mt="0.25rem"
             onClick={() => {
@@ -146,7 +147,7 @@ const SignUpForm: FC<{}> = () => {
                 placeholder="Enter your email"
                 value={email}
                 isRequired={true}
-                isInvalid={!isEmailNotValid}
+                isInvalid={!isEmailValid}
                 onChange={onEmailChange}
               />
             </GridItem>
@@ -157,7 +158,7 @@ const SignUpForm: FC<{}> = () => {
                 placeholder="Enter your master password"
                 value={password}
                 isRequired={true}
-                isInvalid={!isPasswordNotValid}
+                isInvalid={!isPasswordValid}
                 helpers={passwordHelpers}
                 onChange={onPasswordChange}
               />
@@ -169,7 +170,7 @@ const SignUpForm: FC<{}> = () => {
                 placeholder="Retype your master password"
                 value={retypedPassword}
                 isRequired={true}
-                isInvalid={!isRetypedPasswordNotValid}
+                isInvalid={!isRetypedPasswordValid}
                 onChange={onRetypedPasswordChange}
               />
             </GridItem>

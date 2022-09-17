@@ -53,8 +53,8 @@ export const checkRetypedPassword = (password, retypedPassword) =>
 
 export const validate = (payload, validateState, setValidState) => {
   if (validateState(...payload)) {
-    setValidState(false);
-  } else {
     setValidState(true);
+  } else {
+    setValidState(false);
   }
 };
