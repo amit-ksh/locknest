@@ -43,11 +43,14 @@ const PasswordForm: FC<SavePasswordFormPropsTypes> = ({
     const data = { id: item.id, name, url, username, password, notes };
     const actionName = item.id ? 'MODIFY_ITEM' : 'ADD_ITEM';
 
+    console.info('AN', actionName, item.id);
+
     try {
       const { id } = await itemCRUD('save', { data, type: 'password' });
 
+      console.log(id);
       if (id) {
-        saveItem({ item: { ...data }, actionName, itemName: 'password' });
+        saveItem({ item: { ...data, id }, actionName, itemName: 'password' });
         createToast(toast, 'Password Saved.');
       } else {
         createToast(toast, 'Error!', 'Password Not Saved', 'error');

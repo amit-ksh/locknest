@@ -29,7 +29,7 @@ const InputBox: FC<InputBoxPropsTypes> = ({
   const placeholderFontColor = useColorModeValue('gray.400', 'gray.300');
 
   return (
-    <FormControl variant='filled' isRequired={isRequired} isInvalid={isInvalid}>
+    <FormControl variant="filled" isRequired={isRequired} isInvalid={isInvalid}>
       <FormLabel>{label}</FormLabel>
 
       <InputGroup
@@ -44,7 +44,7 @@ const InputBox: FC<InputBoxPropsTypes> = ({
           value={value}
           onChange={onChange}
           _placeholder={{
-            color: placeholderFontColor
+            color: placeholderFontColor,
           }}
         />
 
@@ -53,7 +53,7 @@ const InputBox: FC<InputBoxPropsTypes> = ({
           <IconButton
             ml={1}
             variant="primary"
-            aria-label={show ? "hide password" : "show password"}
+            aria-label={show ? 'hide password' : 'show password'}
             icon={show ? <ViewOffIcon /> : <ViewIcon />}
             onClick={() => setShow(!show)}
           />
@@ -73,7 +73,12 @@ const InputBox: FC<InputBoxPropsTypes> = ({
                 ml={4}
                 fontSize="md"
               >
-                <TagLeftIcon mt={1} boxSize='18px' as={InfoIcon} color='green.400' />
+                <TagLeftIcon
+                  mt={1}
+                  boxSize="18px"
+                  as={InfoIcon}
+                  color="green.400"
+                />
                 {helper}
               </FormHelperText>
             ))}

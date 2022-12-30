@@ -6,10 +6,10 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  useColorMode,
+  useColorModeValue,
   useToast,
 } from '@chakra-ui/react';
-import { Actions, State, useStoreActions, useStoreState } from 'easy-peasy';
+import { Actions, useStoreActions } from 'easy-peasy';
 import { FC } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 import { createToast } from '../lib/form';
@@ -27,7 +27,6 @@ const Item: FC<ItemPropsTypes> = ({
   const deleteItem = useStoreActions(
     (actions: Actions<ActionModel>) => actions.deleteItem
   );
-  const { colorMode } = useColorMode();
 
   const toast = useToast();
 
@@ -48,14 +47,11 @@ const Item: FC<ItemPropsTypes> = ({
 
       if (id) {
         deleteItem({ itemName, item });
-        createToast(toast, `${type} Deleted.`, '', 'error');
+        createToast(toast, `${type} Deleted.`, '', 'success');
       } else {
-        console.log(error);
-
-        createToast(toast, 'Error!', error, 'error');
+        createToast(toast, 'Error!', error.cause, 'error');
       }
     } catch (e) {
-      console.log(e.message);
       createToast(
         toast,
         'Error!',
@@ -81,28 +77,34 @@ const Item: FC<ItemPropsTypes> = ({
         }}
         onClick={() => handleClick(item)}
       >
-          <Text p={2} fontWeight="semibold" fontSize="lg">
-            {item.name}
-          </Text>
+        <Text p={2} fontWeight="semibold" fontSize="lg">
+          {item.name}
+        </Text>
       </Button>
 
       {/* Edit Button */}
       <Box justifySelf="flex-end" cursor="pointer">
         <Menu>
           <MenuButton
-            borderRadius='md'
+            borderRadius="md"
             _hover={{
-              bg: 'gray.300'
+              bg: 'gray.300',
             }}
             _focus={{
               ring: 3,
               ringColor: 'brand.300',
             }}
           >
-            <IconButton as='span' bg="" aria-label="Edit Button" icon={<BsThreeDots />} />
+            <IconButton
+              as="span"
+              bg=""
+              aria-label="Edit Button"
+              icon={<BsThreeDots />}
+            />
           </MenuButton>
-          <MenuList as='span'>
+          <MenuList bg='gray.200'>
             <MenuItem
+              color='black'
               _hover={{ bg: 'gray.500', color: 'white' }}
               _focus={{ bg: 'gray.500', color: 'white' }}
               onClick={() => handleClick(item)}

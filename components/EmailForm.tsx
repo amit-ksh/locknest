@@ -48,7 +48,7 @@ const EmailForm: FC<SaveEmailFormPropsTypes> = ({
 
       if (id) {
         saveItem({
-          item: { ...data },
+          item: { ...data, id },
           actionName,
           itemName: 'email',
         });

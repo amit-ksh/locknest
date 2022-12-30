@@ -61,7 +61,7 @@ const IDCardForm: FC<SaveIDCardFormPropsTypes> = ({
 
       if (id) {
         saveItem({
-          item: { ...data },
+          item: { ...data, id },
           actionName,
           itemName: 'idCard',
         });

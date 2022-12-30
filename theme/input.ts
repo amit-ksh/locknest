@@ -25,7 +25,7 @@ export const inputStyles = {
         _focus: {
           borderColor: 'brand.400',
           ...inputBrandRing,
-        }
+        },
       },
     },
   },

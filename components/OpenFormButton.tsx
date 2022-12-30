@@ -1,4 +1,9 @@
-import {  Button, MenuItem, useColorModeValue, useDisclosure } from '@chakra-ui/react';
+import {
+  Button,
+  MenuItem,
+  useColorModeValue,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { FC } from 'react';
 import { OpenFormButtonPropsTypes } from '../types/props';
 
@@ -10,9 +15,9 @@ const OpenFormButton: FC<OpenFormButtonPropsTypes> = ({ item }) => {
   return (
     <>
       <Button
-        display='block'
+        display="block"
         bg={menuItemBGColor}
-        w='100%'
+        w="100%"
         onClick={onOpen}
         _hover={{ color: 'white', bg: menuItemFocusColor }}
         _focus={{ color: 'white', bg: menuItemFocusColor }}

@@ -7,9 +7,11 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head>
-          <title>Locknest</title>
           <link rel="manifest" href="/manifest.json" />
-          <link rel="apple-touch-icon" href="/public/icons/apple-touch-icon.png" />
+          <link
+            rel="apple-touch-icon"
+            href="/public/icons/apple-touch-icon.png"
+          />
         </Head>
 
         <body>

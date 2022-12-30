@@ -52,15 +52,15 @@ const MainHeader = ({ itemsList }) => {
                   leftIcon={<AddIcon />}
                   pr={{ md: 4, base: '6px' }}
                 >
-                  <Text display={{md: 'block', base: 'none'}}>Add</Text>
+                  <Text display={{ md: 'block', base: 'none' }}>Add</Text>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent w={{base: '200px', md: '250px'}}>
+              <PopoverContent w={{ base: '200px', md: '250px' }}>
                 <PopoverBody
                   bg={menuListBGColor}
-                  borderRadius='md'
-                  ring='2'
-                  ringColor='brand.400'
+                  borderRadius="md"
+                  ring="2"
+                  ringColor="brand.400"
                 >
                   {itemsList.map((item) => (
                     <OpenFormButton key={item.name} item={item} />
@@ -70,14 +70,14 @@ const MainHeader = ({ itemsList }) => {
             </Popover>
           ) : (
             <Box>
-                <Button
-                  variant="primary"
-                  onClick={onOpen}
-                  leftIcon={<AddIcon />}
-                  pr={{ md: 4, base: 2 }}
-                >
-                  <Text display={{ md: 'block', base: 'none' }}>Add</Text>
-                </Button>
+              <Button
+                variant="primary"
+                onClick={onOpen}
+                leftIcon={<AddIcon />}
+                pr={{ md: 4, base: 2 }}
+              >
+                <Text display={{ md: 'block', base: 'none' }}>Add</Text>
+              </Button>
               {/* 
                   This will run only once. We have to do this because we can't access the 
                   'Form' component using this way '<itemsList[0].Form />'. Mapping the list array 

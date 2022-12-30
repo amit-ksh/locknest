@@ -2,6 +2,7 @@ import MainLayout from '../components/MainLayout';
 import AddressForm from '../components/AddressForm';
 import EmailForm from '../components/EmailForm';
 import { FC } from 'react';
+import Head from 'next/head';
 
 const itemsList = [
   {
@@ -15,7 +16,14 @@ const itemsList = [
 ];
 
 const PersonalInfo: FC<{}> = () => {
-  return <MainLayout itemsList={itemsList} />;
+  return (
+    <>
+      <Head>
+        <title>Personal Info | Locknest</title>
+      </Head>
+      <MainLayout itemsList={itemsList} />
+    </>
+  );
 };
 
 export default PersonalInfo;

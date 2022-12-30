@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{tsx,jsx,js,ts,md}\""
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.7",

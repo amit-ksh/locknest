@@ -68,7 +68,7 @@ const BankAccountForm: FC<SaveBankAccountFormPropsTypes> = ({
 
       if (id) {
         saveItem({
-          item: { ...data },
+          item: { ...data, id },
           actionName,
           itemName: 'bankaccount',
         });

@@ -46,9 +46,9 @@ const Items: FC<ItemsPropsTypes> = ({ type, name, Form }) => {
         fontSize="xl"
         color={colorMode === 'light' ? 'gray.400' : 'whiteAlpha.400'}
       >
-        <Divider ml='10%' />
+        <Divider ml="10%" />
         <Text mx={4}>Empty</Text>
-        <Divider mr='10%' />
+        <Divider mr="10%" />
       </Center>
     );
   }

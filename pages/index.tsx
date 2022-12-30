@@ -7,6 +7,7 @@ import AddressForm from '../components/AddressForm';
 import EmailForm from '../components/EmailForm';
 import IDCardForm from '../components/IDCardForm';
 import { FC } from 'react';
+import Head from 'next/head';
 
 const itemsList = [
   {
@@ -40,7 +41,14 @@ const itemsList = [
 ];
 
 const Home: FC<{}> = () => {
-  return <MainLayout itemsList={itemsList} />;
+  return (
+    <>
+      <Head>
+        <title>Home | Locknest</title>
+      </Head>
+      <MainLayout itemsList={itemsList} />
+    </>
+  );
 };
 
 export default Home;

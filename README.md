@@ -6,31 +6,28 @@ Website: [Locknest](https://locknest.vercel.app)
 
 ### Tech Stack Used
 
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)            ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&**logoColor**=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Prisma](https://img.shields.io/badge/prisma-brightgreen.svg?style=for-the-badge&logo=prisma&logoColor=white) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
-
-
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Chakra](https://img.shields.io/badge/chakra-%234ED1C5.svg?style=for-the-badge&logo=chakraui&**logoColor**=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Prisma](https://img.shields.io/badge/prisma-brightgreen.svg?style=for-the-badge&logo=prisma&logoColor=white) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
 ## Setting the local enviroment
 
-1) Clone the repo and install the dependencies
+1. Clone the repo and install the dependencies
+
    ```bash
    git clone https://github.com/amit-ksh/locknest.git
    cd locknest
    npm install
    ```
 
-1) Creating the .env file and set the following variables
+1. Creating the .env file and set the following variables
    ```bash
     DATABASE_URL='YOUR_POSTGRESQL_DB_URL_1'
     SHADOW_DATABASE_URL='YOUR_POSTGRESQL_DB_URL_2'
     JWT_SECRET='YOUR_JWT_SECRET'
    ```
-   
-2) Run the development server:
+1. Run the development server:
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
-3) Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
-
+1. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.

@@ -7,10 +7,14 @@ export default validateRoute(
     const { data, type } = req.body;
     let id = data.id || -999999; // this id never exist in DB
 
+    // removing the `id` attribute from `data` object
+    // because `data` is used for updating the entry in the DB
+    // and if `data` contains the `id` then Prisma will raise an error
     delete data.id;
 
+    let entry;
     try {
-      id = await prisma[type].upsert({
+      entry = await prisma[type].upsert({
         where: {
           id,
         },
@@ -28,7 +32,7 @@ export default validateRoute(
         },
       });
 
-      res.json({ id });
+      res.json({ id: entry.id });
     } catch (e) {
       console.log(e);
 

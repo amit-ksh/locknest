@@ -40,17 +40,16 @@ const SignUpForm: FC<{}> = () => {
   const [password, setPassword] = useState('');
   const [retypedPassword, setRetypedPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailValid, setIsEmailValid] = useState(false);
-  const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [isRetypedPasswordValid, setIsRetypedPasswordValid] =
-    useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isRetypedPasswordValid, setIsRetypedPasswordValid] = useState(true);
   const toast = useToast();
   const { colorMode } = useColorMode();
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
 
-    validate([email], checkEmail, setIsEmailValid);    
+    validate([email], checkEmail, setIsEmailValid);
   };
 
   const onPasswordChange = (e) => {
@@ -80,8 +79,7 @@ const SignUpForm: FC<{}> = () => {
       setIsRetypedPasswordValid
     );
 
-    if (!isEmailValid || !isPasswordValid || !isRetypedPasswordValid)
-      return;
+    if (!isEmailValid || !isPasswordValid || !isRetypedPasswordValid) return;
 
     setIsLoading(true);
     const { user, error } = await auth('signup', { email, password });
@@ -93,7 +91,7 @@ const SignUpForm: FC<{}> = () => {
         title: error,
         description: (
           <Button
-            as='a'
+            as="a"
             color="brand.600"
             mt="0.25rem"
             onClick={() => {
