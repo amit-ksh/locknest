@@ -29,22 +29,22 @@ const SigninForm: FC<{}> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEmailNotValid, setIsEmailNotValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true);
   const toast = useToast();
   const { colorMode } = useColorMode();
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
 
-    validate([email], checkEmail, setIsEmailNotValid);
+    validate([email], checkEmail, setIsEmailValid);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    validate([email], checkEmail, setIsEmailNotValid);
+    validate([email], checkEmail, setIsEmailValid);
 
-    if (isEmailNotValid || !password) return;
+    if (isEmailValid || !password) return;
 
     setIsLoading(true);
     const { user, error } = await auth('signin', {
@@ -95,7 +95,7 @@ const SigninForm: FC<{}> = () => {
                 placeholder="Enter your email"
                 value={email}
                 isRequired={true}
-                isInvalid={isEmailNotValid}
+                isInvalid={!isEmailValid}
                 onChange={onEmailChange}
               />
             </GridItem>

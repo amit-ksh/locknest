@@ -89,20 +89,17 @@ const SignUpForm: FC<{}> = () => {
       toast({
         position: 'top',
         title: error,
+        status: 'info',
         description: (
-          <Button
-            as="a"
-            color="brand.600"
-            mt="0.25rem"
-            onClick={() => {
-              router.push('/signin');
-              toast.closeAll();
+          <NextLink
+            href={{
+              pathname: '/signin',
             }}
+            passHref
           >
-            Sign In
-          </Button>
+            <Link textDecor='underline' color="black">Sign In</Link>
+          </NextLink>
         ),
-        status: 'error',
         duration: 5000,
         isClosable: true,
       });

@@ -9,7 +9,7 @@ const Signin = () => {
   return (
     <>
       <Head>
-        <title>Signin | Locknest</title>
+        <title>Sign in | Locknest</title>
       </Head>
       <Box>
         <Header />
