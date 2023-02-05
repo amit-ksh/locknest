@@ -102,9 +102,9 @@ const Item: FC<ItemPropsTypes> = ({
               icon={<BsThreeDots />}
             />
           </MenuButton>
-          <MenuList bg='gray.200'>
+          <MenuList bg="gray.200">
             <MenuItem
-              color='black'
+              color="black"
               _hover={{ bg: 'gray.500', color: 'white' }}
               _focus={{ bg: 'gray.500', color: 'white' }}
               onClick={() => handleClick(item)}

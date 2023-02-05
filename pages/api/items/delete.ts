@@ -16,8 +16,8 @@ export default validateRoute(
   async (req: NextApiRequest, res: NextApiResponse, user) => {
     const { data, type } = req.body;
     const id = data.id || -999999; // this id never exist in DB
-    
-    delete data.id
+
+    delete data.id;
 
     const name = itemNames[type.toLowerCase()];
     try {

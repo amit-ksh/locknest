@@ -42,10 +42,6 @@ const SigninForm: FC<{}> = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    validate([email], checkEmail, setIsEmailValid);
-
-    if (isEmailValid || !password) return;
-
     setIsLoading(true);
     const { user, error } = await auth('signin', {
       email,

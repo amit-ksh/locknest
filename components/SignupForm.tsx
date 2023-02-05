@@ -90,16 +90,6 @@ const SignUpForm: FC<{}> = () => {
         position: 'top',
         title: error,
         status: 'info',
-        description: (
-          <NextLink
-            href={{
-              pathname: '/signin',
-            }}
-            passHref
-          >
-            <Link textDecor='underline' color="black">Sign In</Link>
-          </NextLink>
-        ),
         duration: 5000,
         isClosable: true,
       });

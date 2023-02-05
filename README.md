@@ -25,10 +25,10 @@ Website: [Locknest](https://locknest.vercel.app)
    JWT_SECRET='YOUR_JWT_SECRET'
    ```
 
-2. Run the development server:
+1. Run the development server:
 
    ```bash
    npm run dev
    ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+1. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
